@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de l'utilisateur{% endblock %}
+
+{% block ContentHeader %}
+    <p align="center">Mon Profil</p>
+{% endblock %}
+
+{% block body %}
+    <div>
+        {% for user in infoUtilisateur %} 
+        <div class="bg-gray-200 block py-10">
+        <div class="max-w-9xl mx-auto">
+            <div class="w-full">
+                <div class="w-full">
+                    <p style="font-weight: bold; vertical-align: middle; font-size: 40px">{{ user.username }}</p>
+                </div>
+                <div class="absolute -mt-20 ml-5">
+                    <div class="h-200 w-60 rounded-lg">
+                        <img src="{{ asset('img/master-gender/' ~  user.gender  ~ '.png') }}" alt="image-guda">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary border border-primary rounded-b-lg p-5 pt-20 flex flex-col">
+                <div class="flex items-center">
+                    <p style="font-weight: bold; font-size: 30px;">Niveau : {{ user.playerLevel }}/150</p>
+                </div>
+                <div class="flex items-center">
+                    <p style="font-weight: bold; font-size: 30px;">Version : {{ user.gameVersion }}</p>
+                </div>
+                <div class="flex items-center h-1/4 w-1/4">
+                    <img src="{{ asset('img/icons/Saintquartz.png') }}" alt="image-quartz" style="width: 25%; height: 25%;">
+                    <p style="font-weight: bold; font-size: 30px;"> : {{ user.quartz }}</p>
+                </div>
+                <div class="flex items-center h-1/4 w-1/4">
+                    <img src="{{ asset('img/icons/Mana_prism.png') }}" alt="image-mana-prism" style="width: 25%; height: 25%;">
+                    <p style="font-weight: bold; font-size: 30px;"> : {{ user.manaPrism  }}</p>
+                </div>
+                <div class="text-sm mt-2">
+                    <div class="flex flex-row ml-auto space-x-2 items-center">
+                        <div class="flex items-center h-1/4 w-1/4">
+                            <img src="{{ asset('img/icons/Thumbnail-Bronze_Apple.png') }}" alt="image-bronze-apple" style="width: 25%; height: 25%;">
+                            <p style="font-weight: bold; font-size: 30px;"> : {{ user.bronzeApple }}</p>
+                        </div>
+                        <div class="flex items-center h-1/4 w-1/4">
+                            <img src="{{ asset('img/icons/Thumbnail-Silver_Apple.png') }}" alt="image-silver-apple" style="width: 25%; height: 25%;">
+                            <p style="font-weight: bold; font-size: 30px;"> : {{ user.silverApple }}</p>
+                        </div>
+                        <div class="flex items-center h-1/4 w-1/4">
+                            <img src="{{ asset('img/icons/Thumbnail-Golden_Apple.png') }}" alt="image-golden-apple" style="width: 25%; height: 25%;">
+                            <p style="font-weight: bold; font-size: 30px;"> : {{ user.goldenApple }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-5 break-all bbcode">
+                    <div class="mb-1 h-5 w-44">
+                        <p>Statistiques : </p>
+                    </div>
+                    <div class="mb-1 h-5 w-full h-60">
+                        <div class="flex flex-wrap -mx-3 overflow-hidden sm:-mx-4 md:-mx-3 lg:-mx-3 xl:-mx-3">
+                            {% for chart in allCharts %}
+                                <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
+                                    {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %} 
+        {#<p style="color: blue;"> <a href="{{ path('ajoutInfo') }}">Vous n'avez pas encore ajouté un profil ?</a> </p>#}
+    </div>
+{% endblock %}
+

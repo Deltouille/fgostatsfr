@@ -40,11 +40,6 @@ class Servant
     private $rarity;
 
     /**
-     * @ORM\OneToMany(targetEntity=ServantInfo::class, mappedBy="servantId")
-     */
-    private $servantInfos;
-
-    /**
      * @ORM\OneToMany(targetEntity=ServantInfo::class, mappedBy="servant")
      */
     private $ServantInfo;

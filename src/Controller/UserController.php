@@ -10,7 +10,6 @@ use App\Entity\UserInfo;
 use App\Entity\ServantInfo;
 use App\Form\UserInfoType;
 use App\Form\ServantInfoType;
-
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
@@ -19,12 +18,78 @@ class UserController extends AbstractController
     /**
      * @Route("/profil", name="profil_utilisateur")
      */
-    public function index(): Response
+    public function index(ChartBuilderInterface $chartBuilder): Response
     {
         $em = $this->getDoctrine()->getManager();
         $userInfoRepository = $em->getRepository(UserInfo::class);
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
         $infoUtilisateur = $userInfoRepository->findBy(['user' => $this->getUser()]);
-        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur]);
+        $infoServant = $servantInfoRepository->findBy(['user' => $this->getUser()]);
+        $allCharts = array();
+        $result = $this->countInfo($infoServant);
+        foreach($result as $info){
+            $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+            $chart->setData([
+                'labels' => array_keys($info),
+                'datasets' => [
+                    [
+                        'label' => 'oui',
+                        'backgroundColor' => [$this->generateHexColor($info)],
+                        'borderColor' => 'rgb(0, 0, 0)',
+                        'data' => array_values($info),
+                    ],
+                ],
+            ]);
+
+            $chart->setOptions([/* ... */]);
+            array_push($allCharts, $chart);
+        }
+        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'allCharts' => $allCharts]);
+    }
+
+    public function generateHexColor($array){
+        $listeCouleurs = array();
+        //On génere un nombre X de couleurs hexadécimales correspondant au nombre de ligne dans le tableau
+        foreach($array as $info){
+            $randomColor =  '#'.dechex(rand(0x000000, 0xFFFFFF));
+            array_push($listeCouleurs, $randomColor);
+        }
+        //On transforme le tableau en chaine de caracteres
+        $stringColors = implode(', ', $listeCouleurs);
+        return $listeCouleurs;
+    }
+
+    public function countInfo($infoServant)
+    {
+        $stars = array();
+        $bonds = array();
+        $niveauNP = array();
+
+        foreach($infoServant as $servant){
+            array_push($stars, $servant->getServant()->getRarity());
+            array_push($bonds, $servant->getNiveauBond());
+            array_push($niveauNP, $servant->getNiveauNP());
+        }
+
+        $countServantStars = array_count_values($stars);
+        foreach($countServantStars as $key => $val){
+            $countServantStars[$key.'★'] = $val;
+            unset($countServantStars[$key]);
+        }
+        $countServantBonds = array_count_values($bonds);
+        foreach($countServantBonds as $key => $val){
+            $countServantBonds['Bond '.$key] = $val;
+            unset($countServantBonds[$key]);
+        }
+        $countServantNiveauNP = array_count_values($niveauNP);
+        foreach($countServantNiveauNP as $key => $val){
+            $countServantNiveauNP['NP '.$key] = $val;
+            unset($countServantNiveauNP[$key]);
+        }
+
+        $allInfo = array('servantStars' => $countServantStars, 'servantBonds' => $countServantBonds, 'servantNiveauNP' => $countServantNiveauNP,);
+
+        return $allInfo;
     }
 
     /**
@@ -69,20 +134,18 @@ class UserController extends AbstractController
         return $this->render('user/ajoutServant.html.twig', ['infoServant' => $infoServant, 'form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function stat(ChartBuilderInterface $chartBuilder): Response
+    public function stat(ChartBuilderInterface $chartBuilder, $array): Response
     {
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chartBuilder = new ChartBuilderInterface();
+        $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'labels' => ['5★', '4★', '3★', '2★', '1★'],
             'datasets' => [
                 [
                     'label' => 'My First dataset',
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                    'backgroundColor' => ['#FCBB00', '#FCF800', '#C8C8C7', '#D07236', '#7A3407'],
+                    'borderColor' => 'rgb(0, 0, 0)',
+                    'data' => [16, 10, 5, 2, 20],
                 ],
             ],
         ]);

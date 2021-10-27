@@ -2,78 +2,65 @@
 
 {% block title %}Profil de l'utilisateur{% endblock %}
 
-{% block body %}
-    <h1>Info utilisateur</h1>
-    <div>
-    {% for user in infoUtilisateur %} 
-    <div class="bg-white block py-10">
-    <div class="max-w-5xl mx-auto">
-        <div class="w-full">
-            <div class="w-full bg-blue-600 h-48 rounded-t-lg"></div>
-            <div class="absolute -mt-20 ml-5">
-                <div class="h-40 w-60 rounded-lg">
-                    <img src="{{ asset('img/master-gender/' ~  user.gender  ~ '.png') }}" alt="image-guda">
-                </div>
-            </div>
-        </div>
-        <div class="bg-primary border border-primary rounded-b-lg p-5 pt-20 flex flex-col">
-            <div class="mt-2 mb-1 border border-gray-300 h-6 w-40">
-                <p style="font-weight: bold;">Pseudo : {{ user.username }}</p>
-            </div>
-            <div class="mt-2 mb-1 border border-gray-300 h-6 w-40">
-                <p style="font-weight: bold;">Niveau : {{ user.playerLevel }}/150</p>
-            </div>
-            <div class="mt-2 mb-1 border border-gray-300 h-6 w-40">
-                <p style="font-weight: bold;">Version : {{ user.gameVersion }}</p>
-            </div>
-            <div class="mt-2 mb-1 border border-gray-300 h-6 w-40">
-                <p style="font-weight: bold;">Saint Quartz : {{ user.quartz }}</p>
-            </div>
-            <div class="mt-2 mb-1 border border-gray-300 h-6 w-40">
-                <p style="font-weight: bold;">Mana Prism : {{ user.manaPrism  }}</p>
-            </div>
-            <div class="text-sm mt-2">
-                <div class="flex flex-row ml-auto space-x-2 items-center">
-                    <div class="mb-1 border border-gray-300 h-6 w-20">
-                        <p style="font-weight: bold;">Bronze : {{ user.bronzeApple }}</p>
-                    </div>
-                    <div class="bg-blue-200 rounded-full h-1 w-1"></div>
-                    <div class="mb-1 border border-gray-300 h-6 w-20">
-                        <p style="font-weight: bold;">Silver :{{ user.silverApple }}</p>
-                    </div>
-                    <div class="bg-blue-200 rounded-full h-1 w-1"></div>
-                    <div class="mb-1 border border-gray-300 h-6 w-20">
-                        <p style="font-weight: bold;">Golden : {{ user.goldenApple }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 flex gap-8">
-                <div class="flex flex-col">
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                    <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-20"></div>
-                </div>
-            </div>
-            <div class="py-5 break-all bbcode">
-                <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-44"></div>
-                <div class="mb-1 bg-gray-200 border border-gray-300 h-5 w-full h-40"></div>
-            </div>
-        </div>
-    </div>
-    {% endfor %} 
-    <p style="color: blue;"> <a href="{{ path('ajoutInfo') }}">Vous n'avez pas encore ajouté un profil ?</a> </p>
-    </div>
+{% block ContentHeader %}
+    <p align="center">Mon Profil</p>
 {% endblock %}
 
+{% block body %}
+<div class="container">
+    <div class="flex flex-col">
+        {% for user in infoUtilisateur %} 
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+           <p style="font-weight: bold; vertical-align: middle; font-size: 40px">{{ user.username }}</p>
+           <div class="flex flex-row">
+                <img src="{{ asset('img/master-gender/' ~  user.gender  ~ '.png') }}" alt="image-guda" class="w-1/5 h-1/5">
+                <div class="flex flex-col">
+                    <div class="flex flex-row items-center pt-1">
+                        <p style="font-weight: bold;">Niveau : {{ user.playerLevel }}/150</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <p style="font-weight: bold;">Version : {{ user.gameVersion }}</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <img src="{{ asset('img/icons/Saintquartz.png') }}" alt="image-quartz" style="width: 10%; heigth: 10%;">
+                        <p style="font-weight: bold;"> : {{ user.quartz }}</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <img src="{{ asset('img/icons/Mana_prism.png') }}" alt="image-mana-prism" style="width: 10%; heigth: 10%;">
+                        <p style="font-weight: bold;"> : {{ user.manaPrism  }}</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <img src="{{ asset('img/icons/Thumbnail-Bronze_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
+                        <p style="font-weight: bold;"> : {{ user.bronzeApple }}</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <img src="{{ asset('img/icons/Thumbnail-Silver_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
+                        <p style="font-weight: bold;"> : {{ user.silverApple }}</p>
+                    </div>
+                    <div class="flex flex-row items-center pt-1">
+                        <img src="{{ asset('img/icons/Thumbnail-Golden_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
+                        <p style="font-weight: bold;"> : {{ user.goldenApple }}</p>
+                    </div>
+                </div>
+           </div>
+        </div>
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="statsUser">
+            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Statistiques</p>
+            <div class="flex flex-wrap -mx-3 overflow-hidden sm:-mx-4 md:-mx-3 lg:-mx-3 xl:-mx-3">
+                {% for chart in allCharts %}
+                    <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
+                        {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="shadow-lg mt-3 bg-white">oui</div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block ContentFooter %}
+    <p align="center">Me contacter</p>
+{% endblock %}
