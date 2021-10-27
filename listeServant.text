@@ -1,0 +1,371 @@
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (1, 'Mash Kyrielight', 'Shielder', 1, '4');
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (2, 'Altria Pendragon', 'Saber', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (3, 'Altria Pendragon [Alter]', 'Saber', 1, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (4, 'Altria Pendragon [Lily]', 'Saber', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (5, 'Nero Claudius', 'Saber', 1, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (6, 'Siegfried', 'Saber', 1, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (7, 'Gaius Julius Caesar', 'Saber', 1, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (8, 'Altera', 'Saber', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (9, 'Gilles de Rais', 'Saber', 1, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (10, 'Chevalier d\'Eon', 'Saber', 1, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (11, 'Emiya', 'Archer', 1, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (12, 'Gilgamesh', 'Archer', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (13, 'Robin Hood', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (14, 'Atalante', 'Archer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (15, 'Euryale', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (16, 'Arash', 'Archer', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (17, 'Cu Chulainn', 'Lancer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (18, 'Elisabeth Bathory', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (19, 'Musashibou Benkei', 'Lancer', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (20, 'Cu Chulainn [Prototype]', 'Lancer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (21, 'Leonidas I', 'Lancer', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (22, 'Romulus', 'Lancer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (23, 'Medusa', 'Rider', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (24, 'Georgios', 'Rider', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (25, 'Edward Teach', 'Rider', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (26, 'Boudica', 'Rider', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (27, 'Ushiwakamaru', 'Rider', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (28, 'Alexander', 'Rider', 1, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (29, 'Marie Antoinette', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (30, 'Martha', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (31, 'Medea', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (32, 'Gilles de Rais', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (33, 'Hans Christian Andersen', 'Caster', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (34, 'William Shakespeare', 'Caster', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (35, 'Mephistopheles', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (36, 'Wolfgang Amadeus Mozart', 'Caster', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (37, 'Zhuge Liang (El-Melloi II)', 'Caster', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (38, 'Cu Chulainn', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (39, 'Sasaki Kojirou', 'Assassin', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (40, 'Hassan of the Cursed Arm', 'Assassin', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (41, 'Stheno', 'Assassin', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (42, 'Jing Ke', 'Assassin', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (43, 'Charles-Henri Sanson', 'Assassin', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (44, 'Phantom of the Opera', 'Assassin', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (45, 'Mata Hari', 'Assassin', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (46, 'Carmilla', 'Assassin', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (47, 'Heracles', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (48, 'Lancelot', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (49, 'Lu Bu Fengxian', 'Berserker', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (50, 'Spartacus', 'Berserker', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (51, 'Sakata Kintoki', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (52, 'Vlad III', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (53, 'Asterios', 'Berserker', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (54, 'Caligula', 'Berserker', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (55, 'Darius III', 'Berserker', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (56, 'Kiyohime', 'Berserker', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (57, 'Eric Bloodaxe', 'Berserker', 0, 2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (58, 'Tamamo Cat', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (59, 'Jeanne d\'Arc', 'Ruler', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (60, 'Orion', 'Archer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (61, 'Elisabeth Bathory', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (62, 'Tamamo-no-Mae', 'Caster', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (63, 'David', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (64, 'Hektor', 'Lancer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (65, 'Francis Drake', 'Rider', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (66, 'Anne Bonny & Mary Read', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (67, 'Medea [Lily]', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (68, 'Okita Souji', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (69, 'Oda Nobunaga', 'Archer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (70, 'Scáthach', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (71, 'Diarmuid Ua Duibhne', 'Lancer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (72, 'Fergus mac Roich', 'Saber', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (73, 'Altria Pendragon [Santa Alter]', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (74, 'Nursery Rhyme', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (75, 'Jack the Ripper', 'Assassin', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (76, 'Mordred', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (77, 'Nikola Tesla', 'Archer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (78, 'Altria Pendragon [Alter]', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (79, 'Paracelsus von Hohenheim', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (80, 'Charles Babbage', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (81, 'Henry Jekyll & Hyde', 'Assassin', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (82, 'Frankenstein', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (83, 'Solomon', 'Caster', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (84, 'Arjuna', 'Archer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (85, 'Karna', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (86, 'Mysterious Heroine X', 'Assassin', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (87, 'Fionn mac Cumhaill', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (88, 'Brynhildr', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (89, 'Beowulf', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (90, 'Nero Claudius [Bride]', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (91, 'Ryougi Shiki', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (92, 'Ryougi Shiki', 'Assassin', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (93, 'Amakusa Shirou', 'Ruler', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (94, 'Astolfo', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (95, 'Kid Gil', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (96, 'Edmond Dantes', 'Avenger', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (97, 'Nightingale', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (98, 'Cu Chulainn [Alter]', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (99, 'Queen Medb', 'Rider', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (100, 'Helena Blavatsky', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (101, 'Rama', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (102, 'Li Shuwen', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (103, 'Thomas Edison', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (104, 'Geronimo', 'Caster', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (105, 'Billy The Kid', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (106, 'Jeanne d\'Arc [Alter]', 'Avenger', 1, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (107, 'Aŋra Mainiiu', 'Avenger', 0, 0);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (108, 'Iskandar', 'Rider', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (109, 'Emiya', 'Assassin', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (110, 'Hassan of the Hundred Personas', 'Assassin', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (111, 'Irisviel', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (112, 'Shuten-Douji', 'Assassin', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (113, 'Xuanzang Sanzang', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (114, 'Minamoto-no-Raikou', 'Berserker', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (115, 'Sakata Kintoki', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (116, 'Ibaraki-Douji', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (117, 'Fuuma Kotarou', 'Assassin', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (118, 'Ozymandias', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (119, 'Altria Pendragon', 'Lancer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (120, 'Nitocris', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (121, 'Lancelot', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (122, 'Tristan', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (123, 'Gawain', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (124, 'Hassan of the Serenity', 'Assassin', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (125, 'Tawara Touta', 'Archer', 0, 3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (126, 'Bedivere', 'Saber', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (127, 'Leonardo da Vinci', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (128, 'Tamamo-no-Mae', 'Lancer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (129, 'Altria Pendragon', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (130, 'Marie Antoinette', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (131, 'Anne Bonny & Mary Read', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (132, 'Mordred', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (133, 'Scathach', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (134, 'Kiyohime', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (135, 'Martha', 'Ruler', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (136, 'Illyasviel von Einzbern', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (137, 'Chloe von Einzbern', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (138, 'Elisabeth Bathory [Brave]', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (139, 'Cleopatra', 'Assassin', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (140, 'Vlad III [Extra]', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (141, 'Jeanne d\'Arc Alter [Santa Lily]', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (142, 'Ishtar', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (143, 'Enkidu', 'Lancer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (144, 'Quetzalcoatl', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (145, 'Gilgamesh', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (146, 'Medusa', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (147, 'Gorgon', 'Avenger', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (148, 'Jaguarman', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (149, 'Tiamat', 'Beast', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (150, 'Merlin', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (151, 'Goetia', 'Beast', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (152, 'Solomon', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (153, 'Miyamoto Musashi', 'Saber', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (154, 'Old Man of the Mountain', 'Assassin', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (155, 'Mysterious Heroine X (Alter)', 'Berserker', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (156, 'James Moriarty', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (157, 'Emiya [Alter]', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (158, 'Hessian Lobo', 'Avenger', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (159, 'Yan Qing', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (160, 'Arthur Pendragon', 'Saber', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (161, 'Hijikata Toshizo', 'Berserker', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (162, 'Chacha', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (163, 'Meltryllis', 'Alter Ego', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (164, 'Passionlip', 'Alter Ego', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (165, 'Suzuka Gozen', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (166, 'BB', 'Moon Cancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (167, 'Sessyoin Kiara', 'Alter Ego', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (168, 'B e a s t III/R', 'Beast', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (169, 'Scheraherazade', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (170, 'Wu Zetian', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (171, 'Penthesilea', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (172, 'Christopher Columbus', 'Rider', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (173, 'Sherlock Holmes', 'Ruler', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (174, 'Paul Bunyan', 'Berserker', 0,1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (175, 'Nero Claudius', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (176, 'Frankenstein', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (177, 'Nitocris', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (178, 'Oda Nobunaga', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (179, 'Altria Pendragon [Maid Alter]', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (180, 'Helena Blavatsky', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (181, 'Minamoto-no-Raikou', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (182, 'Ishtar', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (183, 'Parvati', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (184, 'Tomoe Gozen', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (185, 'Mochizuki Chiyome', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (186, 'Houzouin Inshun', 'Lancer', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (187, 'Yagyuu Tajima-no-Kami Munenori', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (188, 'Katou Danzou', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (189, 'Osakabe-Hime', 'Assassin', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (190, 'Mecha Eli-chan', 'Alter Ego', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (191, 'Mecha Eli-chan Mk.II', 'Alter Ego', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (192, 'Circe', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (193, 'Nezha', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (194, 'Queen of Sheba', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (195, 'Abigail Williams', 'Foreigner', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (196, 'Ereshkigal', 'Lancer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (197, 'Altera the Sun [Ta]', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (198, 'Katsushika Hokusai', 'Foreigner', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (199, 'Semiramis', 'Assassin', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (200, 'Asagami Fujino', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (201, 'Anastasia', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (202, 'Atalante [Alter]', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (203, 'Avicebron', 'Caster', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (204, 'Antonio Salieri', 'Avenger', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (205, 'Ivan the Terrible', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (206, 'Achilleus', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (207, 'Chiron', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (208, 'Sieg', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (209, 'Okita Souji [Alter]', 'Alter Ego', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (210, 'Okada Izou', 'Assassin', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (211, 'Sakamoto Ryouma', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (212, 'Napoleon', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (213, 'Sigurd', 'Saber', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (214, 'Valkyrie', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (215, 'Scáthach-Skaði', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (216, 'Jeanne d\'Arc', 'Archer', 0,5;
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (217, 'Ibaraki-Douji', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (218, 'Ushiwakamaru', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (219, 'Jeanne d\'Arc [Alter]', 'Berserker', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (220, 'BB [Summer]', 'Moon Cancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (221, 'Queen Medb', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (222, 'Mysterious Heroine XX', 'Foreigner', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (223, 'Diarmuid Ua Duibhne', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (224, 'Sitonai', 'Alter Ego', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (225, 'Shuten-Douji', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (226, 'Xiang Yu', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (227, 'Lan Ling Wang', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (228, 'Qin Liangyu', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (229, 'Shi Huang Di', 'Ruler', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (230, 'Yu Meiren', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (231, 'Red Hare', 'Rider', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (232, 'Bradamante', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (233, 'Quetzalcoatl [Samba/Santa]', 'Ruler', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (234, 'Beni-Enma', 'Saber', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (235, 'Li Shuwen', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (236, 'Miyu Edelfelt', 'Caster', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (237, 'Murasaki Shikibu', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (238, 'Kingprotea', 'Alter Ego', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (239, 'Kama', 'Assassin', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (240, 'B e a s t III/L', 'Beast', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (241, 'Sima Yi', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (242, 'Astraea', 'Ruler', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (243, 'Gray', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (244, 'Great Statue God', 'Moon Cancer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (245, 'Lakshmibai', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (246, 'William Tell', 'Archer', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (247, 'Arjuna [Alter]', 'Berserker', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (248, 'Aśvatthāman', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (249, 'Asclepius', 'Caster', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (250, 'Demon King Nobunaga', 'Avenger', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (251, 'Mori Nagayoshi', 'Berserker', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (252, 'Nagao Kagetora', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (253, 'Leonardo da Vinci', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (254, 'Jason', 'Saber', 0,1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (255, 'Paris', 'Archer', 0,2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (256, 'Gareth', 'Lancer', 0,2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (257, 'Bartholomew Roberts', 'Rider', 0,1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (258, 'Chen Gong', 'Caster', 0,2);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (259, 'Charlotte Corday', 'Assassin', 0,1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (260, 'Salome', 'Berserker', 0,1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (261, 'Miyamoto Musashi', 'Berserker', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (262, 'Osakabe-Hime', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (263, 'Carmilla', 'Rider', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (264, 'Katsushika Hokusai', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (265, 'Altria Pendragon', 'Ruler', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (266, 'Mysterious AlterEgo Λ', 'Lancer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (267, 'Okita J Souji', 'Assassin', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (268, 'Space Ishtar', 'Avenger', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (269, 'Calamity Jane', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (270, 'Astolfo', 'Saber', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (271, 'Nightingale', 'Archer', 0,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (272, 'Super Orion', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (273, 'Mandricardo', 'Rider', 0,3);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (274, 'Europa', 'Rider', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (275, 'Yang Guifei', 'Foreigner', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (276, 'Sei Shonagon', 'Archer', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (277, 'Odysseus', 'Rider', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (278, 'Dioscuri', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (279, 'Caenis', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (280, 'Romulus-Quirinus', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (281, 'Voyager', 'Foreigner', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (282, 'Kijyo Koyo', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (283, 'Utsumi Erice', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (284, 'Artoria Pendragon (Caster)', 'Caster', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (285, 'Sessyoin Kiara', 'Moon Cancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (286, 'Illyasviel von Einzbern', 'Archer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (287, 'Brynhildr', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (288, 'Yu Meiren', 'Lancer', 0 ,4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (289, 'Abigail Williams (Summer)', 'Foreigner', 0,5 );
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (290, 'Tomoe Gozen', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (291, 'Murasaki Shikibu', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (292, 'Himiko', 'Ruler', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (293, 'Hajime Saitou', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (294, 'Oda Nobukatsu', 'Archer', 0, 1);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (295, 'Vincent van Gogh', 'Foreigner', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (296, 'Nemo', 'Rider', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (297, 'Ashiya Douman', 'Alter Ego', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (298, 'Watanabe no Tsuna', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (299, 'Ibuki Douji', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (300, 'Vritra', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (301, 'Karna (Saber)', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (302, 'Senji Muramasa', 'Saber', 0);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (303, 'Taira no Kagekiyo', 'Avenger', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (304, 'Kiichi Hougen', 'Assassin', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (305, 'Caren', 'Ruler', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (306, 'Galatea', 'Berserker', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (307, 'Miss Crane', 'Caster', 0,5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (308, 'Mysterious Idol X (Alter)', 'Foreigner', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (309, 'Morgan', 'Berserker', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (310, 'Barghest', 'Saber', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (311, 'Baobhan Sith', 'Archer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (312, 'Melusine', 'Lancer', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (313, 'Perceval', 'Lancer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (314, 'Koyanskaya of Light', 'Assassin', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (315, 'Habetrot', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (316, 'Oberon', 'Pretender', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (317, 'Okita Souji (Saber Alter)', 'Saber', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (318, 'Anastasia & Viy', 'Archer', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (319, 'Charlotte Corday (Summer)', 'Caster', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (320, 'Leonardo da Vinci (Summer)', 'Ruler', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (321, 'Kama (Summer)', 'Avenger', 0, 5);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (322, 'Caenis (Summer)', 'Rider', 0, 4);
+INSERT INTO `servant`(`id`, `servant_name`, `classe`, `is_obtained`, `rarity`) VALUES  (323, 'Sei Shonagon (Summer)', 'Berserker', 0, 4);
+
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form>
+{% endblock %}

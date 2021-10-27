@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des servants{% endblock %}
+
+{% block body %}
+    <div class="cards">
+        {% for Servant in listeServant %}
+            <div class="{{ Servant.isObtained ? 'card' :'card obtained' }}">
+                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ Servant.id ~ '.png') }}" alt="Icone_{{ Servant.ServantName }}">
+                <div class="card-container">
+                    <h2><b>{{ Servant.ServantName }}</b></h2>
+                    <h3>{{ Servant.Classe }}</h3>
+                </div>
+                <div class="card-footer">
+                    <button servant-id="{{ Servant.id }}" class="{{ Servant.isObtained ? 'btn-burn' :'btn-ajout' }}">{{ Servant.isObtained ? 'Burn' :'Summon' }}</button>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block JS %}
+<script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            var parent = $(this).parent().parent();
+            var button = $(this);
+            var id = $(this).attr("servant-id");
+            var url = '{{ path('toggleIsObtained', {'id': 0}) }}';
+            var url = url.replace("0",id);
+            var cardparent = $(this).parent().parent();
+            $.ajax({
+                url: url,
+                type: 'post',
+                success:function(data){
+                    parent.toggleClass('obtained');
+                    if(button.hasClass('btn-burn')){
+                        button.removeClass('btn-burn');
+                        button.addClass('btn-ajout');
+                        button.text("Summon");
+                    }else{
+                        button.removeClass('btn-ajout');
+                        button.addClass('btn-burn');
+                        button.text("Burn");
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+        });
+    });    
+</script>
+{% endblock %}
