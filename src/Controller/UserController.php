@@ -87,7 +87,7 @@ class UserController extends AbstractController
             unset($countServantNiveauNP[$key]);
         }
 
-        $allInfo = array('servantStars' => $countServantStars, 'servantBonds' => $countServantBonds, 'servantNiveauNP' => $countServantNiveauNP,);
+        $allInfo = array('servantStars' => $countServantStars, 'servantBonds' => $countServantBonds, 'servantNiveauNP' => $countServantNiveauNP);
 
         return $allInfo;
     }
@@ -134,26 +134,15 @@ class UserController extends AbstractController
         return $this->render('user/ajoutServant.html.twig', ['infoServant' => $infoServant, 'form' => $form->createView()]);
     }
 
-    public function stat(ChartBuilderInterface $chartBuilder, $array): Response
+    /**
+     * @Route("/ma-collection-de-servants", name="servantCollection")
+     */
+    public function userServantCollection(): Response
     {
-        $chartBuilder = new ChartBuilderInterface();
-        $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
-        $chart->setData([
-            'labels' => ['5★', '4★', '3★', '2★', '1★'],
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' => ['#FCBB00', '#FCF800', '#C8C8C7', '#D07236', '#7A3407'],
-                    'borderColor' => 'rgb(0, 0, 0)',
-                    'data' => [16, 10, 5, 2, 20],
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([/* ... */]);
-
-        return $this->render('user/stat.html.twig', [
-            'chart' => $chart,
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $listeServantCollection = $servantInfoRepository->findBy(['user' => $this->getUser()]);
+        
+        return $this->render('user/collectionServant.html.twig', ['listeServantCollection' => $listeServantCollection]);
     }
 }

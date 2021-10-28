@@ -4,18 +4,30 @@
 
 {% block body %}
     <div class="cards">
-        {% for Servant in listeServant %}
-            <div class="{{ Servant.isObtained ? 'card' :'card obtained' }}">
-                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ Servant.id ~ '.png') }}" alt="Icone_{{ Servant.ServantName }}">
+        {% for servant in servantArray %}
+            {% if servant.Obtenus %}
+            <div class="card obtained">
+                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
                 <div class="card-container">
-                    <h2><b>{{ Servant.ServantName }}</b></h2>
-                    <h3>{{ Servant.Classe }}</h3>
+                    <h2><b>{{ servant.ServantName }}</b></h2>
+                    <h3>{{ servant.Classe }}</h3>
                 </div>
                 <div class="card-footer">
-                    <button servant-id="{{ Servant.id }}" class="{{ Servant.isObtained ? 'btn-burn' :'btn-ajout' }}">{{ Servant.isObtained ? 'Burn' :'Summon' }}</button>
-
+                    <button servant-id="{{ servant.Id }}" class="btn-burn">Burn</button>
                 </div>
             </div>
+            {% else %}
+            <div class="card">
+                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
+                <div class="card-container">
+                    <h2><b>{{ servant.ServantName }}</b></h2>
+                    <h3>{{ servant.Classe }}</h3>
+                </div>
+                <div class="card-footer">
+                    <button servant-id="{{ servant.Id }}" class="btn-ajout">Summon</button>
+                </div>
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
@@ -27,7 +39,7 @@
             var parent = $(this).parent().parent();
             var button = $(this);
             var id = $(this).attr("servant-id");
-            var url = '{{ path('toggleIsObtained', {'id': 0}) }}';
+            var url = '{{ path('ajout-rapide-servant', {'id': 0}) }}';
             var url = url.replace("0",id);
             var cardparent = $(this).parent().parent();
             $.ajax({

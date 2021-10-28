@@ -57,3 +57,22 @@
     </div>
 {% endblock %}
 
+
+//foreach($listeServant as $servant){
+    //    foreach($listeUserServant as $userServant){
+    //        var_dump($userServant->getServant()->getId() . ' et ' .$servant->getId());
+    //        if($servant->getId() == $userServant->getServant()->getId()){
+    //            $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => true);
+    //            array_push($servantArray, $thisServant);
+    //            break;
+    //        }else{
+    //            $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => false);
+    //            array_push($servantArray, $thisServant);
+    //            break;
+    //        }
+    //    }
+    //}
+    //echo '<pre>';
+    //var_dump('Id : '. $servant->getId());
+    //echo '</pre>';
+    //dd($servantArray);

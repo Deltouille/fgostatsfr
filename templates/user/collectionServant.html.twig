@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de l'utilisateur{% endblock %}
+
+{% block ContentHeader %}
+    <p align="center">Mon Profil</p>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="flex flex-col">
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Ma collection de servants</p>
+            <div class="flex flex-wrap mx-2">
+                {% for infoServant in listeServantCollection %}
+                    <div class="card mx-5 mt-5">
+                        <div class="flex flex-col">
+                            <p style="font-weight: bold;">{{ infoServant.servant.ServantName }}</p>
+                            <hr>
+                            <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ infoServant.servant.id ~ '.png') }}" alt="Icone_{{ infoServant.servant.ServantName }}">
+                            <p>Niveau : {{ infoServant.niveauServant }}</p>
+                            <hr>
+                            <p>Skills</p>
+                            <div class="flex flex-row mx-auto">
+                                <p class="items-center ml-1">{{ infoServant.niveauSkill1 }} | </p>
+                                <p class="items-center ml-1">{{ infoServant.niveauSkill2 }} |</p>
+                                <p class="items-center ml-1">{{ infoServant.niveauSkill3 }} </p>
+                            </div>
+                            <hr>
+                            <p>Bond : {{ infoServant.niveauBond }}</p>
+                            <hr>
+                            <p>Niveau NP : {{ infoServant.niveauNP }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block ContentFooter %}
+    <p align="center">Me contacter</p>
+{% endblock %}

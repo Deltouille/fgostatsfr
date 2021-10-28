@@ -6,7 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Servant;
-class FateController extends AbstractController
+use App\Entity\ServantInfo;
+class ServantController extends AbstractController
 {
     /**
      * @Route("/fate", name="fate")
@@ -23,11 +24,32 @@ class FateController extends AbstractController
      */
     public function listeServant(): Response
     {
+        $servantArray = array();
+
         $em = $this->getDoctrine()->getManager();
+        //On récupère tout les servants de la table Servant
         $servantRepository = $em->getRepository(Servant::class);
         $listeServant = $servantRepository->findAll();
+        //On récupère tout les servants correspondants a l'utilisateur dans la table ServantInfo
+        $servantinfoRepository = $em->getRepository(ServantInfo::class);
+        $listeUserServant = $servantinfoRepository->findBy(['user' => $this->getUser()]);
+        foreach($listeServant as $servant){
+            foreach($listeUserServant as $userServant){
+                if($servant->getId() == $userServant->getServant()->getId()){
+                    $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => true);
+                    array_push($servantArray, $thisServant);
+                    break;
+                }
+            }
+            if(!array_key_exists($servant->getId(), $servantArray)){
+                $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => false);
+                array_push($servantArray, $thisServant);
+            }
+        }
+        
+
         return $this->render('fate/listeServant.html.twig', [
-            'listeServant' => $listeServant,
+            'servantArray' => $servantArray,
         ]);
     }
 
