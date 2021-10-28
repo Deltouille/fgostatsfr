@@ -76,3 +76,14 @@
     //var_dump('Id : '. $servant->getId());
     //echo '</pre>';
     //dd($servantArray);
+
+    <div class="{{ Servant.isObtained ? 'card' :'card obtained' }}">
+    <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ Servant.id ~ '.png') }}" alt="Icone_{{ Servant.ServantName }}">
+    <div class="card-container">
+        <h2><b>{{ Servant.ServantName }}</b></h2>
+        <h3>{{ Servant.Classe }}</h3>
+    </div>
+    <div class="card-footer">
+        <button servant-id="{{ Servant.id }}" class="{{ Servant.isObtained ? 'btn-burn' :'btn-ajout' }}">{{ Servant.isObtained ? 'Burn' :'Summon' }}</button>
+    </div>
+</div>
