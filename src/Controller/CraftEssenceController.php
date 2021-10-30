@@ -6,51 +6,123 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\CraftEssence;
+use App\Entity\CraftEssenceInfo;
+use App\Service\AtlasAcademyAPI;
+
 class CraftEssenceController extends AbstractController
 {
     /**
-     * @Route("/craft_essence", name="craft_essence")
+     * @Route("/craft-essence", name="craft_essence")
      */
-    public function index(): Response
+    public function listeCraftEssence(): Response
     {
-        $listeCraftEssence = array();   //Tableau qui vas servir a récupèrer toutes les craft essences et leurs informations.
-        $result = $this->getAtlasAcademyAPI();  //On récupère la réponse de l'api d'AtlasAcademy qui vas contenir toutes les craft essences et leurs informations associès.
-        foreach($result as $currentCraftEssence)    //On parcours la réponse de l'api.
-        {
-            $craftEssence = [
-                'Id' => $currentCraftEssence['collectionNo'], //On sauvegarde le "collectionNo" de la craft essence en cours pour l'utiliuser en temps qu'ID.
-                'Name' => $currentCraftEssence['name'], //On sauvegarde le nom de la craft essence en cours.
-                'Url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']] //On sauvegarde le l'url de l'image de la craft essence.
-            ];
-            array_push($listeCraftEssence, $craftEssence);  //On push dans le tableau "listeCraftEssence" la craft essence en cours.
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceRepository = $em->getRepository(CraftEssence::class);
+        $listeCraftEssenceBDD = $craftEssenceRepository->findAll();
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $listeCraftEssence = array();
+        foreach($listeCraftEssenceBDD as $currentCraftEssence){
+            if($craftEssenceInfoRepository->findByCeIdAndUser($currentCraftEssence, $this->getUser())){
+                $craftEssence = [
+                    'id' => $currentCraftEssence->getId(),
+                    'ceName' => $currentCraftEssence->getCEName(),
+                    'ceRarity' => $currentCraftEssence->getCERarity(),
+                    'ceType' => $currentCraftEssence->getCEType(),
+                    'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceUrl' => $currentCraftEssence->getUrlImage(),
+                    'obtenus' => true,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }else{
+                $craftEssence = [
+                    'id' => $currentCraftEssence->getId(),
+                    'ceName' => $currentCraftEssence->getCEName(),
+                    'ceRarity' => $currentCraftEssence->getCERarity(),
+                    'ceType' => $currentCraftEssence->getCEType(),
+                    'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceUrl' => $currentCraftEssence->getUrlImage(),
+                    'obtenus' => false,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }
         }
-        usort($listeCraftEssence, function($firstId, $secondId){    //On trie le tableau "listeCraftEssence" afin de mettre dans l'ordre de l'ID (collectionNo) de la craft essence -
-            return $firstId['Id'] <=> $secondId['Id'];              //au lieu de l'ordre dans lequel la craft essence est push dans le tableau car le premier ID retourné par l'api -
-        });                                                         //est 191, donc on met l'id 1 en premier.
-
-        return $this->render('craft_essence/listeCraftEssence.html.twig', ['listeCraftEssence' => $listeCraftEssence]);
+        return $this->render('craft_essence/listeCraftEssence.html.twig', [
+            'listeCraftEssence' => $listeCraftEssence,
+        ]);
     }
 
-    public function getAtlasAcademyAPI(){
-        $url = 'https://api.atlasacademy.io/export/JP/nice_equip_lang_en.json';
-        $parameters = [
+    /**
+     * @Route("/craft-essence/by-rarity/{id}", name="craft-essence-by-rarity")
+     */
+    public function showCraftEssenceByRarity(int $id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceRepository = $em->getRepository(CraftEssence::class);
+        $listeCraftEssenceBDD = $craftEssenceRepository->findBy(['CERarity' => $id]);
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $listeCraftEssence = array();
+        foreach($listeCraftEssenceBDD as $currentCraftEssence){
+            if($craftEssenceInfoRepository->findByCeIdAndUser($currentCraftEssence, $this->getUser())){
+                $craftEssence = [
+                    'id' => $currentCraftEssence->getId(),
+                    'ceName' => $currentCraftEssence->getCEName(),
+                    'ceRarity' => $currentCraftEssence->getCERarity(),
+                    'ceType' => $currentCraftEssence->getCEType(),
+                    'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceUrl' => $currentCraftEssence->getUrlImage(),
+                    'obtenus' => true,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }else{
+                $craftEssence = [
+                    'id' => $currentCraftEssence->getId(),
+                    'ceName' => $currentCraftEssence->getCEName(),
+                    'ceRarity' => $currentCraftEssence->getCERarity(),
+                    'ceType' => $currentCraftEssence->getCEType(),
+                    'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceUrl' => $currentCraftEssence->getUrlImage(),
+                    'obtenus' => false,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }
+        }
+        return $this->render('craft_essence/listeCraftEssence.html.twig', [
+            'listeCraftEssence' => $listeCraftEssence,
+        ]);
+    }
+
+    public function insertCraftEssenceInDatabase(AtlasAcademyAPI $atlasAcademyAPI): Response
+    {
+        $listeCraftEssenceAInserer = array();  
+        $em = $this->getDoctrine()->getManager();
+        
+        $listeCraftEssenceAPI = $atlasAcademyAPI->getResultAPI('CraftEssence');
+
+        foreach($listeCraftEssenceAPI as $currentCraftEssence)    //On parcours la réponse de l'api.
+        {
+            $craftEssence = [
+                'id' => $currentCraftEssence['collectionNo'], 
+                'name' => $currentCraftEssence['name'], 
+                'rarity' => $currentCraftEssence['rarity'],
+                'type' => $currentCraftEssence['flag'],
+                'url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']] 
             ];
-        $headers = [
-                'Accepts: application/json',
-            ];
-        $qs = http_build_query($parameters);
-        // query string encode the parameters
-        $request = "{$url}?{$qs}"; // create the request URL
-        $curl = curl_init(); // Get cURL resource
-        // Set cURL options
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $request,            // set the request URL
-          CURLOPT_HTTPHEADER => $headers,     // set the headers 
-          CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
-        ));
-        $response = curl_exec($curl); // Send the request, save the response
-        curl_close($curl); // Close request
-        $var = json_decode($response, true);
-        return $var;
+            array_push($listeCraftEssenceAInserer, $craftEssence);  
+        }
+        usort($listeCraftEssence, function($firstId, $secondId){    
+            return $firstId['Id'] <=> $secondId['Id'];              
+        });                                                         
+
+        foreach($listeCraftEssenceAInserer as $currentCraftEssence){
+            $CE = new CraftEssence();
+            $CE->setCEName($currentCraftEssence['name']);
+            $CE->setCERarity($currentCraftEssence['rarity']);
+            $CE->setCEType($currentCraftEssence['type']);
+            $CE->setUrlImage($currentCraftEssence['url']);
+            $em->persist($CE);
+            $em->flush();
+        }
+
+        return new Response('Craft Essences enregistrées');
     }
 }

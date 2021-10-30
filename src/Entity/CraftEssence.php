@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CraftEssenceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,21 @@ class CraftEssence
      * @ORM\Column(type="string", length=255)
      */
     private $CEType;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CraftEssenceInfo::class, mappedBy="craftEssence")
+     */
+    private $craftEssenceInfos;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $urlImage;
+
+    public function __construct()
+    {
+        $this->craftEssenceInfos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +86,48 @@ class CraftEssence
     public function setCEType(string $CEType): self
     {
         $this->CEType = $CEType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CraftEssenceInfo[]
+     */
+    public function getCraftEssenceInfos(): Collection
+    {
+        return $this->craftEssenceInfos;
+    }
+
+    public function addCraftEssenceInfo(CraftEssenceInfo $craftEssenceInfo): self
+    {
+        if (!$this->craftEssenceInfos->contains($craftEssenceInfo)) {
+            $this->craftEssenceInfos[] = $craftEssenceInfo;
+            $craftEssenceInfo->setCraftEssence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCraftEssenceInfo(CraftEssenceInfo $craftEssenceInfo): self
+    {
+        if ($this->craftEssenceInfos->removeElement($craftEssenceInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($craftEssenceInfo->getCraftEssence() === $this) {
+                $craftEssenceInfo->setCraftEssence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUrlImage(): ?string
+    {
+        return $this->urlImage;
+    }
+
+    public function setUrlImage(string $urlImage): self
+    {
+        $this->urlImage = $urlImage;
 
         return $this;
     }

@@ -30,11 +30,6 @@ class Servant
     private $Classe;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isObtained;
-
-    /**
      * @ORM\Column(type="string", length=1)
      */
     private $rarity;
@@ -43,6 +38,16 @@ class Servant
      * @ORM\OneToMany(targetEntity=ServantInfo::class, mappedBy="servant")
      */
     private $ServantInfo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $charaGraph;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $face;
 
     public function __construct()
     {
@@ -76,18 +81,6 @@ class Servant
     public function setClasse(string $Classe): self
     {
         $this->Classe = $Classe;
-
-        return $this;
-    }
-
-    public function getIsObtained(): ?bool
-    {
-        return $this->isObtained;
-    }
-
-    public function setIsObtained(bool $isObtained): self
-    {
-        $this->isObtained = $isObtained;
 
         return $this;
     }
@@ -130,6 +123,30 @@ class Servant
                 $servantInfo->setServant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCharaGraph(): ?string
+    {
+        return $this->charaGraph;
+    }
+
+    public function setCharaGraph(string $charaGraph): self
+    {
+        $this->charaGraph = $charaGraph;
+
+        return $this;
+    }
+
+    public function getFace(): ?string
+    {
+        return $this->face;
+    }
+
+    public function setFace(string $face): self
+    {
+        $this->face = $face;
 
         return $this;
     }

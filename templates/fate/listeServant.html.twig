@@ -4,31 +4,31 @@
 
 {% block body %}
     <div class="cards">
-        {% for servant in servantArray %}
-            {% if servant.Obtenus %}
+       {% for servant in listeServant %}
+            {% if servant.obtenus %}    
             <div class="card">
-                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
+                <img src="{{ servant.face }}" alt="Icone_{{ servant.servantName }}">
                 <div class="card-container">
-                    <h2><b>{{ servant.ServantName }}</b></h2>
-                    <h3>{{ servant.Classe }}</h3>
+                    <h2><b>{{ servant.servantName }}</b></h2>
+                    <h3>{{ servant.classe }}</h3>
                 </div>
                 <div class="card-footer">
-                    <button servant-id="{{ servant.Id }}" class="btn-burn">Burn</button>
+                    <button servant-id="{{ servant.id }}" class="btn-burn">Burn</button>
                 </div>
             </div>
             {% else %}
             <div class="card obtained">
-                <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
+                <img src="{{ servant.face }}" alt="Icone_{{ servant.servantName }}">
                 <div class="card-container">
-                    <h2><b>{{ servant.ServantName }}</b></h2>
-                    <h3>{{ servant.Classe }}</h3>
+                    <h2><b>{{ servant.servantName }}</b></h2>
+                    <h3>{{ servant.classe }}</h3>
                 </div>
                 <div class="card-footer">
-                    <button servant-id="{{ servant.Id }}" class="btn-ajout">Summon</button>
+                    <button servant-id="{{ servant.id }}" class="btn-ajout">Summon</button>
                 </div>
             </div>
             {% endif %}
-        {% endfor %}
+       {% endfor %}
     </div>
 {% endblock %}
 

@@ -49,6 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $ServantInfo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CraftEssenceInfo::class, mappedBy="user")
+     */
+    private $craftEssenceInfos;
+
 
     public function __construct()
     {
@@ -57,6 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->servantId = new ArrayCollection();
         $this->servantInfos = new ArrayCollection();
         $this->ServantInfo = new ArrayCollection();
+        $this->craftEssenceInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +207,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($servantInfo->getUser() === $this) {
                 $servantInfo->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CraftEssenceInfo[]
+     */
+    public function getCraftEssenceInfos(): Collection
+    {
+        return $this->craftEssenceInfos;
+    }
+
+    public function addCraftEssenceInfo(CraftEssenceInfo $craftEssenceInfo): self
+    {
+        if (!$this->craftEssenceInfos->contains($craftEssenceInfo)) {
+            $this->craftEssenceInfos[] = $craftEssenceInfo;
+            $craftEssenceInfo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCraftEssenceInfo(CraftEssenceInfo $craftEssenceInfo): self
+    {
+        if ($this->craftEssenceInfos->removeElement($craftEssenceInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($craftEssenceInfo->getUser() === $this) {
+                $craftEssenceInfo->setUser(null);
             }
         }
 

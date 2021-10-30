@@ -5,19 +5,62 @@
 {% block body %}
     <div class="cards">
         {% for craftEssence in listeCraftEssence %}
+            {% if craftEssence.obtenus %}    
             <div class="card">
-                <img src="{{ craftEssence.Url }}" alt="Icone_{{ craftEssence.Name }}">
+                <img src="{{ craftEssence.ceUrl }}" alt="Icone_{{ craftEssence.ceName }}">
                 <div class="card-container">
-                    <h2><b>{{ craftEssence.Name }}</b></h2>
+                    <h2><b>{{ craftEssence.ceName }}</b></h2>
                 </div>
                 <div class="card-footer">
-                    <button servant-id="{{ craftEssence.Id }}" class="btn-burn">Burn</button>
+                    <button craft-essence-id="{{ craftEssence.id }}" class="btn-burn">Burn</button>
                 </div>
             </div>
+            {% else %}
+            <div class="card obtained">
+                <img src="{{ craftEssence.ceUrl }}" alt="Icone_{{ craftEssence.ceName }}">
+                <div class="card-container">
+                    <h2><b>{{ craftEssence.ceName }}</b></h2>
+                </div>
+                <div class="card-footer">
+                    <button craft-essence-id="{{ craftEssence.id }}" class="btn-ajout">Summon</button>
+                </div>
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
 
 {% block JS %}
-
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        let button = $(this);
+        let ceId = $(this).attr("craft-essence-id");
+        let url = '{{ path('ajout-rapide-craftessence', {'id': 0}) }}';
+        let path = url.replace("0", ceId);
+        console.log(path);
+        $.ajax({
+            url: path,
+            type: 'post',
+            success:function(result){
+                console.log('oui');
+                button.parent().parent().toggleClass('obtained');
+                if(button.hasClass('btn-ajout')){
+                    button.removeClass('btn-ajout');
+                    button.addClass('btn-burn');
+                    button.text('Burn');
+                }else{
+                    button.removeClass('btn-brun');
+                    button.addClass('btn-ajout');
+                    button.text('Summon');
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

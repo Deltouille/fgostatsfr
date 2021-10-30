@@ -5,8 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
 use App\Entity\Servant;
 use App\Entity\ServantInfo;
+use App\Service\AtlasAcademyAPI;
 class ServantController extends AbstractController
 {
     /**
@@ -24,32 +26,40 @@ class ServantController extends AbstractController
      */
     public function listeServant(): Response
     {
-        $servantArray = array();
-
         $em = $this->getDoctrine()->getManager();
-        //On récupère tout les servants de la table Servant
         $servantRepository = $em->getRepository(Servant::class);
-        $listeServant = $servantRepository->findAll();
-        //On récupère tout les servants correspondants a l'utilisateur dans la table ServantInfo
-        $servantinfoRepository = $em->getRepository(ServantInfo::class);
-        $listeUserServant = $servantinfoRepository->findBy(['user' => $this->getUser()]);
-        foreach($listeServant as $servant){
-            foreach($listeUserServant as $userServant){
-                if($servant->getId() == $userServant->getServant()->getId()){
-                    $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => true);
-                    array_push($servantArray, $thisServant);
-                    break;
-                }
-            }
-            if(!array_key_exists($servant->getId(), $servantArray)){
-                $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => false);
-                array_push($servantArray, $thisServant);
+        $listeServantBDD = $servantRepository->findAll();
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $listeServant = array();
+        foreach($listeServantBDD as $currentServant){
+            if($servantInfoRepository->findByServandIdAndUser($currentServant, $this->getUser())){
+                $servant = [
+                    'id' => $currentServant->getId(),
+                    'servantName' => $currentServant->getServantName(),
+                    'classe' => $currentServant->getClasse(),
+                    'rarity' => $currentServant->getRarity(),
+                    'servantInfo' => $currentServant->getServantInfo(),
+                    'charaGraph' => $currentServant->getCharaGraph(),
+                    'face' => $currentServant->getFace(),
+                    'obtenus' => true,
+                ];
+                array_push($listeServant, $servant);
+            }else{
+                $servant = [
+                    'id' => $currentServant->getId(),
+                    'servantName' => $currentServant->getServantName(),
+                    'classe' => $currentServant->getClasse(),
+                    'rarity' => $currentServant->getRarity(),
+                    'servantInfo' => $currentServant->getServantInfo(),
+                    'charaGraph' => $currentServant->getCharaGraph(),
+                    'face' => $currentServant->getFace(),
+                    'obtenus' => false,
+                ];
+                array_push($listeServant, $servant);
             }
         }
-        
-
         return $this->render('fate/listeServant.html.twig', [
-            'servantArray' => $servantArray,
+            'listeServant' => $listeServant,
         ]);
     }
 
@@ -58,31 +68,57 @@ class ServantController extends AbstractController
      */
     public function detailServant(int $id): Response
     {
-        $servantDetails = $this->getAtlasAcademyAPI($id);
-        return $this->render('fate/detailsServant.html.twig', ['servantDetails' => $servantDetails]);
+        //$servantDetails = $this->getAtlasAcademyAPI($id);
+        //return $this->render('fate/detailsServant.html.twig', ['servantDetails' => $servantDetails]);
     }
 
-    public function getAtlasAcademyAPI($id){
-        $url = 'https://api.atlasacademy.io/nice/JP/servant/'.$id;
-        $parameters = [
-                'lang' => 'en',
+
+
+    public function insertServantInDatabase(AtlasAcademyAPI $atlasAcademyAPI): Response
+    {
+        $listeServantAInserer = array();  
+        $em = $this->getDoctrine()->getManager();
+
+        $listeServantAPI = $atlasAcademyAPI->getResultAPI('Servant');
+
+        foreach($listeServantAPI as $currentServant){
+            $servant = [
+                'id' => $currentServant['collectionNo'],
+                'name' => $currentServant['name'],
+                'className' => $currentServant['className'],
+                'type' => $currentServant['type'],
+                'flag' => $currentServant['flag'],
+                'rarity' => $currentServant['rarity'],
+                'charaGraph' => $currentServant['extraAssets']['charaGraph']['ascension'],
+                'face' => $currentServant['extraAssets']['faces']['ascension'],
             ];
-        $headers = [
-                'Accepts: application/json',
-            ];
-        $qs = http_build_query($parameters);
-        // query string encode the parameters
-        $request = "{$url}?{$qs}"; // create the request URL
-        $curl = curl_init(); // Get cURL resource
-        // Set cURL options
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $request,            // set the request URL
-          CURLOPT_HTTPHEADER => $headers,     // set the headers 
-          CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
-        ));
-        $response = curl_exec($curl); // Send the request, save the response
-        curl_close($curl); // Close request
-        $var = json_decode($response, true);
-        return $var;
+            array_push($listeServantAInserer, $servant);
+        }
+
+        usort($listeServantAInserer, function($firstId, $secondId){    
+            return $firstId['id'] <=> $secondId['id'];              
+        });   
+        
+        foreach($listeServantAInserer as $currentServant){
+            
+            foreach($currentServant['charaGraph'] as $graph){   //Obligé de faire de cette méthode car $dataAsc = $currentServant['charaGraph'][4] retourne Error : Undefined Offset : 4 alors qu'il existe
+                $dataAsc = $graph;  
+            }
+            foreach($currentServant['charaGraph'] as $face){    //Pareil que le foreach au dessus, mais avec $dataIcn = $currentServant['face'][4]
+                $dataIcn = $graph;  
+            }
+            
+            $servant = new Servant();
+            $servant->setServantName($currentServant['name']);
+            $servant->setClasse($currentServant['className']);
+            $servant->setRarity($currentServant['rarity']);
+            $servant->setCharaGraph($dataAsc);
+            $servant->setFace($dataIcn);
+            $em->persist($servant);
+            $em->flush();
+        }
+
+        return new Response('Servants enregistrées');
     }
+
 }

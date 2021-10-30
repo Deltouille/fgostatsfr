@@ -125,3 +125,71 @@ Ajout automatique craft essence base de données
 
         return new Response('fini');
     }
+
+
+    $servantArray = array();
+
+        $em = $this->getDoctrine()->getManager();
+        //On récupère tout les servants de la table Servant
+        $servantRepository = $em->getRepository(Servant::class);
+        $listeServant = $servantRepository->findAll();
+        //On récupère tout les servants correspondants a l'utilisateur dans la table ServantInfo
+        $servantinfoRepository = $em->getRepository(ServantInfo::class);
+        $listeUserServant = $servantinfoRepository->findBy(['user' => $this->getUser()]);
+        foreach($listeServant as $servant){
+            foreach($listeUserServant as $userServant){
+                if($servant->getId() == $userServant->getServant()->getId()){
+                    $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => true);
+                    array_push($servantArray, $thisServant);
+                    break;
+                }
+            }
+            if(!array_key_exists($servant->getId(), $servantArray)){
+                $thisServant = array('Id' => $servant->getId(), 'ServantName' => $servant->getServantName(), 'Classe' => $servant->getClasse(), 'Rarity' => $servant->getRarity(), 'Obtenus' => false);
+                array_push($servantArray, $thisServant);
+            }
+        }
+        
+        return $this->render('fate/listeServant.html.twig', [
+            'servantArray' => $servantArray,
+        ]);
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $craftEssenceRepository = $em->getRepository(CraftEssence::class);    //On récupère le repository de la classe CraftEssence
+        $listeCraftEssenceBDD = $craftEssenceRepository->findAll();  //On récupère toutes les crafts essences existantes dans la base de données
+        
+        $craftEssencetinfoRepository = $em->getRepository(CraftEssenceInfo::class);   //On récupère le repository de la classe CraftEssenceInfo
+        $listeUserCraftEssence = $craftEssencetinfoRepository->findBy(['user' => $this->getUser()]); //On récupère toutes les crafts essences existantes dans la base de données ayant l'utilisateur courant
+        
+        $listeCraftEssence = array();   //Tableau qui vas servir a récupèrer toutes les craft essences et leurs informations.
+        $result = $this->getAtlasAcademyAPI();  //On récupère la réponse de l'api d'AtlasAcademy qui vas contenir toutes les craft essences et leurs informations associès.
+        foreach($result as $currentCraftEssence){    //On parcours la réponse de l'api.
+            foreach($listeUserCraftEssence as $userCraftEssence){
+                if($currentCraftEssence['collectionNo'] == $userCraftEssence->getCraftEssence()->getId()){
+                    $craftEssence = [
+                        'Id' => $currentCraftEssence['collectionNo'], //On sauvegarde le "collectionNo" de la craft essence en cours pour l'utiliuser en temps qu'ID.
+                        'Name' => $currentCraftEssence['name'], //On sauvegarde le nom de la craft essence en cours.
+                        'Url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']], //On sauvegarde le l'url de l'image de la craft essence.
+                        'Obtenus' => true,
+                    ];
+                    array_push($listeCraftEssence, $craftEssence);  //On push dans le tableau "listeCraftEssence" la craft essence en cours.
+                }
+            }
+            if(!array_key_exists($currentCraftEssence['collectionNo'], $listeCraftEssence)){
+                $craftEssence = [
+                    'Id' => $currentCraftEssence['collectionNo'], //On sauvegarde le "collectionNo" de la craft essence en cours pour l'utiliuser en temps qu'ID.
+                    'Name' => $currentCraftEssence['name'], //On sauvegarde le nom de la craft essence en cours.
+                    'Url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']], //On sauvegarde le l'url de l'image de la craft essence.
+                    'Obtenus' => false,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }
+        }
+        usort($listeCraftEssence, function($firstId, $secondId){    //On trie le tableau "listeCraftEssence" afin de mettre dans l'ordre de l'ID (collectionNo) de la craft essence -
+            return $firstId['Id'] <=> $secondId['Id'];              //au lieu de l'ordre dans lequel la craft essence est push dans le tableau car le premier ID retourné par l'api -
+        });                                                         //est 191, donc on met l'id 1 en premier.
+
+        return $this->render('craft_essence/listeCraftEssence.html.twig', ['listeCraftEssence' => $listeCraftEssence]);

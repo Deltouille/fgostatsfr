@@ -6,19 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 use App\Entity\UserInfo;
 use App\Entity\ServantInfo;
 use App\Form\UserInfoType;
 use App\Form\ServantInfoType;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+use App\Service\StatistiqueManager;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/profil", name="profil_utilisateur")
      */
-    public function index(ChartBuilderInterface $chartBuilder): Response
+    public function index(ChartBuilderInterface $chartBuilder, StatistiqueManager $statistiqueManager): Response
     {
         $em = $this->getDoctrine()->getManager();
         $userInfoRepository = $em->getRepository(UserInfo::class);
@@ -26,15 +27,16 @@ class UserController extends AbstractController
         $infoUtilisateur = $userInfoRepository->findBy(['user' => $this->getUser()]);
         $infoServant = $servantInfoRepository->findBy(['user' => $this->getUser()]);
         $allCharts = array();
-        $result = $this->countInfo($infoServant);
+        $result = $statistiqueManager->countInfo($infoServant);
         foreach($result as $info){
+            $randomColors = $statistiqueManager->generateHexColor($info);
             $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
             $chart->setData([
                 'labels' => array_keys($info),
                 'datasets' => [
                     [
                         'label' => 'oui',
-                        'backgroundColor' => [$this->generateHexColor($info)],
+                        'backgroundColor' => [$randomColors],
                         'borderColor' => 'rgb(0, 0, 0)',
                         'data' => array_values($info),
                     ],
@@ -45,51 +47,6 @@ class UserController extends AbstractController
             array_push($allCharts, $chart);
         }
         return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'allCharts' => $allCharts]);
-    }
-
-    public function generateHexColor($array){
-        $listeCouleurs = array();
-        //On génere un nombre X de couleurs hexadécimales correspondant au nombre de ligne dans le tableau
-        foreach($array as $info){
-            $randomColor =  '#'.dechex(rand(0x000000, 0xFFFFFF));
-            array_push($listeCouleurs, $randomColor);
-        }
-        //On transforme le tableau en chaine de caracteres
-        $stringColors = implode(', ', $listeCouleurs);
-        return $listeCouleurs;
-    }
-
-    public function countInfo($infoServant)
-    {
-        $stars = array();
-        $bonds = array();
-        $niveauNP = array();
-
-        foreach($infoServant as $servant){
-            array_push($stars, $servant->getServant()->getRarity());
-            array_push($bonds, $servant->getNiveauBond());
-            array_push($niveauNP, $servant->getNiveauNP());
-        }
-
-        $countServantStars = array_count_values($stars);
-        foreach($countServantStars as $key => $val){
-            $countServantStars[$key.'★'] = $val;
-            unset($countServantStars[$key]);
-        }
-        $countServantBonds = array_count_values($bonds);
-        foreach($countServantBonds as $key => $val){
-            $countServantBonds['Bond '.$key] = $val;
-            unset($countServantBonds[$key]);
-        }
-        $countServantNiveauNP = array_count_values($niveauNP);
-        foreach($countServantNiveauNP as $key => $val){
-            $countServantNiveauNP['NP '.$key] = $val;
-            unset($countServantNiveauNP[$key]);
-        }
-
-        $allInfo = array('servantStars' => $countServantStars, 'servantBonds' => $countServantBonds, 'servantNiveauNP' => $countServantNiveauNP);
-
-        return $allInfo;
     }
 
     /**
@@ -111,6 +68,18 @@ class UserController extends AbstractController
             }
         }
         return $this->render('user/ajoutInfo.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/modification-rapide-des-servants", name="modification-rapide-servant")
+     */
+    public function modificationServant(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $listeServantUser = $servantInfoRepository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('user/modificationRapideServant.html.twig', ['listeServantUser' => $listeServantUser]);
     }
 
     /**
