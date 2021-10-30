@@ -87,3 +87,41 @@
         <button servant-id="{{ Servant.id }}" class="{{ Servant.isObtained ? 'btn-burn' :'btn-ajout' }}">{{ Servant.isObtained ? 'Burn' :'Summon' }}</button>
     </div>
 </div>
+
+
+Ajout automatique craft essence base de données
+/**
+     * @Route("/craft_essence_insert", name="craft_essence_insert")
+     */
+    public function insertCraftEssenceDatabase()
+    {
+        $listeCraftEssence = array();  
+        $em = $this->getDoctrine()->getManager();
+        
+        $result = $this->getAtlasAcademyAPI();
+        foreach($result as $currentCraftEssence)    //On parcours la réponse de l'api.
+        {
+            $craftEssence = [
+                'Id' => $currentCraftEssence['collectionNo'], //On sauvegarde le "collectionNo" de la craft essence en cours pour l'utiliuser en temps qu'ID.
+                'Name' => $currentCraftEssence['name'], //On sauvegarde le nom de la craft essence en cours.
+                'Rarity' => $currentCraftEssence['rarity'],
+                'Type' => $currentCraftEssence['flag'],
+                'Url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']] //On sauvegarde le l'url de l'image de la craft essence.
+            ];
+            array_push($listeCraftEssence, $craftEssence);  //On push dans le tableau "listeCraftEssence" la craft essence en cours.
+        }
+        usort($listeCraftEssence, function($firstId, $secondId){    //On trie le tableau "listeCraftEssence" afin de mettre dans l'ordre de l'ID (collectionNo) de la craft essence -
+            return $firstId['Id'] <=> $secondId['Id'];              //au lieu de l'ordre dans lequel la craft essence est push dans le tableau car le premier ID retourné par l'api -
+        });                                                         //est 191, donc on met l'id 1 en premier.
+
+        foreach($listeCraftEssence as $currentCraftEssence){
+            $CE = new CraftEssence();
+            $CE->setCEName($currentCraftEssence['Name']);
+            $CE->setCERarity($currentCraftEssence['Rarity']);
+            $CE->setCEType($currentCraftEssence['Type']);
+            $em->persist($CE);
+            $em->flush();
+        }
+
+        return new Response('fini');
+    }

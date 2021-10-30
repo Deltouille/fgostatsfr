@@ -6,7 +6,7 @@
     <div class="cards">
         {% for servant in servantArray %}
             {% if servant.Obtenus %}
-            <div class="card obtained">
+            <div class="card">
                 <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
                 <div class="card-container">
                     <h2><b>{{ servant.ServantName }}</b></h2>
@@ -17,7 +17,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="card">
+            <div class="card obtained">
                 <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ servant.Id ~ '.png') }}" alt="Icone_{{ servant.ServantName }}">
                 <div class="card-container">
                     <h2><b>{{ servant.ServantName }}</b></h2>
@@ -34,35 +34,35 @@
 
 {% block JS %}
 <script>
-    $(document).ready(function(){
-        $("button").click(function(){
-            var parent = $(this).parent().parent();
-            var button = $(this);
-            var id = $(this).attr("servant-id");
-            var url = '{{ path('ajout-rapide-servant', {'id': 0}) }}';
-            var url = url.replace("0",id);
-            var cardparent = $(this).parent().parent();
-            $.ajax({
-                url: url,
-                type: 'post',
-                success:function(data){
-                    parent.toggleClass('obtained');
-                    if(button.hasClass('btn-burn')){
-                        button.removeClass('btn-burn');
-                        button.addClass('btn-ajout');
-                        button.text("Summon");
-                    }else{
-                        button.removeClass('btn-ajout');
-                        button.addClass('btn-burn');
-                        button.text("Burn");
-                    }
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(errorThrown);
+$(document).ready(function(){
+    $("button").click(function(){
+        let button = $(this);
+        let servantId = $(this).attr("servant-id");
+        let url = '{{ path('ajout-rapide-servant', {'id': 0}) }}';
+        let path = url.replace("0", servantId);
+        console.log(path);
+        $.ajax({
+            url: path,
+            type: 'post',
+            success:function(result){
+                console.log('oui');
+                button.parent().parent().toggleClass('obtained');
+                if(button.hasClass('btn-ajout')){
+                    button.removeClass('btn-ajout');
+                    button.addClass('btn-burn');
+                    button.text('Burn');
+                }else{
+                    button.removeClass('btn-brun');
+                    button.addClass('btn-ajout');
+                    button.text('Summon');
                 }
-            });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
         });
-    });    
+    });
+});
 </script>
 {% endblock %}

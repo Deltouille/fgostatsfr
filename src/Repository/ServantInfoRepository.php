@@ -19,6 +19,18 @@ class ServantInfoRepository extends ServiceEntityRepository
         parent::__construct($registry, ServantInfo::class);
     }
 
+    public function findByServandIdAndUser($servant, $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.servant = :servant')
+            ->setParameter('servant', $servant)
+            ->andWhere('s.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return ServantInfo[] Returns an array of ServantInfo objects
     //  */

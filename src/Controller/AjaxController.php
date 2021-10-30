@@ -21,36 +21,38 @@ class AjaxController extends AbstractController
     }
 
     /**
-     * @Route("ajout-servant/{id}", name="ajout-rapide-servant")
+     * @Route("/ajout-servant/{id}", name="ajout-rapide-servant")
      */
     public function ajoutRapideServantCollectionUser(int $id){
         $em = $this->getDoctrine()->getManager();
-        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        
         //On récupère le servant correspondant la l'id dans la table Servant
-        $getServantOfId = $servantInfoRepository->find($id);
         $servantRepository = $em->getRepository(Servant::class);
+        $getServantOfId = $servantRepository->find($id);
         //On récupère le servant correspondant a l'id du servant ET a l'id de l'utilisateur dans la table ServantInfo
-        $servant = $servantInfoRepository->findBy(['user' => $this->getUser(), 'id' => $id]);
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $servant = $servantInfoRepository->findByServandIdAndUser($getServantOfId, $this->getUser());
         //Si le servant existe dans la base de données, il est supprimé, SINON il est ajouté
-        if($servant !== null){
+
+        if(!empty($servant)){
             $em->remove($servant);
             $em->flush();
 
-            return new Response('Servant supprimé de la collection');
+            return new Response('supprimé');
         }else{
-            $servant = new ServantInfo();
-            $servant->setNiveauServant(1);
-            $servant->setNiveauSkill1(1);
-            $servant->setNiveauSkill2(1);
-            $servant->setNiveauSkill3(1);
-            $servant->setNiveauBond(1);
-            $servant->setNiveauNP(1);
-            $servant->setServant($getServantOfId);
-            $servant->setUser($this->getUser());
-            $em->persist($servant);
+            $addServant = new ServantInfo();
+            $addServant->setNiveauServant(1);
+            $addServant->setNiveauSkill1(1);
+            $addServant->setNiveauSkill2(1);
+            $addServant->setNiveauSkill3(1);
+            $addServant->setNiveauBond(1);
+            $addServant->setNiveauNP(1);
+            $addServant->setServant($getServantOfId);
+            $addServant->setUser($this->getUser());
+            $em->persist($addServant);
             $em->flush();
             
-            return new Response('Servant ajouté a la collection');
+            return new Response('ajouté');
         }
         
         

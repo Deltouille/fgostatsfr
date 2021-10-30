@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des servants{% endblock %}
+
+{% block body %}
+    <div class="cards">
+        {% for craftEssence in listeCraftEssence %}
+            <div class="card">
+                <img src="{{ craftEssence.Url }}" alt="Icone_{{ craftEssence.Name }}">
+                <div class="card-container">
+                    <h2><b>{{ craftEssence.Name }}</b></h2>
+                </div>
+                <div class="card-footer">
+                    <button servant-id="{{ craftEssence.Id }}" class="btn-burn">Burn</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block JS %}
+
+{% endblock %}
