@@ -91,15 +91,19 @@ class CraftEssenceController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/insertCraftEssenceInDatabase", name="insertCraftEssenceInDatabase")
+     */
     public function insertCraftEssenceInDatabase(AtlasAcademyAPI $atlasAcademyAPI): Response
     {
         $listeCraftEssenceAInserer = array();  
         $em = $this->getDoctrine()->getManager();
         
         $listeCraftEssenceAPI = $atlasAcademyAPI->getResultAPI('CraftEssence');
-
+        
         foreach($listeCraftEssenceAPI as $currentCraftEssence)    //On parcours la réponse de l'api.
         {
+            dd($currentCraftEssence);
             $craftEssence = [
                 'id' => $currentCraftEssence['collectionNo'], 
                 'name' => $currentCraftEssence['name'], 

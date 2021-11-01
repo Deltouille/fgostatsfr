@@ -9,9 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Entity\UserInfo;
+use App\Entity\CraftEssence;
 use App\Entity\ServantInfo;
+use App\Entity\CraftEssenceInfo;
+
 use App\Form\UserInfoType;
 use App\Form\ServantInfoType;
+
 use App\Service\StatistiqueManager;
 
 class UserController extends AbstractController
@@ -80,6 +84,18 @@ class UserController extends AbstractController
         $listeServantUser = $servantInfoRepository->findBy(['user' => $this->getUser()]);
 
         return $this->render('user/modificationRapideServant.html.twig', ['listeServantUser' => $listeServantUser]);
+    }
+
+    /**
+     * @Route("/modification-rapide-des-craft-essences", name="modification-rapide-craft-essence")
+     */
+    public function modificationCraftEssence(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceRepository = $em->getRepository(CraftEssenceInfo::class);
+        $listeCraftEssenceUser = $craftEssenceRepository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('user/modificationRapideCraftEssence.html.twig', ['listeCraftEssenceUser' => $listeCraftEssenceUser]);
     }
 
     /**

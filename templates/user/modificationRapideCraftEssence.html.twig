@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des servants{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="flex flex-col">
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+            <div class="grid ">
+                <table id="table" class="table">
+                    <thead style="background-color: black; color: white;">
+                        <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">MLB</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for craftEssence in listeCraftEssenceUser %}   
+                            <tr class="hover:bg-gray-200">
+                                <td style="text-align: center;">{{ craftEssence.craftEssence.CEName }}</td>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center">
+                                        <p class="getText">{{ craftEssence.niveauCE }} - </p> 
+                                        <select name="niveauCe" id="niveauCe" craftEssence-id="{{ craftEssence.craftEssence.id }}">
+                                            <option value="1">1</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                            <option value="60">60</option>
+                                            <option value="70">70</option>
+                                            <option value="80">80</option>
+                                            <option value="90">90</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center">
+                                        {% if craftEssence.isMaxLimitBreak %}
+                                            <p class="getText">Oui - </p>
+                                        {% else %}
+                                            <p class="getText">Non - </p>
+                                        {% endif %}
+                                        <select name="isMLB" id="isMLB" craftEssence-id="{{ craftEssence.craftEssence.id }}">
+                                            <option value="false">Non</option>
+                                            <option value="true">Oui</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block JS %}
+<script>
+$(document).ready(function(){
+    $("select").change(function(){
+        let craftEssenceId = $(this).attr('craftEssence-id');
+        let modName = $(this).attr('name');
+        let modVal = $(this).val();
+        let currentRow = $(this).closest('td');
+        let colText = currentRow.find('.getText');
+        let url = '{{ path('modificationRapideCE') }}';
+        $.ajax({
+            url: url,
+            data: { id: craftEssenceId, name:modName, value: modVal },
+            type: 'post',
+            success:function(result){
+                if(modVal == "true"){
+                    colText.text('Oui - ');
+                }else if(modVal == "false"){
+                    colText.text('Non - ');
+                }else{
+                    colText.text(modVal+' - ');
+                }
+                colText.animate({backgroundColor: '#00CD00'}, 'slow');
+                colText.addClass('bg-green-500 rounded-lg');
+                setTimeout(function(){
+                    colText.removeClass('bg-green-500 rounded-lg');
+                }, 1000);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -10,6 +10,7 @@
                 <table id="table" class="table">
                     <thead style="background-color: black; color: white;">
                         <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
                             <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
                             <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
                             <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Skill 1</th>
@@ -22,77 +23,99 @@
                     <tbody>
                         {% for servant in listeServantUser %}   
                             <tr class="hover:bg-gray-200">
-                                <td style="text-align: center;">{{ servant.servant.ServantName }}</td>
+                                <td style="text-align: center;">
+                                        <img src="{{ servant.servant.face}}" alt="Image-Servant-{{ servant.servant.id }}" style="width: 20%;">
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center" style="text-align: center;">
+                                        <p>{{ servant.servant.ServantName }}</p>
+                                    </div>
+                                </td>
                                 <td style="text-align: center;">{{ servant.niveauServant }} - </td>
-                                <td style="text-align: center;">{{ servant.niveauSkill1 }} -
-                                    <select name="skill1" id="skill1" servant-id="{{ servant.servant.id }}">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center" style="text-align: center;">
+                                        <p class="getText">{{ servant.niveauSkill1 }} - </p>
+                                        <select name="skill1" id="skill1" servant-id="{{ servant.servant.id }}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
                                 </td>
-                                <td style="text-align: center;">{{ servant.niveauSkill2 }} -
-                                    <select name="skill2" id="skill2">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                <td style="text-align: center;">
+                                <div class="flex flex-row justify-center items-center">
+                                        <p class="getText">{{ servant.niveauSkill2 }} - </p>
+                                        <select name="skill2" id="skill2" servant-id="{{ servant.servant.id }}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
                                 </td>
-                                <td style="text-align: center;">{{ servant.niveauSkill3 }} - 
-                                    <select name="skill3" id="skill3">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                <td style="text-align: center;">
+                                <div class="flex flex-row justify-center items-center">
+                                        <p class="getText">{{ servant.niveauSkill3 }} - </p>
+                                        <select name="skill3" id="skill3" servant-id="{{ servant.servant.id }}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
                                 </td>
-                                <td style="text-align: center;">{{ servant.niveauBond }} - 
-                                    <select name="bond" id="bond">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                    </select>
+                                <td style="text-align: center;">
+                                <div class="flex flex-row justify-center items-center">
+                                        <p class="getText">{{ servant.niveauBond }} - </p>
+                                        <select name="bond" id="bond" servant-id="{{ servant.servant.id }}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                        </select>
+                                    </div>
                                 </td>
-                                <td style="text-align: center;">{{ servant.niveauNP }} - 
-                                    <select name="nplevel" id="nplevel">
+                                <td style="text-align: center;">
+                                <div class="flex flex-row justify-center items-center">
+                                    <p class="getText">{{ servant.niveauNP }} - </p>
+                                    <select name="nplevel" id="nplevel" servant-id="{{ servant.servant.id }}">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                     </select>
+                                </div>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -111,15 +134,20 @@ $(document).ready(function(){
         let servantId = $(this).attr('servant-id');
         let modName = $(this).attr('name');
         let modVal = $(this).val();
-        let url = '{{ path('modificationRapideServant', {'id': 0, 'modName': 1, 'value': 2}) }}';
-        let url1 = url.replace('0', servantId);
-        let url2 = url1.replace('1', modName);
-        let url3 = url2.replace('2', modVal);
+        let currentRow = $(this).closest('td');
+        let colText = currentRow.find('.getText');
+        let url = '{{ path('modificationRapideServant') }}';
         $.ajax({
-            url: url3,
+            url: url,
+            data: { id: servantId, name:modName, value: modVal },
             type: 'post',
             success:function(result){
-                $(this).parent().text(modVal);
+                colText.text(modVal+' - ');
+                colText.animate({backgroundColor: '#00CD00'}, 'slow');
+                colText.addClass('bg-green-500 rounded-lg');
+                setTimeout(function(){
+                    colText.removeClass('bg-green-500 rounded-lg');
+                }, 1000);
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
                 console.log(textStatus);

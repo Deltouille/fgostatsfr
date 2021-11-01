@@ -73,15 +73,18 @@ class ServantController extends AbstractController
     }
 
 
-
+    /**
+     * @Route("/insertServantInDatabase", name="insertServantInDatabase")
+     */
     public function insertServantInDatabase(AtlasAcademyAPI $atlasAcademyAPI): Response
     {
         $listeServantAInserer = array();  
         $em = $this->getDoctrine()->getManager();
-
+        $servantRepository = $em->getRepository(Servant::class);
         $listeServantAPI = $atlasAcademyAPI->getResultAPI('Servant');
 
         foreach($listeServantAPI as $currentServant){
+            //dd($currentServant);
             $servant = [
                 'id' => $currentServant['collectionNo'],
                 'name' => $currentServant['name'],
@@ -104,15 +107,16 @@ class ServantController extends AbstractController
             foreach($currentServant['charaGraph'] as $graph){   //Obligé de faire de cette méthode car $dataAsc = $currentServant['charaGraph'][4] retourne Error : Undefined Offset : 4 alors qu'il existe
                 $dataAsc = $graph;  
             }
-            foreach($currentServant['charaGraph'] as $face){    //Pareil que le foreach au dessus, mais avec $dataIcn = $currentServant['face'][4]
-                $dataIcn = $graph;  
+            foreach($currentServant['face'] as $face){    //Pareil que le foreach au dessus, mais avec $dataIcn = $currentServant['face'][4]
+                $dataIcn = $face;  
             }
             
-            $servant = new Servant();
-            $servant->setServantName($currentServant['name']);
-            $servant->setClasse($currentServant['className']);
-            $servant->setRarity($currentServant['rarity']);
-            $servant->setCharaGraph($dataAsc);
+            //$servant = new Servant();
+            //$servant->setServantName($currentServant['name']);
+            //$servant->setClasse($currentServant['className']);
+            //$servant->setRarity($currentServant['rarity']);
+            //$servant->setCharaGraph($dataAsc);
+            $servant = $servantRepository->find($currentServant['id']);
             $servant->setFace($dataIcn);
             $em->persist($servant);
             $em->flush();

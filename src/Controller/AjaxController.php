@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Servant;
 use App\Entity\ServantInfo;
@@ -86,47 +87,74 @@ class AjaxController extends AbstractController
         }
     }
 
-
     /**
-     * @Route("/modification-rapide-servant/{id}/{modName}/{value}", name="modificationRapideServant")
+     * @Route("/modification-rapide-ce", name="modificationRapideCE")
      */
-    public function modificationRapideServant(int $id, string $modName, int $value): Response
+    public function modificationRapideCraftEssence(Request $request): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $servantInfoRepository = $em->getRepository(ServantInfo::class);
-        $servant = $servantInfoRepository->find($id);
+        $data = $request->request->all();
+        $id = intval($data['id']);
+        $name = $data['name'];
 
-        switch($modName){
-            case 'skill1':
-                $servant->setNiveauSkill1($value);
-                $em->persist($servant);
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $craftEssence = $craftEssenceInfoRepository->findByCeIdAndUser($id, $this->getUser());
+        
+        switch($name){
+            case 'niveauCe':
+                $craftEssence[0]->setNiveauCE(intval($data['value']));
+                $em->persist($craftEssence[0]);
                 $em->flush();
-                return 'oui';
                 break;
-            case 'skill2':
-                $servant->setNiveauSkill2($value);
-                $em->persist($servant);
+            case 'isMLB':
+                $craftEssence[0]->setIsMaxLimitBreak($data['value']);
+                $em->persist($craftEssence[0]);
                 $em->flush();
-                return 'oui';
-                break;
-            case 'skill3':
-                $servant->setNiveauSkill3($value);
-                $em->persist($servant);
-                $em->flush();
-                return 'oui';
-                break;
-            case 'bond':
-                $servant->setNiveauBond($value);
-                $em->persist($servant);
-                $em->flush();
-                return 'oui';
-                break;
-            case 'nplevel':
-                $servant->setNiveauNP($value);
-                $em->persist($servant);
-                $em->flush();
-                return 'oui';
                 break;
         }
+        return new Response('update');
+    }
+
+    /**
+     * @Route("/modification-rapide-servant", name="modificationRapideServant")
+     */
+    public function modificationRapideServant(Request $request): Response
+    {
+        $data = $request->request->all();
+        $id = intval($data['id']);
+        $name = $data['name'];
+        $value = intval($data['value']);
+        $em = $this->getDoctrine()->getManager();
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $servant = $servantInfoRepository->findByServandIdAndUser($id, $this->getUser());
+        switch($name){
+            case 'skill1':
+                $servant[0]->setNiveauSkill1($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
+            case 'skill2':
+                $servant[0]->setNiveauSkill2($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
+            case 'skill3':
+                $servant[0]->setNiveauSkill3($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
+            case 'bond':
+                $servant[0]->setNiveauBond($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
+            case 'nplevel':
+                $servant[0]->setNiveauNP($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
+        }
+
+        return new Response('update');
     }   
 }
