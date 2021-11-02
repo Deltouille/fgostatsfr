@@ -44,6 +44,11 @@ class CraftEssence
      */
     private $urlImage;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $CEIcon;
+
     public function __construct()
     {
         $this->craftEssenceInfos = new ArrayCollection();
@@ -128,6 +133,18 @@ class CraftEssence
     public function setUrlImage(string $urlImage): self
     {
         $this->urlImage = $urlImage;
+
+        return $this;
+    }
+
+    public function getCEIcon(): ?string
+    {
+        return $this->CEIcon;
+    }
+
+    public function setCEIcon(string $CEIcon): self
+    {
+        $this->CEIcon = $CEIcon;
 
         return $this;
     }

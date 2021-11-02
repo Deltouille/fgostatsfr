@@ -98,31 +98,34 @@ class CraftEssenceController extends AbstractController
     {
         $listeCraftEssenceAInserer = array();  
         $em = $this->getDoctrine()->getManager();
-        
+        $craftEssenceRepository = $em->getRepository(CraftEssence::class);
         $listeCraftEssenceAPI = $atlasAcademyAPI->getResultAPI('CraftEssence');
         
         foreach($listeCraftEssenceAPI as $currentCraftEssence)    //On parcours la réponse de l'api.
         {
-            dd($currentCraftEssence);
+            //dd($currentCraftEssence);
             $craftEssence = [
                 'id' => $currentCraftEssence['collectionNo'], 
                 'name' => $currentCraftEssence['name'], 
                 'rarity' => $currentCraftEssence['rarity'],
                 'type' => $currentCraftEssence['flag'],
-                'url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']] 
+                'url' => $currentCraftEssence['extraAssets']['charaGraph']['equip'][$currentCraftEssence['id']],
+                'icon' => $currentCraftEssence['extraAssets']['faces']['equip'][$currentCraftEssence['id']] 
             ];
             array_push($listeCraftEssenceAInserer, $craftEssence);  
         }
-        usort($listeCraftEssence, function($firstId, $secondId){    
-            return $firstId['Id'] <=> $secondId['Id'];              
+        usort($listeCraftEssenceAInserer, function($firstId, $secondId){    
+            return $firstId['id'] <=> $secondId['id'];              
         });                                                         
 
         foreach($listeCraftEssenceAInserer as $currentCraftEssence){
-            $CE = new CraftEssence();
-            $CE->setCEName($currentCraftEssence['name']);
-            $CE->setCERarity($currentCraftEssence['rarity']);
-            $CE->setCEType($currentCraftEssence['type']);
-            $CE->setUrlImage($currentCraftEssence['url']);
+            //$CE = new CraftEssence();
+            //$CE->setCEName($currentCraftEssence['name']);
+            //$CE->setCERarity($currentCraftEssence['rarity']);
+            //$CE->setCEType($currentCraftEssence['type']);
+            //$CE->setUrlImage($currentCraftEssence['url']);
+            $CE = $craftEssenceRepository->find($currentCraftEssence['id']);
+            $CE->setCEIcon($currentCraftEssence['icon']);
             $em->persist($CE);
             $em->flush();
         }

@@ -12,6 +12,7 @@ use App\Entity\UserInfo;
 use App\Entity\CraftEssence;
 use App\Entity\ServantInfo;
 use App\Entity\CraftEssenceInfo;
+use App\Entity\Invocation;
 
 use App\Form\UserInfoType;
 use App\Form\ServantInfoType;
@@ -26,12 +27,23 @@ class UserController extends AbstractController
     public function index(ChartBuilderInterface $chartBuilder, StatistiqueManager $statistiqueManager): Response
     {
         $em = $this->getDoctrine()->getManager();
+
         $userInfoRepository = $em->getRepository(UserInfo::class);
         $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $invocationRepository = $em->getRepository(Invocation::class);
+
         $infoUtilisateur = $userInfoRepository->findBy(['user' => $this->getUser()]);
         $infoServant = $servantInfoRepository->findBy(['user' => $this->getUser()]);
-        $allCharts = array();
+        $infoCraftEssence = $craftEssenceInfoRepository->findBy(['user' => $this->getUser()]);
+        $infoInvocation = $invocationRepository->findBy(['user' => $this->getUser()]);
+
+        $servantCharts = array();
+        $craftEssenceCharts = array();
+        
         $result = $statistiqueManager->countInfo($infoServant);
+        $resultCraftEssence = $statistiqueManager->countInfoCraftEssence($infoCraftEssence);
+        $resultInvocation = $statistiqueManager->countInfoInvocation($infoInvocation);
         foreach($result as $info){
             $randomColors = $statistiqueManager->generateHexColor($info);
             $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
@@ -48,9 +60,48 @@ class UserController extends AbstractController
             ]);
 
             $chart->setOptions([/* ... */]);
-            array_push($allCharts, $chart);
+            array_push($servantCharts, $chart);
         }
-        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'allCharts' => $allCharts]);
+
+        foreach($resultCraftEssence as $info){
+            $randomColors = $statistiqueManager->generateHexColor($info);
+            $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+            $chart->setData([
+                'labels' => array_keys($info),
+                'datasets' => [
+                    [
+                        'label' => 'oui',
+                        'backgroundColor' => [$randomColors],
+                        'borderColor' => 'rgb(0, 0, 0)',
+                        'data' => array_values($info),
+                    ],
+                ],
+            ]);
+
+            $chart->setOptions([/* ... */]);
+            array_push($craftEssenceCharts, $chart);
+        }
+
+        $chartInvocation = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chartInvocation->setData([
+            'labels' => ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+            'datasets' => [
+                [
+                    'type' => 'line',
+                    'label' => 'Oui',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [1, 40, 20, 2,8, 33, 29],
+                ],
+                [
+                    'type' => 'bar',
+                    'label' => 'Non',
+                    'backgroundColor' => 'blue',
+                    'data' => [10, 20, 30, 6, 1, 15, 29],
+                ],
+            ],
+        ]);
+
+        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation]);
     }
 
     /**
@@ -129,5 +180,17 @@ class UserController extends AbstractController
         $listeServantCollection = $servantInfoRepository->findBy(['user' => $this->getUser()]);
         
         return $this->render('user/collectionServant.html.twig', ['listeServantCollection' => $listeServantCollection]);
+    }
+
+    /**
+     * @Route("/ma-collection-de-craft-essence", name="craftEssenceCollection")
+     */
+    public function userCraftEssenceCollection(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $listeCraftEssenceCollection = $craftEssenceInfoRepository->findBy(['user' => $this->getUser()]);
+        
+        return $this->render('user/collectionCraftEssence.html.twig', ['listeCraftEssenceCollection' => $listeCraftEssenceCollection]);
     }
 }

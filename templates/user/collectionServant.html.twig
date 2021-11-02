@@ -3,41 +3,242 @@
 {% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block ContentHeader %}
-    <p align="center">Mon Profil</p>
+    <div class="flex flex-row">
+        <input type="text" id="searchInput" placeholder="Rechercher un servant" class="ml-5 border-2 float-left px-2 border-black">
+        <p>Rareté : </p>
+        <select name="selectRarity" id="selectRarity" class="mx-2">
+            <option value="" selected disabled hidden>Rareté</option>
+            <option value="★★★★★">5</option>
+            <option value="★★★★">4</option>
+            <option value="★★★">3</option>
+            <option value="★★">2</option>
+            <option value="★">1</option>
+        </select>
+        <p>Classe : </p>
+        <select name="selectClasse" id="selectClasse" class="mx-2">
+            <option value="" selected disabled hidden>Classe</option>
+            <option value="Shielder">Shielder</option>
+            <option value="Saber">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+            <option value="Pretender">Pretender</option>
+        </select>
+        <p>Niveau : </p>
+        <select name="selectNiveau" id="selectNiveau" class="mx-2">
+            <option value="" selected disabled hidden>Niveau</option>
+            <option value="1">1</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="65">65</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="92">92</option>
+            <option value="100">100</option>
+            <option value="110">110</option>
+            <option value="120">120</option>
+        </select>
+        <p>Bond : </p>
+        <select name="selectBond" id="selectBond" class="mx-2">
+            <option value="" selected disabled hidden>Bond</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+        </select>
+        <p>Niveau NP : </p>
+        <select name="selectNP" id="selectNP" class="mx-2">
+            <option value="" selected disabled hidden>NP</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button class="bg-white border-red-500 border-2 rounded px-2" id="btnReset">Reinitialiser le tableau</button>
+    </div>
 {% endblock %}
 
 {% block body %}
 <div class="container">
     <div class="flex flex-col">
         <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
-            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Ma collection de servants</p>
-            <div class="flex flex-wrap mx-2">
-                {% for infoServant in listeServantCollection %}
-                    <div class="card mx-5 mt-5">
-                        <div class="flex flex-col">
-                            <p style="font-weight: bold;">{{ infoServant.servant.ServantName }}</p>
-                            <hr>
-                            <img src="{{ asset('img/ServantIcons/Icon_Servant_' ~ infoServant.servant.id ~ '.png') }}" alt="Icone_{{ infoServant.servant.ServantName }}">
-                            <p>Niveau : {{ infoServant.niveauServant }}</p>
-                            <hr>
-                            <p>Skills</p>
-                            <div class="flex flex-row mx-auto">
-                                <p class="items-center ml-1">{{ infoServant.niveauSkill1 }} | </p>
-                                <p class="items-center ml-1">{{ infoServant.niveauSkill2 }} |</p>
-                                <p class="items-center ml-1">{{ infoServant.niveauSkill3 }} </p>
-                            </div>
-                            <hr>
-                            <p>Bond : {{ infoServant.niveauBond }}</p>
-                            <hr>
-                            <p>Niveau NP : {{ infoServant.niveauNP }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
+            <div class="grid ">
+                <table id="table" class="table">
+                    <thead style="background-color: black; color: white;">
+                        <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Classe</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Skills</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Bond</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau NP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for servant in listeServantCollection %}   
+                            <tr class="hover:bg-gray-200">
+                                <td style="text-align: center;">
+                                        <img src="{{ servant.servant.face}}" alt="Image-Servant-{{ servant.servant.id }}" style="width: 20%;">
+                                </td>
+                                <td style="text-align: center;" name="servantName">
+                                        <p>{{ servant.servant.ServantName }}</p>
+                                </td>
+                                <td style="text-align: center;" class="rarity">
+                                    {% if servant.servant.rarity == 5 %}
+                                        <p class="servantRarity">★★★★★</p>
+                                    {% elseif servant.servant.rarity == 4 %}
+                                        <p class="servantRarity">★★★★</p>
+                                    {% elseif servant.servant.rarity == 3 %}
+                                        <p class="servantRarity">★★★</p>
+                                    {% elseif servant.servant.rarity == 2 %}
+                                        <p class="servantRarity">★★</p>
+                                    {% elseif servant.servant.rarity == 1 %}
+                                        <p class="servantRarity">★</p>
+                                    {% elseif servant.servant.rarity == 0 %}
+                                        <p class="servantRarity"></p>
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: center;">
+                                        <p>{{ servant.servant.Classe }}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                        <p class="servantNiveau">{{ servant.niveauServant }} </p>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center">
+                                        <p class="getText">{{ servant.niveauSkill1 }}/</p>
+                                        <p class="getText">{{ servant.niveauSkill2 }}/</p>
+                                        <p class="getText">{{ servant.niveauSkill3 }}</p>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p class="getText">{{ servant.niveauBond }}  </p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p class="getText">{{ servant.niveauNP }}  </p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block JS %}
+<script>
+    $(document).ready(function(){
+        $('#searchInput').on("keyup", function(){
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "1" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Si l'utilisateur choisis 1 (★), toutes les lignes qui contiennent au moins 1 (★) sont rétournés, il faudrait laisser seulement celles qui ont un seul 1 (★)
+        //Problème 2 à régler : Le tableau ne se remet pas par défaut
+        $('#selectRarity').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "2" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectClasse').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "3" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectNiveau').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "4" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectBond').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "6" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectNP').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "7" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        $('#btnReset').click(function(){
+            $('#table tbody tr').show();
+        });
+    });
+
+
+</script>
 {% endblock %}
 
 {% block ContentFooter %}

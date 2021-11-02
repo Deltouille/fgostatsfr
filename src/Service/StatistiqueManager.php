@@ -48,4 +48,45 @@ class StatistiqueManager
 
         return $allInfo;
     }
+
+    public function countInfoCraftEssence($infoCraftEssence){
+        $niveauCE = array();
+        $rarityCE = array();
+        $typeCE = array();
+        $mlbCE = array();
+
+        foreach($infoCraftEssence as $craftEssence){
+            array_push($niveauCE, $craftEssence->getNiveauCE());
+            array_push($rarityCE, $craftEssence->getCraftEssence()->getCERarity());
+            array_push($typeCE, $craftEssence->getCraftEssence()->getCEType());
+            array_push($typeCE, $craftEssence->getCraftEssence()->getCEType());
+        }
+        $countNiveauCE = array_count_values($niveauCE);
+        foreach($countNiveauCE as $key => $val){
+            $countNiveauCE['Niveau '.$key] = $val;
+            unset($countNiveauCE[$key]);
+        }
+
+        $countRarityCE = array_count_values($rarityCE);
+        foreach($countRarityCE as $key => $val){
+            $countRarityCE[$key.'★'] = $val;
+            unset($countRarityCE[$key]);
+        }
+        $countTypeCE = array_count_values($typeCE);
+
+        $countMlbCE = array_count_values($mlbCE);
+        foreach($countRarityCE as $key => $val){
+            $countRarityCE['MLB '.$key] = $val;
+            unset($countRarityCE[$key]);
+        }
+
+        $allInfo = array('countNiveauCE' => $countNiveauCE, 'countRarityCE' => $countRarityCE, 'countTypeCE' => $countTypeCE, 'countMlbCE' => $countMlbCE);
+
+        return $allInfo;
+
+    }
+
+    public function countInfoInvocation($infoInvocation){
+        $dates = array();
+    }
 }

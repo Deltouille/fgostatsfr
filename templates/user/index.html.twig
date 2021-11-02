@@ -10,7 +10,7 @@
 <div class="container">
     <div class="flex flex-col">
         {% for user in infoUtilisateur %} 
-        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+        <div class="shadow-lg bg-white rounded-lg" id="infoUser">
            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">{{ user.username }}</p>
            <div class="flex flex-row">
                 <img src="{{ asset('img/master-gender/' ~  user.gender  ~ '.png') }}" alt="image-guda" class="w-1/5 h-1/5">
@@ -42,20 +42,33 @@
                         <p style="font-weight: bold;"> : {{ user.goldenApple }}</p>
                     </div>
                 </div>
+                <div class="w-1/4">
+                    {{ render_chart(chartInvocation, {'class': 'w-2 h-2'})}}
+                </div>
            </div>
         </div>
         <div class="shadow-lg mt-3 bg-white rounded-lg" id="statsUser">
             <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Statistiques Servants</p>
             <hr>
             <div class="flex flex-wrap mx-2">
-                {% for chart in allCharts %}
+                {% for chart in servantCharts %}
                     <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
                         {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
                     </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="shadow-lg mt-3 bg-white">oui</div>
+        <div class="shadow-lg mt-3 bg-white rounded-lg">
+            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Statistiques Craft Essences</p>
+            <hr>
+            <div class="flex flex-wrap mx-2">
+                {% for chart in craftEssenceCharts %}
+                    <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
+                        {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>

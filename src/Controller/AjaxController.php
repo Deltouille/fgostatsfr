@@ -153,6 +153,11 @@ class AjaxController extends AbstractController
                 $em->persist($servant[0]);
                 $em->flush();
                 break;
+            case 'nplevel':
+                $servant[0]->setNiveauNP($value);
+                $em->persist($servant[0]);
+                $em->flush();
+                break;
         }
 
         return new Response('update');

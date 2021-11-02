@@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $craftEssenceInfos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Invocation::class, mappedBy="user")
+     */
+    private $invocations;
+
 
     public function __construct()
     {
@@ -63,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->servantInfos = new ArrayCollection();
         $this->ServantInfo = new ArrayCollection();
         $this->craftEssenceInfos = new ArrayCollection();
+        $this->invocations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -237,6 +243,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($craftEssenceInfo->getUser() === $this) {
                 $craftEssenceInfo->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invocation[]
+     */
+    public function getInvocations(): Collection
+    {
+        return $this->invocations;
+    }
+
+    public function addInvocation(Invocation $invocation): self
+    {
+        if (!$this->invocations->contains($invocation)) {
+            $this->invocations[] = $invocation;
+            $invocation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvocation(Invocation $invocation): self
+    {
+        if ($this->invocations->removeElement($invocation)) {
+            // set the owning side to null (unless already changed)
+            if ($invocation->getUser() === $this) {
+                $invocation->setUser(null);
             }
         }
 

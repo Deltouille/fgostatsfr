@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de l'utilisateur{% endblock %}
+
+{% block ContentHeader %}
+    <p align="center">Mon Profil</p>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="flex flex-col">
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+            <div class="grid ">
+                <table id="table" class="table">
+                    <thead style="background-color: black; color: white;">
+                        <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">MLB</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for craftEssence in listeCraftEssenceCollection %}   
+                            <tr class="hover:bg-gray-200">
+                                <td style="text-align: center;">
+                                        <img src="{{ craftEssence.craftEssence.CEIcon}}" alt="Image-CE-{{ craftEssence.craftEssence.CEName }}" style="width: 20%;">
+                                </td>
+                                <td style="text-align: center;">
+                                        <p>{{ craftEssence.craftEssence.CEName }}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    {% if craftEssence.craftEssence.CERarity  == 5 %}
+                                        <p class="ceRarity">★★★★★</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 4 %}
+                                        <p class="ceRarity">★★★★</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 3 %}
+                                        <p class="ceRarity">★★★</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 2 %}
+                                        <p class="ceRarity">★★</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 1 %}
+                                        <p class="ceRarity">★</p>
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: center;">
+                                    {% if craftEssence.craftEssence.CEType  == 'normal' %}
+                                        <p class="ceType">Normal</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 'svtEquipChocolate' %}
+                                        <p class="ceType">Saint-Valentin</p>
+                                    {% elseif craftEssence.craftEssence.CERarity  == 'svtEquipFriendShip' %}
+                                        <p class="ceType">Bond CE</p>
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: center;">
+                                        <p>{{ craftEssence.niveauCE }}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    {% if craftEssence.isMaxLimitBreak %}
+                                        <p>Oui</p>
+                                    {% else %}
+                                        <p>Non</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block JS %}
+
+{% endblock %}
+
+{% block ContentFooter %}
+    <p align="center">Me contacter</p>
+{% endblock %}
