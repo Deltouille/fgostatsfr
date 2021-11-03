@@ -2,39 +2,174 @@
 
 {% block title %}Liste des servants{% endblock %}
 
+{% block ContentHeader %}
+    <div class="flex flex-row">
+        <input type="text" id="searchInput" placeholder="Rechercher un servant" class="ml-5 border-2 float-left px-2 border-black">
+        <p>Rareté : </p>
+        <select name="selectRarity" id="selectRarity" class="mx-2">
+            <option value="" selected disabled hidden>Rareté</option>
+            <option value="★★★★★">5</option>
+            <option value="★★★★">4</option>
+            <option value="★★★">3</option>
+            <option value="★★">2</option>
+            <option value="★">1</option>
+        </select>
+        <p>Classe : </p>
+        <select name="selectClasse" id="selectClasse" class="mx-2">
+            <option value="" selected disabled hidden>Classe</option>
+            <option value="Shielder">Shielder</option>
+            <option value="Saber">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+            <option value="Pretender">Pretender</option>
+        </select>
+        <a class="bg-white border-red-500 border-2 rounded px-2 hover:cursor-pointed" id="btnReset">Reinitialiser le tableau</a>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <div class="cards">
-       {% for servant in listeServant %}
-            {% if servant.obtenus %}    
-            <div class="card">
-                <img src="{{ servant.face }}" alt="Icone_{{ servant.servantName }}">
-                <div class="card-container">
-                    <h2><b>{{ servant.servantName }}</b></h2>
-                    <h3>{{ servant.classe }}</h3>
-                </div>
-                <div class="card-footer">
-                    <button servant-id="{{ servant.id }}" class="btn-burn">Burn</button>
-                </div>
+    <div class="flex flex-col">
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+            <div class="grid ">
+                <table id="table" class="table">
+                    <thead style="background-color: black; color: white;">
+                        <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Classe</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for servant in listeServant %}   
+                            {% if servant.obtenus == true %}
+                                <tr class="hover:bg-green-400 bg-green-300">
+                                    <td style="text-align: center;">
+                                            <img src="{{ servant.face }}" alt="Image-Servant-{{ servant.servantName }}" style="width: 20%;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ servant.servantName }}</p>
+                                    </td>
+                                    <td style="text-align: center;" class="rarity">
+                                        {% if servant.rarity == 5 %}
+                                            <p class="servantRarity">★★★★★</p>
+                                        {% elseif servant.rarity == 4 %}
+                                            <p class="servantRarity">★★★★</p>
+                                        {% elseif servant.rarity == 3 %}
+                                            <p class="servantRarity">★★★</p>
+                                        {% elseif servant.rarity == 2 %}
+                                            <p class="servantRarity">★★</p>
+                                        {% elseif servant.rarity == 1 %}
+                                            <p class="servantRarity">★</p>
+                                        {% elseif servant.rarity == 0 %}
+                                            <p class="servantRarity"></p>
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ servant.classe }}</p>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" servant-id="{{ servant.id }}" id="button">
+                                            Supprimer
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr class="hover:bg-red-400 bg-red-300">
+                                    <td style="text-align: center;">
+                                            <img src="{{ servant.face }}" alt="Image-Servant-{{ servant.servantName }}" style="width: 20%;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ servant.servantName }}</p>
+                                    </td>
+                                    <td style="text-align: center;" class="rarity">
+                                        {% if servant.rarity == 5 %}
+                                            <p class="servantRarity">★★★★★</p>
+                                        {% elseif servant.rarity == 4 %}
+                                            <p class="servantRarity">★★★★</p>
+                                        {% elseif servant.rarity == 3 %}
+                                            <p class="servantRarity">★★★</p>
+                                        {% elseif servant.rarity == 2 %}
+                                            <p class="servantRarity">★★</p>
+                                        {% elseif servant.rarity == 1 %}
+                                            <p class="servantRarity">★</p>
+                                        {% elseif servant.rarity == 0 %}
+                                            <p class="servantRarity"></p>
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ servant.classe }}</p>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded" servant-id="{{ servant.id }}" id="button">
+                                            Ajouter
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            {% else %}
-            <div class="card obtained">
-                <img src="{{ servant.face }}" alt="Icone_{{ servant.servantName }}">
-                <div class="card-container">
-                    <h2><b>{{ servant.servantName }}</b></h2>
-                    <h3>{{ servant.classe }}</h3>
-                </div>
-                <div class="card-footer">
-                    <button servant-id="{{ servant.id }}" class="btn-ajout">Summon</button>
-                </div>
-            </div>
-            {% endif %}
-       {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
 {% block JS %}
 <script>
 $(document).ready(function(){
+    $('#searchInput').on("keyup", function(){
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "1" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Si l'utilisateur choisis 1 (★), toutes les lignes qui contiennent au moins 1 (★) sont rétournés, il faudrait laisser seulement celles qui ont un seul 1 (★)
+        //Problème 2 à régler : Le tableau ne se remet pas par défaut
+        $('#selectRarity').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "2" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectClasse').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "3" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        $('#btnReset').click(function(){
+            $('#table tbody tr').show();
+        });
+
     $("button").click(function(){
         let button = $(this);
         let servantId = $(this).attr("servant-id");
@@ -45,16 +180,18 @@ $(document).ready(function(){
             url: path,
             type: 'post',
             success:function(result){
-                console.log('oui');
-                button.parent().parent().toggleClass('obtained');
-                if(button.hasClass('btn-ajout')){
-                    button.removeClass('btn-ajout');
-                    button.addClass('btn-burn');
-                    button.text('Burn');
+                if(button.closest('tr').hasClass('hover:bg-green-400 bg-green-300')){
+                    button.closest('tr').removeClass('hover:bg-green-400 bg-green-300');
+                    button.closest('tr').addClass('hover:bg-red-400 bg-red-300');
+                    button.removeClass('bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded');
+                    button.addClass('bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded');
+                    button.text('Ajouter');
                 }else{
-                    button.removeClass('btn-brun');
-                    button.addClass('btn-ajout');
-                    button.text('Summon');
+                    button.closest('tr').removeClass('hover:bg-red-400 bg-red-300');
+                    button.closest('tr').addClass('hover:bg-green-400 bg-green-300');
+                    button.removeClass('bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded');
+                    button.addClass('bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded');
+                    button.text('Supprimer');
                 }
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){

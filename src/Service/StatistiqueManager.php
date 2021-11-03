@@ -88,5 +88,29 @@ class StatistiqueManager
 
     public function countInfoInvocation($infoInvocation){
         $dates = array();
+        $nombreSQ = array();
+        $nombreServant5 = array();
+        $nombreServant4 = array();
+        $nombreCE5 = array();
+
+        foreach($infoInvocation as $invocation){
+            array_push($dates, $invocation->getDateInvocation());
+            array_push($nombreSQ, $invocation->getNombreSQUsed());
+            array_push($nombreServant5, $invocation->getNombreServant5());
+            array_push($nombreServant4, $invocation->getNombreServant4());
+            array_push($nombreCE5, $invocation->getNombreCraftEssence5());
+        }
+
+        $allInfo = array(
+            'nombreSaintQuartz' => $nombreSQ,
+            'dates' => $dates,
+            'nombreServant5' => $nombreServant5,
+            'nombreServant4' => $nombreServant4,
+            'nombreCE5' => $nombreCE5,
+
+        );
+
+        return $allInfo;
+
     }
 }

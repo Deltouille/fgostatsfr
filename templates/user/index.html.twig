@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
     <div class="flex flex-col">
         {% for user in infoUtilisateur %} 
         <div class="shadow-lg bg-white rounded-lg" id="infoUser">
@@ -42,8 +41,8 @@
                         <p style="font-weight: bold;"> : {{ user.goldenApple }}</p>
                     </div>
                 </div>
-                <div class="w-1/4">
-                    {{ render_chart(chartInvocation, {'class': 'w-2 h-2'})}}
+                <div class="w-1/2">
+                    {{ render_chart(chartInvocation)}}
                 </div>
            </div>
         </div>
@@ -71,8 +70,6 @@
         </div>
     </div>
     {% endfor %}
-</div>
-
 {% endblock %}
 
 {% block ContentFooter %}

@@ -1,38 +1,177 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des servants{% endblock %}
+{% block title %}Liste des craftEssences{% endblock %}
+
+{% block ContentHeader %}
+    <div class="flex flex-row">
+        <input type="text" id="searchInput" placeholder="Rechercher un servant" class="ml-5 border-2 float-left px-2 border-black">
+        <p>Rareté : </p>
+        <select name="selectRarity" id="selectRarity" class="mx-2">
+            <option value="" selected disabled hidden>Rareté</option>
+            <option value="★★★★★">5</option>
+            <option value="★★★★">4</option>
+            <option value="★★★">3</option>
+            <option value="★★">2</option>
+            <option value="★">1</option>
+        </select>
+        <p>Type : </p>
+        <select name="selectType" id="selectType" class="mx-2">
+            <option value="" selected disabled hidden>Type de Craft Essence</option>
+            <option value="Normal">Normal</option>
+            <option value="Saint-Valentin">Saint-Valentin</option>
+            <option value="Bond CE">Bond CE</option>
+        </select>
+        <a class="bg-white border-red-500 border-2 rounded px-2 hover:cursor-pointed" id="btnReset">Reinitialiser le tableau</a>
+    </div>
+{% endblock %}
 
 {% block body %}
-    <div class="cards">
-        {% for craftEssence in listeCraftEssence %}
-            {% if craftEssence.obtenus %}    
-            <div class="card">
-                <img src="{{ craftEssence.ceUrl }}" alt="Icone_{{ craftEssence.ceName }}">
-                <div class="card-container">
-                    <h2><b>{{ craftEssence.ceName }}</b></h2>
-                </div>
-                <div class="card-footer">
-                    <button craft-essence-id="{{ craftEssence.id }}" class="btn-burn">Burn</button>
-                </div>
+    <div class="flex flex-col">
+        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+            <div class="grid ">
+                <table id="table" class="table">
+                    <thead style="background-color: black; color: white;">
+                        <tr>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
+                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for craftEssence in listeCraftEssence %}   
+                            {% if craftEssence.obtenus == true %}
+                                <tr class="hover:bg-green-400 bg-green-300">
+                                    <td style="text-align: center;">
+                                            <img src="{{ craftEssence.ceIcon }}" alt="Image-craftEssence-{{ craftEssence.ceName }}" style="width: 20%;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ craftEssence.ceName }}</p>
+                                    </td>
+                                    <td style="text-align: center;" class="rarity">
+                                        {% if craftEssence.ceRarity == 5 %}
+                                            <p class="craftEssenceRarity">★★★★★</p>
+                                        {% elseif craftEssence.ceRarity == 4 %}
+                                            <p class="craftEssenceRarity">★★★★</p>
+                                        {% elseif craftEssence.ceRarity == 3 %}
+                                            <p class="craftEssenceRarity">★★★</p>
+                                        {% elseif craftEssence.ceRarity == 2 %}
+                                            <p class="craftEssenceRarity">★★</p>
+                                        {% elseif craftEssence.ceRarity == 1 %}
+                                            <p class="craftEssenceRarity">★</p>
+                                        {% elseif craftEssence.ceRarity == 0 %}
+                                            <p class="craftEssenceRarity"></p>
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {% if craftEssence.ceType  == 'normal' %}
+                                            <p class="ceType">Normal</p>
+                                        {% elseif craftEssence.ceType  == 'svtEquipChocolate' %}
+                                            <p class="ceType">Saint-Valentin</p>
+                                        {% elseif craftEssence.ceType  == 'svtEquipFriendShip' %}
+                                            <p class="ceType">Bond CE</p>
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" craftEssence-id="{{ craftEssence.id }}" id="button">
+                                            Supprimer
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr class="hover:bg-red-400 bg-red-300">
+                                    <td style="text-align: center;">
+                                            <img src="{{ craftEssence.ceIcon }}" alt="Image-craftEssence-{{ craftEssence.ceName }}" style="width: 20%;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                            <p>{{ craftEssence.ceName }}</p>
+                                    </td>
+                                    <td style="text-align: center;" class="rarity">
+                                        {% if craftEssence.ceRarity == 5 %}
+                                            <p class="craftEssenceRarity">★★★★★</p>
+                                        {% elseif craftEssence.ceRarity == 4 %}
+                                            <p class="craftEssenceRarity">★★★★</p>
+                                        {% elseif craftEssence.ceRarity == 3 %}
+                                            <p class="craftEssenceRarity">★★★</p>
+                                        {% elseif craftEssence.ceRarity == 2 %}
+                                            <p class="craftEssenceRarity">★★</p>
+                                        {% elseif craftEssence.ceRarity == 1 %}
+                                            <p class="craftEssenceRarity">★</p>
+                                        {% elseif craftEssence.ceRarity == 0 %}
+                                            <p class="craftEssenceRarity"></p>
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                    {% if craftEssence.ceType  == 'normal' %}
+                                        <p class="ceType">Normal</p>
+                                    {% elseif craftEssence.ceType  == 'svtEquipChocolate' %}
+                                        <p class="ceType">Saint-Valentin</p>
+                                    {% elseif craftEssence.ceType  == 'svtEquipFriendShip' %}
+                                        <p class="ceType">Bond CE</p>
+                                    {% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded" craft-essence-id="{{ craftEssence.id }}" id="button">
+                                            Ajouter
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            {% else %}
-            <div class="card obtained">
-                <img src="{{ craftEssence.ceUrl }}" alt="Icone_{{ craftEssence.ceName }}">
-                <div class="card-container">
-                    <h2><b>{{ craftEssence.ceName }}</b></h2>
-                </div>
-                <div class="card-footer">
-                    <button craft-essence-id="{{ craftEssence.id }}" class="btn-ajout">Summon</button>
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
 {% block JS %}
 <script>
 $(document).ready(function(){
+
+    $('#searchInput').on("keyup", function(){
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "1" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Si l'utilisateur choisis 1 (★), toutes les lignes qui contiennent au moins 1 (★) sont rétournés, il faudrait laisser seulement celles qui ont un seul 1 (★)
+        //Problème 2 à régler : Le tableau ne se remet pas par défaut
+        $('#selectRarity').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "2" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectType').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "3" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        $('#btnReset').click(function(){
+            $('#table tbody tr').show();
+        });
+
     $("button").click(function(){
         let button = $(this);
         let ceId = $(this).attr("craft-essence-id");
@@ -43,16 +182,18 @@ $(document).ready(function(){
             url: path,
             type: 'post',
             success:function(result){
-                console.log('oui');
-                button.parent().parent().toggleClass('obtained');
-                if(button.hasClass('btn-ajout')){
-                    button.removeClass('btn-ajout');
-                    button.addClass('btn-burn');
-                    button.text('Burn');
+                if(button.closest('tr').hasClass('hover:bg-green-400 bg-green-300')){
+                    button.closest('tr').removeClass('hover:bg-green-400 bg-green-300');
+                    button.closest('tr').addClass('hover:bg-red-400 bg-red-300');
+                    button.removeClass('bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded');
+                    button.addClass('bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded');
+                    button.text('Ajouter');
                 }else{
-                    button.removeClass('btn-brun');
-                    button.addClass('btn-ajout');
-                    button.text('Summon');
+                    button.closest('tr').removeClass('hover:bg-red-400 bg-red-300');
+                    button.closest('tr').addClass('hover:bg-green-400 bg-green-300');
+                    button.removeClass('bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded');
+                    button.addClass('bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded');
+                    button.text('Supprimer');
                 }
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){

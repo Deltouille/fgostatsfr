@@ -29,6 +29,7 @@ class CraftEssenceController extends AbstractController
                     'ceRarity' => $currentCraftEssence->getCERarity(),
                     'ceType' => $currentCraftEssence->getCEType(),
                     'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceIcon' => $currentCraftEssence->getCEIcon(),
                     'ceUrl' => $currentCraftEssence->getUrlImage(),
                     'obtenus' => true,
                 ];
@@ -40,6 +41,7 @@ class CraftEssenceController extends AbstractController
                     'ceRarity' => $currentCraftEssence->getCERarity(),
                     'ceType' => $currentCraftEssence->getCEType(),
                     'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceIcon' => $currentCraftEssence->getCEIcon(),
                     'ceUrl' => $currentCraftEssence->getUrlImage(),
                     'obtenus' => false,
                 ];
@@ -69,6 +71,7 @@ class CraftEssenceController extends AbstractController
                     'ceRarity' => $currentCraftEssence->getCERarity(),
                     'ceType' => $currentCraftEssence->getCEType(),
                     'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceIcon' => $currentCraftEssence->getCEIcon(),
                     'ceUrl' => $currentCraftEssence->getUrlImage(),
                     'obtenus' => true,
                 ];
@@ -80,6 +83,7 @@ class CraftEssenceController extends AbstractController
                     'ceRarity' => $currentCraftEssence->getCERarity(),
                     'ceType' => $currentCraftEssence->getCEType(),
                     'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceIcon' => $currentCraftEssence->getCEIcon(),
                     'ceUrl' => $currentCraftEssence->getUrlImage(),
                     'obtenus' => false,
                 ];

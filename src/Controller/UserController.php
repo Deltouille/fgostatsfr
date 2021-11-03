@@ -84,22 +84,38 @@ class UserController extends AbstractController
 
         $chartInvocation = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chartInvocation->setData([
-            'labels' => ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+            'labels' => $resultInvocation['dates'],
             'datasets' => [
                 [
                     'type' => 'line',
-                    'label' => 'Oui',
+                    'lineTension' => 0,
+                    'label' => 'nombre de saint quartz',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [1, 40, 20, 2,8, 33, 29],
+                    'data' => $resultInvocation['nombreSaintQuartz'],
+                    'order' => '2',
                 ],
                 [
                     'type' => 'bar',
-                    'label' => 'Non',
+                    'label' => 'Servants 5',
+                    'backgroundColor' => 'yellow',
+                    'data' => $resultInvocation['nombreServant5'],
+                    'order' => '1',
+                ],
+                [
+                    'type' => 'bar',
+                    'label' => 'Servants 4',
+                    'backgroundColor' => 'green',
+                    'data' => $resultInvocation['nombreServant4'],
+                ],
+                [
+                    'type' => 'bar',
+                    'label' => 'Craft Essence 5',
                     'backgroundColor' => 'blue',
-                    'data' => [10, 20, 30, 6, 1, 15, 29],
+                    'data' => $resultInvocation['nombreCE5'],
                 ],
             ],
         ]);
+        $chartInvocation->setOptions(['chartInvocation']);
 
         return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation]);
     }
