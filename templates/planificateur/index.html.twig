@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des servants{% endblock %}
+
+{% block ContentHeader %}
+<select name="selectServant" id="selectServant">
+        <option value="">Selectionnez un servant</option>
+    {% for servant in listeServant %}
+        <option value="{{ servant.id }}">{{ servant.ServantName }}</option>
+    {% endfor %}
+</select>
+{% endblock %}
+
+{% block body %}
+
+<div class="overflow-x-auto">
+    <table class="border-collapse w-full" style="border: 1px solid #ddd; border-spacing: 0;">
+        <thead style="background-color: black; color: white;">
+            <tr>
+                <th>Servants</th>
+                {% for material in listeMaterial %}
+                    <th>
+                        <img src="{{ material.MaterialIcon }}" alt="Image-Servant-{{ material.MaterialName }}" style="width: 100%;">
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody> 
+            {% for servant in listeServant %}
+            <tr class="hover:bg-green-400 bg-green-300">
+                <td>
+                    <img src="{{ servant.face }}" alt="Image-Servant-{{ servant.id }}" style="width: 100%;">
+                </td>
+                {% for material in listeMaterial %}
+                    {% for servantMat in servant.materialInfos %}
+                        {% if material.id == servantMat.material.id %}
+                        <td>
+                            <p>{{ servantMat.quantity }}</p>
+                        </td>
+                        {% else %}
+                        <td>
+                            <p></p>
+                        </td>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block JS %}
+<script>
+/*$(document).ready(function(){
+    $('#selectServant').change(function(){
+        let valServant = $(this).val();
+        let url = '{{ path('getServantInfo') }}';
+        $.ajax({
+            url: url,
+            data: { id: valServant },
+            type: 'post',
+            success:function(result){
+                console.log(result);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+        //$('table tbody').append(row);
+    });
+});*/
+</script>
+{% endblock %}

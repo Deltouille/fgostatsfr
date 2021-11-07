@@ -49,11 +49,17 @@ class Servant
      */
     private $face;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MaterialInfo::class, mappedBy="servant")
+     */
+    private $materialInfos;
+
     public function __construct()
     {
         $this->userId = new ArrayCollection();
         $this->servantInfos = new ArrayCollection();
         $this->ServantInfo = new ArrayCollection();
+        $this->materialInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +153,36 @@ class Servant
     public function setFace(string $face): self
     {
         $this->face = $face;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MaterialInfo[]
+     */
+    public function getMaterialInfos(): Collection
+    {
+        return $this->materialInfos;
+    }
+
+    public function addMaterialInfo(MaterialInfo $materialInfo): self
+    {
+        if (!$this->materialInfos->contains($materialInfo)) {
+            $this->materialInfos[] = $materialInfo;
+            $materialInfo->setServant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterialInfo(MaterialInfo $materialInfo): self
+    {
+        if ($this->materialInfos->removeElement($materialInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($materialInfo->getServant() === $this) {
+                $materialInfo->setServant(null);
+            }
+        }
 
         return $this;
     }

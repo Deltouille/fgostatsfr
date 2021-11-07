@@ -24,11 +24,11 @@
     </head>
     <body>
       <main class="flex">
-        <div class="flex flex-col justify-between w-1/6 h-screen bg-gray-800 fixed">
-          <header class="bg-gray-800 py-4">
+        <div class="flex flex-col justify-between w-1/6 h-screen bg-blue-600 fixed border-2 border-black">
+          <header class="bg-blue-600 py-4">
             <p style="color: white; font-size: 20px;" align="center">FGO-STATS FR</p>
           </header>
-          <nav class="bg-gray-800 hover:scale-150">
+          <nav class="bg-blue-600 hover:scale-150">
             <ul>
               <li class="mt-3 hover:bg-gray-700" style="color: white; font-size: 20px;" align="center"><a href="{{ path('app_login') }}">Connexion</a></li>
               <li class="mt-3 hover:bg-gray-700" style="color: white; font-size: 20px" align="center"><a href="{{ path('profil_utilisateur') }}">Mon Profil</a></li>
@@ -48,18 +48,18 @@
               {# </div> #}
             </ul>
           </nav>
-          <footer class="mt-auto bg-gray-800 py-4">
+          <footer class="mt-auto bg-blue-600 py-4">
             <p style="color: white;" align="Center"><a href="https://github.com/Deltouille/fgostatsfr">Github du projet</a></p>
           </footer>
         </div>
         <div class="w-1/6"></div>
         <div class="flex flex-col justify-between w-5/6 bg-red-400 ">
-          <header class="bg-gray-800 py-4">
+          <header class="bg-blue-600 py-4">
             {% block ContentHeader %}
 
             {% endblock %}
           </header>
-          <section class="bg-white">
+          <section class="bg-gray-200">
             {% block body %}
 
             {% endblock %}

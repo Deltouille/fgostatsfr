@@ -117,7 +117,7 @@ class UserController extends AbstractController
         ]);
         $chartInvocation->setOptions(['chartInvocation']);
 
-        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation]);
+        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation, 'listeServant' => $infoServant, 'listeCraftEssence' => $infoCraftEssence]);
     }
 
     /**

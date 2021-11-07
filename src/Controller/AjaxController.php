@@ -24,6 +24,19 @@ class AjaxController extends AbstractController
     }
 
     /**
+     * @Route("/getServantInfo", name="getServantInfo")
+     */
+    public function getServantInfo(Request $request){
+        $data = $request->request->all();
+        $id = intval($data['id']);
+        $em = $this->getDoctrine()->getManager();
+        $servantRepository = $em->getRepository(Servant::class);
+        $servant = $servantRepository->find($id);
+        $servantArray = array();
+        return $servantArray;
+    }
+
+    /**
      * @Route("/ajout-servant/{id}", name="ajout-rapide-servant")
      */
     public function ajoutRapideServantCollectionUser(int $id){

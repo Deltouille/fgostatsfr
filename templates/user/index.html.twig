@@ -7,69 +7,75 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex flex-col">
-        {% for user in infoUtilisateur %} 
-        <div class="shadow-lg bg-white rounded-lg" id="infoUser">
-           <p style="font-weight: bold; vertical-align: middle; font-size: 40px">{{ user.username }}</p>
-           <div class="flex flex-row">
-                <img src="{{ asset('img/master-gender/' ~  user.gender  ~ '.png') }}" alt="image-guda" class="w-1/5 h-1/5">
-                <div class="flex flex-col">
-                    <div class="flex flex-row items-center pt-1">
-                        <p style="font-weight: bold;">Niveau : {{ user.playerLevel }}/150</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <p style="font-weight: bold;">Version : {{ user.gameVersion }}</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <img src="{{ asset('img/icons/Saintquartz.png') }}" alt="image-quartz" style="width: 10%; heigth: 10%;">
-                        <p style="font-weight: bold;"> : {{ user.quartz }}</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <img src="{{ asset('img/icons/Mana_prism.png') }}" alt="image-mana-prism" style="width: 10%; heigth: 10%;">
-                        <p style="font-weight: bold;"> : {{ user.manaPrism  }}</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <img src="{{ asset('img/icons/Thumbnail-Bronze_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
-                        <p style="font-weight: bold;"> : {{ user.bronzeApple }}</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <img src="{{ asset('img/icons/Thumbnail-Silver_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
-                        <p style="font-weight: bold;"> : {{ user.silverApple }}</p>
-                    </div>
-                    <div class="flex flex-row items-center pt-1">
-                        <img src="{{ asset('img/icons/Thumbnail-Golden_Apple.png') }}" alt="image-bronze-apple" style="width: 10%; heigth: 10%;">
-                        <p style="font-weight: bold;"> : {{ user.goldenApple }}</p>
-                    </div>
-                </div>
-                <div class="w-1/2">
-                    {{ render_chart(chartInvocation)}}
-                </div>
-           </div>
+{% for user in infoUtilisateur %} 
+<div class="flex flex-col ">
+    <div class="flex flex-row justify-center">
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.playerLevel }}/150</p>
         </div>
-        <div class="shadow-lg mt-3 bg-white rounded-lg" id="statsUser">
-            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Statistiques Servants</p>
-            <hr>
-            <div class="flex flex-wrap mx-2">
-                {% for chart in servantCharts %}
-                    <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
-                        {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <img src="https://static.atlasacademy.io/JP/Items/6.png" alt="image-quartz" class="w-1/4">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.quartz }}</p>
         </div>
-        <div class="shadow-lg mt-3 bg-white rounded-lg">
-            <p style="font-weight: bold; vertical-align: middle; font-size: 40px">Statistiques Craft Essences</p>
-            <hr>
-            <div class="flex flex-wrap mx-2">
-                {% for chart in craftEssenceCharts %}
-                    <div class="my-3 px-3 w-1/4 overflow-hidden sm:my-4 sm:px-4 sm:w-1/2 md:my-3 md:px-3 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4 xl:my-3 xl:px-3 xl:w-1/4 bg-white shadow-lg pb-3">
-                        {{ render_chart(chart, {'class': 'w-2 h-2'}) }}
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <img src="https://static.atlasacademy.io/JP/Items/7.png" alt="image-mana-prism" class="w-1/4">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.manaPrism  }}</p>
+        </div>
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <img src="https://static.atlasacademy.io/JP/Items/100.png" alt="image-bronze-apple" class="w-1/4">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.bronzeApple }}</p>
+        </div>
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <img src="https://static.atlasacademy.io/JP/Items/101.png" alt="image-bronze-apple" class="w-1/4">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.silverApple }}</p>
+        </div>
+        <div class="bg-white flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
+            <img src="https://static.atlasacademy.io/JP/Items/102.png" alt="image-bronze-apple" class="w-1/4">
+            <p style="font-weight: bold;" class="text-3xl">{{ user.goldenApple }}</p>
         </div>
     </div>
-    {% endfor %}
+    <div class="flex flex-row justify-center">
+        <div class="bg-white flex-grow mx-4 rounded-lg shadow-lg">
+            <table class="text-left w-full">
+                <thead class="bg-black flex text-white w-full rounded-t-lg">
+                    <tr class="flex w-full justify-center">
+                        <th class="p-4">Servants Acquis</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
+                    {% for servant in listeServant %}
+                        <tr>
+                            <td>{{ servant.servant.ServantName }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="bg-white flex-grow rounded-lg shadow-lg">
+            <div class="w-full flex flex-col justify-center items-center">
+                <h1 class="text-xl font-extrabold mb-2">Historique d'invocation</h1>
+                {{ render_chart(chartInvocation)}}
+            </div>
+        </div>
+        <div class="bg-white flex-grow mx-4 rounded-lg shadow-lg">
+            <table class="text-left w-full">
+                <thead class="bg-black flex text-white w-full rounded-t-lg">
+                    <tr class="flex w-full justify-center">
+                        <th class="p-4">Craft Essences Acquis</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
+                    {% for craftEssence in listeCraftEssence %}
+                        <tr>
+                            <td>{{ craftEssence.craftEssence.CEName }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
 
 {% block ContentFooter %}

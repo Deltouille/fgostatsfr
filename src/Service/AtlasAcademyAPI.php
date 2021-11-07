@@ -13,6 +13,9 @@ class AtlasAcademyAPI
         if($data == 'Servant'){
             $url = "https://api.atlasacademy.io/export/JP/nice_servant_lang_en.json";
         }
+        if($data == 'Material'){
+            $url = "https://api.atlasacademy.io/export/JP/nice_item_lang_en.json";
+        }
         $parameters = [];
         $headers = [
                 'Accepts: application/json',
