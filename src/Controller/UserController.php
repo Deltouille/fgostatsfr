@@ -52,13 +52,12 @@ class UserController extends AbstractController
                 'datasets' => [
                     [
                         'label' => 'oui',
-                        'backgroundColor' => [$randomColors],
+                        'backgroundColor' => ["#B9F2FF", "#FFD500", "#C0C0C0", "#cd7f32", "#cd8c32", "#d0e2e0", "#37e7e2", '#338a26', '#1673d3', '#06fd06', '#7f2253', '#ecead3', '#d487e4', '#a9e619', '#b8aeed'],
                         'borderColor' => 'rgb(0, 0, 0)',
                         'data' => array_values($info),
                     ],
                 ],
             ]);
-
             $chart->setOptions([/* ... */]);
             array_push($servantCharts, $chart);
         }
@@ -71,7 +70,7 @@ class UserController extends AbstractController
                 'datasets' => [
                     [
                         'label' => 'oui',
-                        'backgroundColor' => [$randomColors],
+                        'backgroundColor' => ["#B9F2FF", "#FFD500", "#C0C0C0", "#cd7f32", "#cd8c32", "#d0e2e0", "#37e7e2", '#338a26', '#1673d3', '#06fd06', '#7f2253', '#ecead3', '#d487e4', '#a9e619', '#b8aeed'],
                         'borderColor' => 'rgb(0, 0, 0)',
                         'data' => array_values($info),
                     ],
@@ -116,6 +115,7 @@ class UserController extends AbstractController
             ],
         ]);
         $chartInvocation->setOptions(['chartInvocation']);
+        //dd($servantCharts);
 
         return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation, 'listeServant' => $infoServant, 'listeCraftEssence' => $infoCraftEssence]);
     }

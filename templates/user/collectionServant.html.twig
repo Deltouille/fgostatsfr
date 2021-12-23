@@ -3,94 +3,112 @@
 {% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block ContentHeader %}
-    <div class="flex flex-row">
-        <input type="text" id="searchInput" placeholder="Rechercher un servant" class="ml-5 border-2 float-left px-2 border-black">
-        <p>Rareté : </p>
-        <select name="selectRarity" id="selectRarity" class="mx-2">
-            <option value="" selected disabled hidden>Rareté</option>
-            <option value="★★★★★">5</option>
-            <option value="★★★★">4</option>
-            <option value="★★★">3</option>
-            <option value="★★">2</option>
-            <option value="★">1</option>
-        </select>
-        <p>Classe : </p>
-        <select name="selectClasse" id="selectClasse" class="mx-2">
-            <option value="" selected disabled hidden>Classe</option>
-            <option value="Shielder">Shielder</option>
-            <option value="Saber">Saber</option>
-            <option value="Archer">Archer</option>
-            <option value="Lancer">Lancer</option>
-            <option value="Rider">Rider</option>
-            <option value="Caster">Caster</option>
-            <option value="Assassin">Assassin</option>
-            <option value="Berserker">Berserker</option>
-            <option value="Ruler">Ruler</option>
-            <option value="Avenger">Avenger</option>
-            <option value="Moon Cancer">Moon Cancer</option>
-            <option value="Alter Ego">Alter Ego</option>
-            <option value="Foreigner">Foreigner</option>
-            <option value="Pretender">Pretender</option>
-        </select>
-        <p>Niveau : </p>
-        <select name="selectNiveau" id="selectNiveau" class="mx-2">
-            <option value="" selected disabled hidden>Niveau</option>
-            <option value="1">1</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-            <option value="60">60</option>
-            <option value="65">65</option>
-            <option value="70">70</option>
-            <option value="80">80</option>
-            <option value="90">90</option>
-            <option value="92">92</option>
-            <option value="100">100</option>
-            <option value="110">110</option>
-            <option value="120">120</option>
-        </select>
-        <p>Bond : </p>
-        <select name="selectBond" id="selectBond" class="mx-2">
-            <option value="" selected disabled hidden>Bond</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-        </select>
-        <p>Niveau NP : </p>
-        <select name="selectNP" id="selectNP" class="mx-2">
-            <option value="" selected disabled hidden>NP</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <button class="bg-white border-red-500 border-2 rounded px-2" id="btnReset">Reinitialiser le tableau</button>
+<div class="flex flex-col">
+    <p align="center" class="text-3xl font-bold text-fgo-textblue mb-2">Mes Servants</p>
+    <div class="flex flex-row space-x-2 justify-items items-center">
+        <div class="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+            <p>
+                <input type="text" id="searchInput" placeholder="Rechercher un servant" class="py-1 px-1 text-fgo-textblue outline-none block h-full w-full bg-transparent underline">
+            </p>
+        </div>
+        <p class="text-fgo-textblue font-bold">Rareté : </p>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-transparent" value="" selected disabled hidden>Rareté</option>
+                <option class="bg-purple-500" value="★★★★★">5</option>
+                <option class="bg-purple-500" value="★★★★">4</option>
+                <option class="bg-purple-500" value="★★★">3</option>
+                <option class="bg-purple-500" value="★★">2</option>
+                <option class="bg-purple-500" value="★">1</option>
+            </select>
+        </div>
+        <p class="text-fgo-textblue">Classe : </p>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectClasse" id="selectClasse" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Classe</option>
+                <option class="bg-purple-500" value="Shielder">Shielder</option>
+                <option class="bg-purple-500" value="Saber">Saber</option>
+                <option class="bg-purple-500" value="Archer">Archer</option>
+                <option class="bg-purple-500" value="Lancer">Lancer</option>
+                <option class="bg-purple-500" value="Rider">Rider</option>
+                <option class="bg-purple-500" value="Caster">Caster</option>
+                <option class="bg-purple-500" value="Assassin">Assassin</option>
+                <option class="bg-purple-500" value="Berserker">Berserker</option>
+                <option class="bg-purple-500" value="Ruler">Ruler</option>
+                <option class="bg-purple-500" value="Avenger">Avenger</option>
+                <option class="bg-purple-500" value="Moon Cancer">Moon Cancer</option>
+                <option class="bg-purple-500" value="Alter Ego">Alter Ego</option>
+                <option class="bg-purple-500" value="Foreigner">Foreigner</option>
+                <option class="bg-purple-500" value="Pretender">Pretender</option>
+            </select>
+        </div>
+        <p class="text-fgo-textblue">Niveau : </p>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectNiveau" id="selectNiveau" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Niveau</option>
+                <option class="bg-purple-500" value="1">1</option>
+                <option class="bg-purple-500" value="10">10</option>
+                <option class="bg-purple-500" value="20">20</option>
+                <option class="bg-purple-500" value="30">30</option>
+                <option class="bg-purple-500" value="40">40</option>
+                <option class="bg-purple-500" value="50">50</option>
+                <option class="bg-purple-500" value="60">60</option>
+                <option class="bg-purple-500" value="65">65</option>
+                <option class="bg-purple-500" value="70">70</option>
+                <option class="bg-purple-500" value="80">80</option>
+                <option class="bg-purple-500" value="90">90</option>
+                <option class="bg-purple-500" value="92">92</option>
+                <option class="bg-purple-500" value="100">100</option>
+                <option class="bg-purple-500" value="110">110</option>
+                <option class="bg-purple-500" value="120">120</option>
+            </select>
+        </div>
+        <p class="text-fgo-textblue">Bond : </p>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectBond" id="selectBond" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Bond</option>
+                <option class="bg-purple-500" value="0">0</option>
+                <option class="bg-purple-500" value="1">1</option>
+                <option class="bg-purple-500" value="2">2</option>
+                <option class="bg-purple-500" value="3">3</option>
+                <option class="bg-purple-500" value="4">4</option>
+                <option class="bg-purple-500" value="5">5</option>
+                <option class="bg-purple-500" value="6">6</option>
+                <option class="bg-purple-500" value="7">7</option>
+                <option class="bg-purple-500" value="8">8</option>
+                <option class="bg-purple-500" value="9">9</option>
+                <option class="bg-purple-500" value="10">10</option>
+                <option class="bg-purple-500" value="11">11</option>
+                <option class="bg-purple-500" value="12">12</option>
+                <option class="bg-purple-500" value="13">13</option>
+                <option class="bg-purple-500" value="14">14</option>
+                <option class="bg-purple-500" value="15">15</option>
+            </select>
+        </div>
+        <p class="text-fgo-textblue">Niveau NP : </p>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectNP" id="selectNP" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>NP</option>
+                <option class="bg-purple-500" value="1">1</option>
+                <option class="bg-purple-500" value="2">2</option>
+                <option class="bg-purple-500" value="3">3</option>
+                <option class="bg-purple-500" value="4">4</option>
+                <option class="bg-purple-500" value="5">5</option>
+            </select>
+        </div>
+        <button class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</button>
+        <a href="{{ path('ajout-servant') }}" class="bg-transparent float-center hover:bg-green-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-green-500 hover:border-transparent rounded" id="btnAddServant">Ajouter un Servant</a>
     </div>
+</div>
+    
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="flex flex-col">
-        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+    <div class="flex flex-col mx-4">
+        <div class="shadow-lg mt-3 bg-fgo-blue rounded-lg" id="infoUser">
             <div class="grid ">
                 <table id="table" class="table">
-                    <thead style="background-color: black; color: white;">
+                    <thead class="bg-fgo-header text-fgo-textblue w-full rounded-t-lg shadow-lg">
                         <tr>
                             <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
                             <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
@@ -104,14 +122,14 @@
                     </thead>
                     <tbody>
                         {% for servant in listeServantCollection %}   
-                            <tr class="hover:bg-gray-200">
+                            <tr class="hover:bg-violet-500">
                                 <td style="text-align: center;">
                                         <img src="{{ servant.servant.face}}" alt="Image-Servant-{{ servant.servant.id }}" style="width: 20%;">
                                 </td>
-                                <td style="text-align: center;" name="servantName">
+                                <td style="text-align: center;" name="servantName" class="text-fgo-textblue font-bold">
                                         <p>{{ servant.servant.ServantName }}</p>
                                 </td>
-                                <td style="text-align: center;" class="rarity">
+                                <td style="text-align: center;" class="rarity text-fgo-textblue font-bold">
                                     {% if servant.servant.rarity == 5 %}
                                         <p class="servantRarity">★★★★★</p>
                                     {% elseif servant.servant.rarity == 4 %}
@@ -126,24 +144,24 @@
                                         <p class="servantRarity"></p>
                                     {% endif %}
                                 </td>
-                                <td style="text-align: center;">
+                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                         <p>{{ servant.servant.Classe }}</p>
                                 </td>
-                                <td style="text-align: center;">
+                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                         <p class="servantNiveau">{{ servant.niveauServant }} </p>
                                     </div>
                                 </td>
-                                <td style="text-align: center;">
+                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                     <div class="flex flex-row justify-center items-center">
                                         <p class="getText">{{ servant.niveauSkill1 }}/</p>
                                         <p class="getText">{{ servant.niveauSkill2 }}/</p>
                                         <p class="getText">{{ servant.niveauSkill3 }}</p>
                                     </div>
                                 </td>
-                                <td style="text-align: center;">
+                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                     <p class="getText">{{ servant.niveauBond }}  </p>
                                 </td>
-                                <td style="text-align: center;">
+                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                     <p class="getText">{{ servant.niveauNP }}  </p>
                                 </td>
                             </tr>
@@ -153,7 +171,6 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block JS %}

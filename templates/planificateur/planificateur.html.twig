@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des servants{% endblock %}
+
+{% block ContentHeader %}
+
+{% endblock %}
+
+{% block body %}
+<div class="flex flex-col mx-4" id="div">
+    <div class="shadow-lg mt-3 bg-fgo-blue rounded-lg">
+        <div class="flex mt-4">
+            <div class="border-purple-500 mx-4 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+                <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent selectServant">
+                    <option class="bg-transparent" value="" selected disabled hidden>Selectionnez un servant</option>
+                    {% for servant in listeServant %}
+                        <option class="bg-purple-500" id="servant-{{ servant.id }}">{{ servant.ServantName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-col m-auto p-auto mt-4">
+            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+                <div class="flex flex-nowrap lg:ml-20 md:ml-20 ml-10 ">
+                        {% for servant in listeServant %}
+                            {% set skill1, skill2, skill3 = 1, 1, 1 %}
+                        {% for servantInfo in listeInfoServant %}
+                            {% if servantInfo.servant.id == servant.id %}
+                                {% set skill1,skill2 ,skill3 = servantInfo.niveauSkill1, servantInfo.niveauSkill2, servantInfo.niveauSkill3 %}
+                            {% endif %}
+                        {% endfor %}
+                            <div class="hidden px-3" id="{{ servant.id }}">
+                                <div class="w-32 max-w-xs overflow-hidden rounded-lg shadow-md bg-violet-500 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                                    <div class="flex-col justify-center items-center get-servant" id="{{ servant.id }}">
+                                        <img src="{{ servant.face }}" alt="{{ servant.face }}" class="rounded-lg">
+                                        <div class="flex flex-row justify-center items-center space-x-2">
+                                            <p class="{{ skill1 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill1 }}</p>
+                                            {% if skill1 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg hover:shadow-xl ease-in-out">
+                                                <select name="selectSkill1" id="selectSkill1" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill1">
+                                                    {% for i in skill1..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}">{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                            <p class="{{ skill2 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill2 }}</p>
+                                            {% if skill2 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg">
+                                                <select name="selectSkill1" id="selectSkill2" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill2">
+                                                    {% for i in skill2..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}"> {{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                            <p class="{{ skill3 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill3 }}</p>
+                                            {% if skill3 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg">
+                                                <select name="selectSkill1" id="selectSkill3" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill3">
+                                                    {% for i in skill3..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}"> {{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-lg bg-fgo-blue rounded-lg mt-4">
+        <div class="grid grid-cols-10">
+            {% for material in listeMaterial %}
+                <div class="w-32 max-w-xs overflow-hidden rounded-lg shadow-md bg-violet-500 hover:shadow-xl transition-shadow duration-300 ease-in-out m-4">
+                    <div class="flex flex-col justify-items items-center">
+                        <img src="{{ material.MaterialIcon }}" alt="{{ material.MaterialName }}">
+                        <p class="text-fgo-textblue font-bold text-lg" id="material-{{ material.id }}" data-amount="0">0</p>
+                    </div>
+                </div> 
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block JS %}
+<script>
+$(document).ready(function(){
+    $('.selectServant').change(function(){
+        var servantid = $(this).children(':selected').attr('id');
+        var id = servantid.replace('servant-', '');
+        if($("#" + id).hasClass('hidden')){
+            console.log($("#" + id).val());
+            $("#" + id).removeClass('hidden');
+            $("#" + id).addClass('flex');
+        }
+    });
+
+    $('.selectSkill1').change(function(){
+        //envoie le numéro récup + servant id par le changement -> passe a une requete ajax -> récupère un tableau
+        let skill1Val = $(this).val();
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                result.forEach(function(item){
+                    console.log(item);
+                    var amount = $('#material-'+item['idMaterial']).data('amount');
+                    var amount = amount + item['quantity'];
+                    $('#material-'+item['idMaterial']).data('amount', amount);
+                    $('#material-'+item['idMaterial']).text(amount);
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+    $('.selectSkill2').change(function(){
+        //envoie le numéro récup + servant id par le changement -> passe a une requete ajax -> récupère un tableau
+        let skill1Val = $(this).val();
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                result.forEach(function(item){
+                    console.log(item);
+                    var amount = $('#material-'+item['idMaterial']).data('amount');
+                    var amount = amount + item['quantity'];
+                    $('#material-'+item['idMaterial']).data('amount', amount);
+                    $('#material-'+item['idMaterial']).text(amount);
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+    $('.selectSkill3').change(function(){
+        //envoie le numéro récup + servant id par le changement -> passe a une requete ajax -> récupère un tableau
+        let skill1Val = $(this).val();
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                result.forEach(function(item){
+                    console.log(item);
+                    var amount = $('#material-'+item['idMaterial']).data('amount');
+                    var amount = amount + item['quantity'];
+                    $('#material-'+item['idMaterial']).data('amount', amount);
+                    $('#material-'+item['idMaterial']).text(amount);
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

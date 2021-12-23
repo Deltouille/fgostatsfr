@@ -7,12 +7,13 @@
     {{ parent() }}
 {% endblock %}
 
+{% block ContentHeader %}
+    <p align="center" class="text-3xl font-bold text-fgo-textblue mb-2">Ajouter un Servant</p>
+{% endblock %}
+
 {% block body %}
 <div>
     <div class="pull-right">
-        </div>
-        <h1 align="center">Ajout</h1>
-        <hr />
         {{ include('user/formulaireAjoutServant.html.twig')}}
         <p class="d-flex justify-content-center">
         <a href="{{ path('profil_utilisateur') }}" class="px-4 py-2 rounded-md text-sm font-medium border-b-2 focus:outline-none focus:ring transition text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300">

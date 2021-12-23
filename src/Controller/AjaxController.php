@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Servant;
 use App\Entity\ServantInfo;
 use App\Entity\CraftEssence;
 use App\Entity\CraftEssenceInfo;
+use App\Entity\Material;
+use App\Entity\MaterialInfo;
 
 class AjaxController extends AbstractController
 {
@@ -24,6 +27,30 @@ class AjaxController extends AbstractController
     }
 
     /**
+     * @Route("/getServantMaterials", name="getServantMaterials")
+     */
+    public function getServantMaterials(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->all();
+        $skillLvl = intval($data['skillLvl']);
+        $servantId = intval($data['servantId']);
+        $servantRepository = $em->getRepository(Servant::class);
+        $materialRepository = $em->getRepository(MaterialInfo::class);
+        $servant = $servantRepository->find($servantId);
+        $materialServant = $materialRepository->findBy(['servant' => $servant]);
+        $listeMaterialSkill = array();
+        foreach($materialServant as $material){
+            $currentMaterial = [
+                'quantity' => $material->getQuantity() / 3,
+                'idMaterial' => $material->getMaterial()->getId(),
+            ];
+            array_push($listeMaterialSkill, $currentMaterial);
+        }
+        return new JsonResponse($listeMaterialSkill);
+    }
+
+    /**
      * @Route("/getServantInfo", name="getServantInfo")
      */
     public function getServantInfo(Request $request){
@@ -32,8 +59,9 @@ class AjaxController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $servantRepository = $em->getRepository(Servant::class);
         $servant = $servantRepository->find($id);
-        $servantArray = array();
-        return $servantArray;
+        $serializedEntity = $this->container->get('serializer')->serialize($servant, 'json');
+        return new response($serializedEntity);
+        
     }
 
     /**

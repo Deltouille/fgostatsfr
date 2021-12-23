@@ -193,3 +193,103 @@ Ajout automatique craft essence base de données
         });                                                         //est 191, donc on met l'id 1 en premier.
 
         return $this->render('craft_essence/listeCraftEssence.html.twig', ['listeCraftEssence' => $listeCraftEssence]);
+
+
+
+        <div class="justify-content-center" align="center">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        
+        {# Les erreurs générales du formulaire #}
+        {{ form_errors(form) }}
+
+        {# Génération manuelle du formulaire #}
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60">
+            {# Génération du label #}
+            {{ form_label(form.servant, "Servant ", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.servant) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.servant, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60">
+            {# Génération du label #}
+            {{ form_label(form.niveauServant, "Niveau du servant ", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauServant) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauServant, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60" style="margin-top: 2rem;">
+            {# Génération du label #}
+            {{ form_label(form.niveauSkill1, "Niveau du Skill 1", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauSkill1) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauSkill1, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60" style="margin-top: 2rem;">
+            {# Génération du label #}
+            {{ form_label(form.niveauSkill2, "Niveau du Skill 2", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauSkill2) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauSkill2, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+        
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60" style="margin-top: 2rem;">
+            {# Génération du label #}
+            {{ form_label(form.niveauSkill3, "Niveau du Skill 3", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauSkill3) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauSkill3, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60" style="margin-top: 2rem;">
+            {# Génération du label #}
+            {{ form_label(form.niveauBond, "Niveau de Bond", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauBond) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauBond, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group mx-16 sm:mx-16 md:mx-16 lg:mx-16 xl:mx-40 2xl:mx-60" style="margin-top: 2rem;">
+            {# Génération du label #}
+            {{ form_label(form.niveauNP, "Niveau du Noble Phantasm", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.niveauNP) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.niveauNP, {'attr': {'class': 'form-control mb-5 p-3 w-80 focus:border-purple-700 rounded border-2 outline-none'}}) }}
+            </div>
+        </div>
+
+        <p class="d-flex justify-content-center">
+
+        {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+        <div class="mb-5">
+            {{ form_widget(form.ajouter, {'attr': {'class': 'px-4 py-2 rounded-md text-sm font-medium border-b-2 focus:outline-none focus:ring transition text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300'}}) }}
+        </div>
+        {# Fermeture de la balise <form> de formulaire HTML #}
+        {{ form_end(form) }}
+    </div>
+
+
+    id="{{ servant.ServantName|replace({' ':'', '(':'', ')':'')}) }}"
