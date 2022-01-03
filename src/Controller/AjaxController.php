@@ -38,7 +38,7 @@ class AjaxController extends AbstractController
         $servantRepository = $em->getRepository(Servant::class);
         $materialRepository = $em->getRepository(MaterialInfo::class);
         $servant = $servantRepository->find($servantId);
-        $materialServant = $materialRepository->findBy(['servant' => $servant]);
+        $materialServant = $materialRepository->findBy(['servant' => $servant], ['skillLvl' => "ASC"], $skillLvl - 1, null);
         $listeMaterialSkill = array();
         foreach($materialServant as $material){
             $currentMaterial = [

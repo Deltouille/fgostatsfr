@@ -82,9 +82,8 @@ class ServantController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $servantRepository = $em->getRepository(Servant::class);
         $listeServantAPI = $atlasAcademyAPI->getResultAPI('Servant');
-
+        
         foreach($listeServantAPI as $currentServant){
-            //dd($currentServant);
             $servant = [
                 'id' => $currentServant['collectionNo'],
                 'name' => $currentServant['name'],
@@ -103,23 +102,24 @@ class ServantController extends AbstractController
         });   
         
         foreach($listeServantAInserer as $currentServant){
-            
-            foreach($currentServant['charaGraph'] as $graph){   //Obligé de faire de cette méthode car $dataAsc = $currentServant['charaGraph'][4] retourne Error : Undefined Offset : 4 alors qu'il existe
-                $dataAsc = $graph;  
+            $getServant = $servantRepository->find($currentServant['id']);
+            if($getServant == null){
+                foreach($currentServant['charaGraph'] as $graph){   //Obligé de faire de cette méthode car $dataAsc = $currentServant['charaGraph'][4] retourne Error : Undefined Offset : 4 alors qu'il existe
+                    $dataAsc = $graph;  
+                }
+                foreach($currentServant['face'] as $face){    //Pareil que le foreach au dessus, mais avec $dataIcn = $currentServant['face'][4]
+                    $dataIcn = $face;  
+                }
+                $servant = new Servant();
+                $servant->setServantName($currentServant['name']);
+                $servant->setClasse($currentServant['className']);
+                $servant->setRarity($currentServant['rarity']);
+                $servant->setCharaGraph($dataAsc);
+                //$servant = $servantRepository->find($currentServant['id']);
+                $servant->setFace($dataIcn);
+                $em->persist($servant);
+                $em->flush();
             }
-            foreach($currentServant['face'] as $face){    //Pareil que le foreach au dessus, mais avec $dataIcn = $currentServant['face'][4]
-                $dataIcn = $face;  
-            }
-            
-            //$servant = new Servant();
-            //$servant->setServantName($currentServant['name']);
-            //$servant->setClasse($currentServant['className']);
-            //$servant->setRarity($currentServant['rarity']);
-            //$servant->setCharaGraph($dataAsc);
-            $servant = $servantRepository->find($currentServant['id']);
-            $servant->setFace($dataIcn);
-            $em->persist($servant);
-            $em->flush();
         }
 
         return new Response('Servants enregistrées');

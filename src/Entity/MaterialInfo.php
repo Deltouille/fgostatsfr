@@ -33,6 +33,16 @@ class MaterialInfo
      */
     private $material;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $qpCost;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $skillLvl;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +80,30 @@ class MaterialInfo
     public function setMaterial(?Material $material): self
     {
         $this->material = $material;
+
+        return $this;
+    }
+
+    public function getQpCost(): ?int
+    {
+        return $this->qpCost;
+    }
+
+    public function setQpCost(int $qpCost): self
+    {
+        $this->qpCost = $qpCost;
+
+        return $this;
+    }
+
+    public function getSkillLvl(): ?int
+    {
+        return $this->skillLvl;
+    }
+
+    public function setSkillLvl(int $skillLvl): self
+    {
+        $this->skillLvl = $skillLvl;
 
         return $this;
     }

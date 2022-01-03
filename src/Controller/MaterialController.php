@@ -69,22 +69,24 @@ class MaterialController extends AbstractController
         $materialInfo = $em->getRepository(MaterialInfo::class);
         $servantdb = $em->getRepository(Servant::class);
         $materialdb = $em->getRepository(Material::class);
-        
         foreach($listeServantAPI as $servant){
             $id = $servant['collectionNo'];
+            $i = 1;
             foreach($servant['skillMaterials'] as $skillMaterials){
+                $i = $i + 1;
                 foreach($skillMaterials['items'] as $item){
-                    $materialEntity = $materialdb->findBy(['MaterialId' => $item['item']['id']]);
-                    $material = new MaterialInfo();
-                    $material->setQuantity($item['amount']*3);
-                    $material->setMaterial($materialEntity[0]);
-                    $material->setServant($servantdb->find($id));
-                    $em->persist($material);
-                    $em->flush();
+                        $material = new MaterialInfo();
+                        $materialEntity = $materialdb->findBy(['MaterialId' => $item['item']['id']]);
+                        $material->setQuantity($item['amount']*3);
+                        $material->setMaterial($materialEntity[0]);
+                        $material->setServant($servantdb->find($id));
+                        $material->setSkillLvl($i);
+                        $material->setQpCost($skillMaterials['qp']);
+                        $em->persist($material);
+                        $em->flush();
                 }
             }
         }
-
         return new Response('MaterialInfo enregistrées');
     }
 }
