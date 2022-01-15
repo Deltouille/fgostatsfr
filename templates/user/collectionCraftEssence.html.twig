@@ -13,47 +13,58 @@
                 <table id="table" class="table">
                     <thead class="bg-fgo-header text-fgo-textblue w-full rounded-t-lg shadow-lg">
                         <tr>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">MLB</th>
+                            <th class="text-center"></th>
+                            <th class="hidden lg:text-center lg:block">Nom</th>
+                            <th class="text-center">Rareté</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Niveau</th>
+                            <th class="text-center">MLB</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for craftEssence in listeCraftEssenceCollection %}   
+                        {% for craftEssence in listeCraftEssenceCollection %} 
+                            {% if craftEssence.niveauCE in range(1, 60)  %}
+                                {% set color = 'orange-800' %}
+                            {% elseif craftEssence.niveauCE in range(61, 65)  %}
+                                {% set color = 'amber-700' %}
+                            {% elseif craftEssence.niveauCE in range(66, 70)  %}
+                                {% set color = 'stone-300' %}
+                            {% elseif craftEssence.niveauCE in range(71, 80)  %}
+                                {% set color = 'yellow-400' %}
+                            {% elseif craftEssence.niveauCE in range(81, 100)  %}
+                                {% set color = 'amber-400' %}               
+                            {% endif %}  
                             <tr class="hover:bg-violet-500">
                                 <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                         <img src="{{ craftEssence.craftEssence.CEIcon}}" alt="Image-CE-{{ craftEssence.craftEssence.CEName }}" style="width: 20%;">
                                 </td>
-                                <td style="text-align: center;" class="text-fgo-textblue font-bold">
-                                        <p>{{ craftEssence.craftEssence.CEName }}</p>
+                                <td style="text-align: center;" class="hidden lg:table-cell">
+                                        <p class="hidden lg:flex lg:justify-center lg:items-center text-fgo-textblue lg:font-bold">{{ craftEssence.craftEssence.CEName }}</p>
                                 </td>
                                 <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                     {% if craftEssence.craftEssence.CERarity  == 5 %}
-                                        <p class="ceRarity">★★★★★</p>
+                                        <p class="ceRarity text-amber-400">★★★★★</p>
                                     {% elseif craftEssence.craftEssence.CERarity  == 4 %}
-                                        <p class="ceRarity">★★★★</p>
+                                        <p class="ceRarity text-yellow-400">★★★★</p>
                                     {% elseif craftEssence.craftEssence.CERarity  == 3 %}
-                                        <p class="ceRarity">★★★</p>
+                                        <p class="ceRarity text-stone-300">★★★</p>
                                     {% elseif craftEssence.craftEssence.CERarity  == 2 %}
-                                        <p class="ceRarity">★★</p>
+                                        <p class="ceRarity text-amber-700">★★</p>
                                     {% elseif craftEssence.craftEssence.CERarity  == 1 %}
-                                        <p class="ceRarity">★</p>
+                                        <p class="ceRarity text-orange-800">★</p>
                                     {% endif %}
                                 </td>
                                 <td style="text-align: center;" class="text-fgo-textblue font-bold">
-                                    {% if craftEssence.craftEssence.CEType  == 'normal' %}
+                                    {% if craftEssence.craftEssence.ceType  == 'normal' %}
                                         <p class="ceType">Normal</p>
-                                    {% elseif craftEssence.craftEssence.CERarity  == 'svtEquipChocolate' %}
+                                    {% elseif craftEssence.craftEssence.ceType  == 'svtEquipChocolate' %}
                                         <p class="ceType">Saint-Valentin</p>
-                                    {% elseif craftEssence.craftEssence.CERarity  == 'svtEquipFriendShip' %}
+                                    {% elseif craftEssence.craftEssence.ceType  == 'svtEquipFriendShip' %}
                                         <p class="ceType">Bond CE</p>
                                     {% endif %}
                                 </td>
                                 <td style="text-align: center;" class="text-fgo-textblue font-bold">
-                                        <p>{{ craftEssence.niveauCE }}</p>
+                                        <p class="text-{{ color }}">{{ craftEssence.niveauCE }}</p>
                                 </td>
                                 <td style="text-align: center;" class="text-fgo-textblue font-bold">
                                     {% if craftEssence.isMaxLimitBreak %}

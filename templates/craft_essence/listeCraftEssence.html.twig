@@ -3,13 +3,14 @@
 {% block title %}Liste des craftEssences{% endblock %}
 
 {% block ContentHeader %}
-<div class="flex flex-col">
+<div class="flex flex-col space-y-3">
     <p align="center" class="text-3xl font-bold text-fgo-textblue mb-2">Liste des Craft Essences</p>
-    <div class="flex flex-row space-x-2 justify-items items-center">
-        <div class="border border-purple-500 focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+    <div class="flex">
+        <div class="border border-purple-500 focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1 mx-4">
             <input type="text" id="searchInput" placeholder="Rechercher un servant" class="py-1 px-1 text-fgo-textblue outline-none block h-full w-full bg-transparent">
         </div>
-        <p class="text-fgo-textblue font-bold">Rareté : </p>
+    </div>
+    <div class="flex flex-row space-x-2 justify-items items-center mx-4">
         <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
             <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
                 <option class="bg-purple-500" value="" selected disabled hidden>Rareté</option>
@@ -20,7 +21,6 @@
                 <option class="bg-purple-500" value="★">1</option>
             </select>
         </div>
-        <p class="text-fgo-textblue font-bold">Type : </p>
         <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
             <select name="selectType" id="selectType" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
                 <option class="bg-purple-500" value="" selected disabled hidden>Type de Craft Essence</option>
@@ -29,6 +29,8 @@
                 <option class="bg-purple-500" value="Bond CE">Bond CE</option>
             </select>
         </div>
+    </div>
+    <div class="flex">
         <a class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</a>
     </div>
 </div>
@@ -41,11 +43,11 @@
                 <table id="table" class="table">
                     <thead class="bg-fgo-header text-fgo-textblue w-full rounded-t-lg shadow-lg">
                         <tr>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;"></th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Rareté</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
+                            <th class="text-center"></th>
+                            <th class="hidden lg:text-center lg:block">Nom</th>
+                            <th class="text-center">Rareté</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,8 +57,8 @@
                                     <td style="text-align: center;">
                                             <img src="{{ craftEssence.ceIcon }}" alt="Image-craftEssence-{{ craftEssence.ceName }}" style="width: 20%;">
                                     </td>
-                                    <td style="text-align: center;" class="text-fgo-textblue font-bold">
-                                            <p>{{ craftEssence.ceName }}</p>
+                                    <td style="text-align: center;" class="hidden lg:table-cell">
+                                            <p class="hidden lg:flex lg:justify-center lg:items-center text-fgo-textblue lg:font-bold">{{ craftEssence.ceName }}</p>
                                     </td>
                                     <td style="text-align: center;" class="rarity text-fgo-textblue font-bold">
                                         {% if craftEssence.ceRarity == 5 %}
@@ -93,8 +95,8 @@
                                     <td style="text-align: center;">
                                             <img src="{{ craftEssence.ceIcon }}" alt="Image-craftEssence-{{ craftEssence.ceName }}" style="width: 20%;">
                                     </td>
-                                    <td style="text-align: center;" class="text-fgo-textblue font-bold">
-                                            <p>{{ craftEssence.ceName }}</p>
+                                    <td style="text-align: center;" class="hidden lg:table-cell">
+                                            <p class="hidden lg:flex lg:justify-center lg:items-center text-fgo-textblue lg:font-bold">{{ craftEssence.ceName }}</p>
                                     </td>
                                     <td style="text-align: center;" class="rarity text-fgo-textblue font-bold">
                                         {% if craftEssence.ceRarity == 5 %}
