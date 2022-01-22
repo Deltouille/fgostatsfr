@@ -54,6 +54,36 @@ class CraftEssenceController extends AbstractController
     }
 
     /**
+     * @Route("/craft-essence-non-obtenus", name="craft_essence_non_obtenus")
+     */
+    public function listeCraftEssenceNonObtenu(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $craftEssenceRepository = $em->getRepository(CraftEssence::class);
+        $listeCraftEssenceBDD = $craftEssenceRepository->findAll();
+        $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
+        $listeCraftEssence = array();
+        foreach($listeCraftEssenceBDD as $currentCraftEssence){
+            if(!$craftEssenceInfoRepository->findByCeIdAndUser($currentCraftEssence, $this->getUser())){
+                $craftEssence = [
+                    'id' => $currentCraftEssence->getId(),
+                    'ceName' => $currentCraftEssence->getCEName(),
+                    'ceRarity' => $currentCraftEssence->getCERarity(),
+                    'ceType' => $currentCraftEssence->getCEType(),
+                    'ceInfos' => $currentCraftEssence->getCraftEssenceInfos(),
+                    'ceIcon' => $currentCraftEssence->getCEIcon(),
+                    'ceUrl' => $currentCraftEssence->getUrlImage(),
+                    'obtenus' => false,
+                ];
+                array_push($listeCraftEssence, $craftEssence);
+            }
+        }
+        return $this->render('craft_essence/listeCraftEssence.html.twig', [
+            'listeCraftEssence' => $listeCraftEssence,
+        ]);
+    }
+
+    /**
      * @Route("/craft-essence/by-rarity/{id}", name="craft-essence-by-rarity")
      */
     public function showCraftEssenceByRarity(int $id): Response

@@ -3,51 +3,68 @@
 {% block title %}Liste des servants{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="flex flex-col">
-        <div class="shadow-lg mt-3 bg-white rounded-lg" id="infoUser">
+    <div class="flex flex-col mx-4">
+        <div class="shadow-lg mt-3 bg-fgo-blue rounded-lg" id="infoUser">
             <div class="grid ">
                 <table id="table" class="table">
-                    <thead style="background-color: black; color: white;">
+                    <thead class="bg-fgo-header text-fgo-textblue w-full rounded-t-lg shadow-lg">
                         <tr>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Niveau</th>
-                            <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">MLB</th>
+                            <th class="text-center"></th>
+                            <th class="hidden lg:text-center lg:block">Nom</th>
+                            <th class="text-center">Niveau</th>
+                            <th class="text-center">MLB</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for craftEssence in listeCraftEssenceUser %}   
-                            <tr class="hover:bg-gray-200">
-                                <td style="text-align: center;">{{ craftEssence.craftEssence.CEName }}</td>
+                        {% for craftEssence in listeCraftEssenceUser %}
+                            {% if craftEssence.niveauCE in range(1, 60)  %}
+                                {% set color = 'orange-800' %}
+                            {% elseif craftEssence.niveauCE in range(61, 65)  %}
+                                {% set color = 'amber-700' %}
+                            {% elseif craftEssence.niveauCE in range(66, 70)  %}
+                                {% set color = 'stone-300' %}
+                            {% elseif craftEssence.niveauCE in range(71, 80)  %}
+                                {% set color = 'yellow-400' %}
+                            {% elseif craftEssence.niveauCE in range(81, 100)  %}
+                                {% set color = 'amber-400' %}               
+                            {% endif %}     
+
+                            {% if craftEssence.isMaxLimitBreak %}
+                                {% set colorBool = 'bg-green-500' %}
+                            {% else %}
+                                {% set colorBool = 'bg-red-500' %}
+                            {% endif %}
+                            <tr class="hover:bg-violet-500">
                                 <td style="text-align: center;">
-                                    <div class="flex flex-row justify-center items-center">
-                                        <p class="getText">{{ craftEssence.niveauCE }} - </p> 
-                                        <select name="niveauCe" id="niveauCe" craftEssence-id="{{ craftEssence.craftEssence.id }}">
-                                            <option value="1">1</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                            <option value="60">60</option>
-                                            <option value="70">70</option>
-                                            <option value="80">80</option>
-                                            <option value="90">90</option>
-                                            <option value="100">100</option>
-                                        </select>
+                                    <img src="{{ craftEssence.craftEssence.ceIcon }}" alt="Image-craftEssence-{{ craftEssence.craftEssence.ceName }}" style="width: 20%;">
+                                </td>
+                                <td style="text-align: center;" class="hidden lg:table-cell">
+                                    <p class="hidden lg:flex lg:justify-center lg:items-center text-fgo-textblue lg:font-bold">{{ craftEssence.craftEssence.CEName }}</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="flex flex-row justify-center items-center space-x-2">
+                                        <div class="border-{{ color }} text-{{ color }} border focus-within:border-fgo-textblue focus-within:bg-{{ color }} focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+                                            <select name="niveauCe" id="niveauCe" craftEssence-id="{{ craftEssence.craftEssence.id }}" class="px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                                                {% for i in craftEssence.niveauCE..100 %}
+                                                    <option class="bg-{{ color }} text-center" value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
                                 </td>
                                 <td style="text-align: center;">
-                                    <div class="flex flex-row justify-center items-center">
-                                        {% if craftEssence.isMaxLimitBreak %}
-                                            <p class="getText">Oui - </p>
-                                        {% else %}
-                                            <p class="getText">Non - </p>
-                                        {% endif %}
-                                        <select name="isMLB" id="isMLB" craftEssence-id="{{ craftEssence.craftEssence.id }}">
-                                            <option value="false">Non</option>
-                                            <option value="true">Oui</option>
-                                        </select>
+                                    <div class="flex flex-row justify-center items-center space-x-2">
+                                        <div class="border-{{ colorBool }} text-{{ colorBool }} border focus-within:border-fgo-textblue focus-within:bg-{{ colorBool }} focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+                                            <select name="isMLB" id="isMLB" craftEssence-id="{{ craftEssence.craftEssence.id }}" class="px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                                                {% if craftEssence.isMaxLimitBreak %}
+                                                    <option class="bg-{{ colorBool }}" value="" selected disabled hidden>Oui</option>
+                                                {% else %}
+                                                    <option class="bg-{{ colorBool }}" value="" selected disabled hidden>Non</option>
+                                                {% endif %}
+                                                <option class="bg-{{ colorBool }}" value="false">Non</option>
+                                                <option class="bg-{{ colorBool }}" value="true">Oui</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -57,7 +74,6 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block JS %}

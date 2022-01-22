@@ -64,6 +64,36 @@ class ServantController extends AbstractController
     }
 
     /**
+     * @Route("/liste-servant-a-obtenir", name="liste-servant-non-obtenus")
+     */
+    public function listeServantNonObtenus(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $servantRepository = $em->getRepository(Servant::class);
+        $listeServantBDD = $servantRepository->findAll();
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $listeServant = array();
+        foreach($listeServantBDD as $currentServant){
+            if(!$servantInfoRepository->findByServandIdAndUser($currentServant, $this->getUser())){
+                $servant = [
+                    'id' => $currentServant->getId(),
+                    'servantName' => $currentServant->getServantName(),
+                    'classe' => $currentServant->getClasse(),
+                    'rarity' => $currentServant->getRarity(),
+                    'servantInfo' => $currentServant->getServantInfo(),
+                    'charaGraph' => $currentServant->getCharaGraph(),
+                    'face' => $currentServant->getFace(),
+                    'obtenus' => false,
+                ];
+                array_push($listeServant, $servant);
+            }
+        }
+        return $this->render('fate/listeServant2.html.twig', [
+            'listeServant' => $listeServant,
+        ]);
+    }
+
+    /**
      * @Route("/details-servant/{id}", name="details-servant")
      */
     public function detailServant(int $id): Response

@@ -41,8 +41,9 @@
             </select>
         </div>
     </div>
-    <div class="flex">
-        <a class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</a>
+    <div class="flex space-x-2 mx-4">
+        <a class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</a>
+        <a href="{{ path('servantCollection') }}" class="bg-transparent float-center hover:bg-yellow-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-yellow-500 hover:border-transparent rounded" id="btnReset">Mes Servants</a>
     </div>
 </div>
 {% endblock %}

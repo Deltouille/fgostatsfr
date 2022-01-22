@@ -3,7 +3,39 @@
 {% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block ContentHeader %}
-    <p align="center" class="text-3xl font-bold text-fgo-textblue">Mes Craft Essences</p>
+    <div class="flex flex-col space-y-3">
+    <p align="center" class="text-3xl font-bold text-fgo-textblue mb-2">Mes Craft Essences</p>
+    <div class="flex">
+        <div class="border border-purple-500 focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1 mx-4">
+            <input type="text" id="searchInput" placeholder="Rechercher une CE" class="py-1 px-1 text-fgo-textblue outline-none block h-full w-full bg-transparent">
+        </div>
+    </div>
+    <div class="flex flex-row space-x-2 justify-items items-center mx-4">
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Rareté</option>
+                <option class="bg-purple-500" value="★★★★★">5</option>
+                <option class="bg-purple-500" value="★★★★">4</option>
+                <option class="bg-purple-500" value="★★★">3</option>
+                <option class="bg-purple-500" value="★★">2</option>
+                <option class="bg-purple-500" value="★">1</option>
+            </select>
+        </div>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectType" id="selectType" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Type de Craft Essence</option>
+                <option class="bg-purple-500" value="Normal">Normal</option>
+                <option class="bg-purple-500" value="Saint-Valentin">Saint-Valentin</option>
+                <option class="bg-purple-500" value="Bond CE">Bond CE</option>
+            </select>
+        </div>
+    </div>
+    <div class="flex space-x-2 mx-4">
+        <a class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</a>
+        <a href="{{ path('modification-rapide-craft-essence') }}" class="bg-transparent float-center hover:bg-amber-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-amber-500 hover:border-transparent rounded" id="btnAddServant">Modification rapide des Craft Essences</a>
+        <a href="{{ path('craft_essence_non_obtenus') }}" class="bg-transparent float-center hover:bg-green-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-green-500 hover:border-transparent rounded" id="btnAddServant">Ajouter une Craft Essence</a>
+    </div>
+</div>
 {% endblock %}
 
 {% block body %}
@@ -80,11 +112,54 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block JS %}
+<script>
+$(document).ready(function(){
+    $('#searchInput').on("keyup", function(){
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "1" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+        //Problème 1 à régler : Si l'utilisateur choisis 1 (★), toutes les lignes qui contiennent au moins 1 (★) sont rétournés, il faudrait laisser seulement celles qui ont un seul 1 (★)
+        //Problème 2 à régler : Le tableau ne se remet pas par défaut
+        $('#selectRarity').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "2" +")");
+                return regex.test($t.text());
+            }).show();
+        });
 
+        //Problème 1 à régler : Le tableau ne se remet pas par défaut
+        $('#selectType').change(function() {
+            //$('#table tbody tr').show();
+            var value = $(this).val().toLowerCase();
+            var regex = new RegExp(value, 'i');
+            $('#table tbody tr').hide();
+            $('#table tbody tr').filter(function(i, v){
+                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                var $t = $(this).children(":eq("+ "3" +")");
+                return regex.test($t.text());
+            }).show();
+        });
+
+        $('#btnReset').click(function(){
+            $('#table tbody tr').show();
+        });
+});
+</script>
 {% endblock %}
 
 {% block ContentFooter %}
