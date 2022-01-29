@@ -49,9 +49,15 @@ class CraftEssence
      */
     private $CEIcon;
 
+    /**
+     * @ORM\OneToMany(targetEntity=HistoriqueImage::class, mappedBy="craftEssence")
+     */
+    private $historiqueImages;
+
     public function __construct()
     {
         $this->craftEssenceInfos = new ArrayCollection();
+        $this->historiqueImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +151,36 @@ class CraftEssence
     public function setCEIcon(string $CEIcon): self
     {
         $this->CEIcon = $CEIcon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HistoriqueImage[]
+     */
+    public function getHistoriqueImages(): Collection
+    {
+        return $this->historiqueImages;
+    }
+
+    public function addHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if (!$this->historiqueImages->contains($historiqueImage)) {
+            $this->historiqueImages[] = $historiqueImage;
+            $historiqueImage->setCraftEssence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if ($this->historiqueImages->removeElement($historiqueImage)) {
+            // set the owning side to null (unless already changed)
+            if ($historiqueImage->getCraftEssence() === $this) {
+                $historiqueImage->setCraftEssence(null);
+            }
+        }
 
         return $this;
     }

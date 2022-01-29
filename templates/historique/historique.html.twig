@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block ContentHeader %}
+<div class="flex flex-col space-y-3">
+    <p align="center" class="text-3xl font-bold text-fgo-textblue">Mon Historique</p>
+    <div class="flex flex-row space-x-2 justify-items items-center mx-4">
+        <div class="flex">
+            <div class="border border-purple-500 focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
+                <input type="text" id="searchInput" placeholder="Rechercher une CE" class="py-1 px-1 text-fgo-textblue outline-none block h-full w-full bg-transparent">
+            </div>
+        </div>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Rareté</option>
+                <option class="bg-purple-500" value="★★★★★">★★★★★</option>
+                <option class="bg-purple-500" value="★★★★">★★★★</option>
+                <option class="bg-purple-500" value="★★★">★★★</option>
+            </select>
+        </div>
+        <div class="border-purple-500 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+            <select name="selectType" id="selectType" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent">
+                <option class="bg-purple-500" value="" selected disabled hidden>Type d'invocations</option>
+                <option class="bg-purple-500" value="Servant">Servant</option>
+                <option class="bg-purple-500" value="CraftEssence">CraftEssence</option>
+            </select>
+        </div>
+    </div>
+    <div class="flex space-x-2 mx-4">
+        <a class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-pink-500 hover:border-transparent rounded" id="btnReset">Reinitialiser le tableau</a>
+        <a href="{{ path('ajout-roll') }}" class="bg-transparent float-center hover:bg-yellow-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 border border-yellow-500 hover:border-transparent rounded" id="btnReset">Ajouter des invocations</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="flex flex-row">
+    <div class="w-2/3">
+        <div class="flex flex-col space-y-11 justify-center items-center py-10" id="listeHistorique">
+            {% for item in listeHistorique %}
+                {% if item.craftEssence != null %}
+                    {% if item.craftEssence.CERarity == 5 %}
+                        {% set colorCE = 'amber-400' %}
+                        {% set ceRarity = '★★★★★' %}
+                    {% elseif item.craftEssence.CERarity == 4 %}
+                        {% set colorCE = 'amber-500' %}
+                        {% set ceRarity = '★★★★' %}
+                    {% elseif item.craftEssence.CERarity == 3 %}
+                        {% set colorCE = 'stone-300' %}
+                        {% set ceRarity = '★★★' %}
+                    {% endif %}
+                    <div class="overflow-hidden relative flex flex-row bg-gray-800 rounded-lg shadow-lg items-center w-3/6 py-3 hover:scale-110" name="infoInvocation">
+                        <img src="{{ item.craftEssence.CEIcon }}" alt="{{ item.craftEssence.CEName }}" class="absolute -left-6 rounded-full shadow-lg w-1/10">
+                        <div class="mx-32">
+                            <p class="text-fgo-textblue text-lg font-bold">{{ item.craftEssence.CEName }}</p>
+                            <p class="text-{{ colorCE }} text-lg" name="rarity">{{ ceRarity }}</p>
+                            <p class="text-gray-300 italic text-xs">{{ item.date }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if item.Servant != null %}
+                        {% if item.Servant.rarity == 5 %}
+                            {% set colorServant = 'amber-400' %}
+                            {% set servantRarity = '★★★★★' %}
+                        {% elseif item.Servant.rarity == 4 %}
+                            {% set colorServant = 'amber-500' %}
+                            {% set servantRarity = '★★★★' %}
+                        {% elseif item.Servant.rarity == 3 %}
+                            {% set colorServant = 'stone-300' %}
+                            {% set servantRarity = '★★★' %}
+                        {% endif %}
+                        <div class="overflow-hidden relative flex flex-row bg-gray-800 rounded-lg shadow-lg items-center w-3/6 py-3 hover:scale-110" name="infoInvocation">
+                            <img src="{{ item.Servant.face }}" alt="{{ item.Servant.ServantName }}" class="absolute -left-6 rounded-full shadow-lg w-1/10">
+                            <div class="mx-32">
+                                <p class="text-fgo-textblue text-lg font-bold">{{ item.Servant.ServantName }}</p>
+                                <p class="text-{{ colorServant }} text-lg" name="rarity">{{ servantRarity }}</p>
+                                <p class="text-gray-300 italic text-xs">{{ item.date }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="w-1/3">
+        <div class="flex flex-col justify-center space-y-5 px-6">
+            <div class="my-3 rounded-lg overflow-hidden sm:my-4 md:my-3 lg:my-3 xl:my-3 bg-fgo-blue shadow-lg pb-3">
+                <p class="text-center text-xl font-extrabold text-fgo-textblue">Nombre total d'invocations : {{ listeHistorique|length  }}</p>
+            <div>
+            {% for chart in historiqueCharts %}
+                {% if loop.index == 1 %}
+                    <p class="text-center font-extrabold text-fgo-textblue">Statistiques Servants</p>
+                {% else %}
+                    <p class="text-center font-extrabold text-fgo-textblue">Statistiques CE</p>
+                {% endif %}
+                    {{ render_chart(chart) }}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block JS %}
+<script>
+$(document).ready(function(){
+    $('#selectRarity').change(function() {
+        //$('#table tbody tr').show();
+        var value = $(this).val().toLowerCase();
+        console.log(value);
+        var regex = new RegExp(value, 'i');
+        //$('#listeHistorique [name="infoInvocation"]').hide();
+        $('[name="infoInvocation"]').each(function(){
+            console.log('Servants');
+            if($(this).find('[name="rarity"]').text() == value){
+                console.log('c egal');
+                $(this).show("slide",500);
+            }else{
+                console.log('c pas egal');
+                $(this).hide("slide",500);
+            }
+        });
+    });
+
+    $('#btnReset').click(function(){
+        $('[name="infoInvocation"]').each(function(){
+            $(this).show("slide",500);
+        });
+    });
+});
+</script>
+{% endblock %}

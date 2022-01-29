@@ -132,6 +132,48 @@ class StatistiqueManager
         );
 
         return $allInfo;
+    }
+
+    public function countInfoHistorique($infoHistorique){
+        $servant = array();
+        $craftEssence = array();
+
+        foreach($infoHistorique as $currentHistorique)
+        {
+            if($currentHistorique->getServant() !== null && $currentHistorique->getCraftEssence() == null){
+                array_push($servant, $currentHistorique->getServant()->getRarity());
+            }
+            if($currentHistorique->getServant() == null && $currentHistorique->getCraftEssence() !== null){
+                array_push($craftEssence, $currentHistorique->getCraftEssence()->getCERarity());
+            }
+        }
+
+        $countServantStars = array_count_values($servant);
+        foreach($countServantStars as $key => $val){
+            $countServantStars[$key.'★'] = $val;
+            unset($countServantStars[$key]);
+        }
+
+        $countCEStars = array_count_values($craftEssence);
+        foreach($countCEStars as $key => $val){
+            $countCEStars[$key.'★'] = $val;
+            unset($countCEStars[$key]);
+        }
+
+        //On défini l'ordre
+        $orderStars = ['5★', '4★', '3★', '2★', '1★', '0★'];
+        uksort($countServantStars, function($x, $y) use ($orderStars) {
+            return array_search($x, $orderStars) > array_search($y, $orderStars);
+        });
+
+        uksort($countCEStars, function($x, $y) use ($orderStars) {
+            return array_search($x, $orderStars) > array_search($y, $orderStars);
+        });
+
+        $allInfo = array('servantStars' => $countServantStars, 'servantCE' => $countCEStars);
+
+        return $allInfo;
 
     }
+    
 }

@@ -59,6 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $invocations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=HistoriqueImage::class, mappedBy="user")
+     */
+    private $historiqueImages;
+
 
     public function __construct()
     {
@@ -69,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ServantInfo = new ArrayCollection();
         $this->craftEssenceInfos = new ArrayCollection();
         $this->invocations = new ArrayCollection();
+        $this->historiqueImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +279,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($invocation->getUser() === $this) {
                 $invocation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HistoriqueImage[]
+     */
+    public function getHistoriqueImages(): Collection
+    {
+        return $this->historiqueImages;
+    }
+
+    public function addHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if (!$this->historiqueImages->contains($historiqueImage)) {
+            $this->historiqueImages[] = $historiqueImage;
+            $historiqueImage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if ($this->historiqueImages->removeElement($historiqueImage)) {
+            // set the owning side to null (unless already changed)
+            if ($historiqueImage->getUser() === $this) {
+                $historiqueImage->setUser(null);
             }
         }
 

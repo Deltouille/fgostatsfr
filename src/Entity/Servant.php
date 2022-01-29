@@ -54,12 +54,18 @@ class Servant
      */
     private $materialInfos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=HistoriqueImage::class, mappedBy="Servant")
+     */
+    private $historiqueImages;
+
     public function __construct()
     {
         $this->userId = new ArrayCollection();
         $this->servantInfos = new ArrayCollection();
         $this->ServantInfo = new ArrayCollection();
         $this->materialInfos = new ArrayCollection();
+        $this->historiqueImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +187,36 @@ class Servant
             // set the owning side to null (unless already changed)
             if ($materialInfo->getServant() === $this) {
                 $materialInfo->setServant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HistoriqueImage[]
+     */
+    public function getHistoriqueImages(): Collection
+    {
+        return $this->historiqueImages;
+    }
+
+    public function addHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if (!$this->historiqueImages->contains($historiqueImage)) {
+            $this->historiqueImages[] = $historiqueImage;
+            $historiqueImage->setServant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistoriqueImage(HistoriqueImage $historiqueImage): self
+    {
+        if ($this->historiqueImages->removeElement($historiqueImage)) {
+            // set the owning side to null (unless already changed)
+            if ($historiqueImage->getServant() === $this) {
+                $historiqueImage->setServant(null);
             }
         }
 
