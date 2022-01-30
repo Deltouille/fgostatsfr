@@ -3,49 +3,327 @@
 {% block title %}Liste des servants{% endblock %}
 
 {% block ContentHeader %}
-<select name="selectServant" id="selectServant">
-        <option value="">Selectionnez un servant</option>
-    {% for servant in listeServant %}
-        <option value="{{ servant.id }}">{{ servant.ServantName }}</option>
-    {% endfor %}
-</select>
+
 {% endblock %}
 
 {% block body %}
-<table>
-    <thead>
-        {% for material in listeMaterial %}
-                <th class="w-auto">
-                    <img src="{{ material.MaterialIcon }}" alt="Image-Servant-{{ material.MaterialName }}" style="width: 100%;">
-                </th>
-        {% endfor %}
-    </thead>
-    <tbody>
-        {% for servant in listeServant %}
-            <tr class="hover:bg-green-400 bg-green-300 w-auto">
-                {% for material in listeMaterial %}
-                    {% for servantMat in servant.materialInfos %}
-                        {% if material.id == servantMat.material.id %}
-                        <td>
-                            <p class="text-xs">{{ servantMat.quantity }}</p>
-                        </td>
-                        {% else %}
-                        <td>
-                            <p></p>
-                        </td>
-                        {% endif %}
+<div class="flex flex-col mx-4 space-y-4 animate-pulse" id="loading-animation">
+    <div class="h-32 bg-fgo-blue rounded-t-lg mt-3"></div>
+    <div class="h-32 bg-fgo-blue rounded-t-lg"></div>
+</div>
+
+<div class="flex-col mx-4 space-y-4 hidden" id="planification">
+    <div class="shadow-lg mt-3 bg-fgo-blue rounded-lg">
+        <div class="flex mt-4">
+            <div class="border-purple-500 mx-4 text-purple-500 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg py-1">
+                <select name="selectRarity" id="selectRarity" class="mx-1 px-3 py-1 rounded-lg border-pink-500 bg-transparent selectServant">
+                    <option class="bg-transparent" value="" selected disabled hidden>Selectionnez un servant</option>
+                    {% for servant in listeServant %}
+                        <option class="bg-purple-500" id="servant-{{ servant.id }}">{{ servant.ServantName }}</option>
                     {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-col m-auto p-auto mt-4">
+            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+                <div class="flex flex-nowrap lg:ml-20 md:ml-20 ml-10 ">
+                        {% for servant in listeServant %}
+                            {% set skill1, skill2, skill3 = 1, 1, 1 %}
+                        {% for servantInfo in listeInfoServant %}
+                            {% if servantInfo.servant.id == servant.id %}
+                                {% set skill1,skill2 ,skill3 = servantInfo.niveauSkill1, servantInfo.niveauSkill2, servantInfo.niveauSkill3 %}
+                            {% endif %}
+                        {% endfor %}
+                            <div class="hidden px-3" id="{{ servant.id }}">
+                                <div class="w-32 max-w-xs overflow-hidden rounded-lg shadow-md bg-violet-500 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                                    <div class="flex-col justify-center items-center get-servant" id="{{ servant.id }}">
+                                        <img src="{{ servant.face }}" alt="{{ servant.face }}" class="rounded-lg">
+                                        <div class="flex flex-row justify-center items-center space-x-2">
+                                            <p class="{{ skill1 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill1 }}</p>
+                                            {% if skill1 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg hover:shadow-xl ease-in-out">
+                                                <select name="selectSkill1" id="selectSkill1" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill1">
+                                                    {% for i in skill1..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}">{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                            <p class="{{ skill2 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill2 }}</p>
+                                            {% if skill2 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg">
+                                                <select name="selectSkill2" id="selectSkill2" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill2">
+                                                    {% for i in skill2..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}"> {{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                            <p class="{{ skill3 == 10 ? 'text-green-400 font-bold' : 'text-fgo-textblue'}} font-underbold">{{ skill3 }}</p>
+                                            {% if skill3 < 10 %}
+                                            <div class="border-lime-300 text-lime-300 border focus-within:border-fgo-textblue focus-within:bg-purple-500 focus-within:text-white transition-all duration-500 relative rounded-lg">
+                                                <select name="selectSkill3" id="selectSkill3" class="appearance-none rounded-lg border-pink-500 bg-transparent selectSkill3">
+                                                    {% for i in skill3..10 %}
+                                                        <option class="bg-purple-500 text-center" value="{{ i }}"> {{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-x-auto rounded-t-lg">
+        <table class="whitespace-nowrap bg-fgo-blue" style="width: 200%;">
+            <thead class="bg-fgo-header text-fgo-textblue w-full rounded-t-lg shadow-lg">
+                <tr>
+                    <th>
+                        <p class="text-center"></p>
+                    </th>
+                {% for material in listeMaterial %}
+                    <th class="w-auto">
+                        <img src="{{ material.MaterialIcon }}" alt="Image-Servant-{{ material.MaterialName }}" style="width: 100%;">
+                    </th>
                 {% endfor %}
-            </tr>
-            {% endfor %}
-    </tbody>
-</table>
+                <tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-violet-500">
+                    <td class="text-center text-fgo-textblue">ACQUIS</td>
+                    {% for item in listeUserMaterial %}
+                        <td class="text-center text-fgo-textblue" id="acquis-material-{{ item.Material.MaterialId }}" data-acquis="{{ item.userQuantity }}">{{ item.userQuantity }}</td>
+                    {% endfor %}
+                </tr>
+                <tr class="hover:bg-violet-500">
+                    <td class="text-center text-fgo-textblue">BESOIN</td>
+                    {% for material in listeMaterial %}
+                        <td class="text-center text-fgo-textblue" id="need-material-{{ material.MaterialId }}" data-needed="0">0</td>
+                    {% endfor %}
+                </tr>
+                <tr class="hover:bg-violet-500">
+                    <td class="text-center text-fgo-textblue">TOTAL</td>
+                    {% for material in listeMaterial %}
+                        <td class="text-center text-fgo-textblue total-material" id="total-material-{{ material.MaterialId }}" data-total="0">0</td>
+                    {% endfor %}
+                </tr>
+                {% for servant in listeServant %}
+                    <tr class="hover:bg-violet-500 hidden" id="servantRow-{{ servant.id }}">
+                        <td class="text-center text-fgo-textblue">{{ servant.ServantName }}</td>
+                        {% for material in listeMaterial %}
+                            {% set materialQuantity = 0 %}
+                            {% for materialInfo in servant.materialInfos %}
+                                {% if materialInfo.material.MaterialId == material.MaterialId %}
+                                    {# {% set materialQuantity = materialInfo.quantity %} #}
+                                    {% set materialQuantity = '?'%}
+                                {% endif %}
+                            {% endfor %}
+                            <td class="text-center {{ materialQuantity == 0 ? 'text-fgo-textblue' : 'text-green-500 font-bold' }} servant-material-{{ material.MaterialId }}-needed" id="servant-{{ servant.id }}-material-{{ material.id }}" data-amount="0" data-material="{{ material.MaterialId }}">{{ materialQuantity }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
 
 {% block JS %}
 <script>
-$(document).ready( function () {
-    $('#table').DataTable();
-} );
+$(window).on('load', function () {
+    $('#loading-animation').hide();
+    $('#planification').removeClass('hidden');
+    $('#planification').addClass('flex');
+  }) 
+
+$(document).ready(function(){
+    $('.selectServant').change(function(){
+        var servantid = $(this).children(':selected').attr('id');
+        var id = servantid.replace('servant-', '');
+        if($("#" + id).hasClass('hidden')){
+            //On affiche le servant dans le bloc
+            $("#" + id).removeClass('hidden');
+            $("#" + id).addClass('flex');
+            //On affiche les infos du servant dans 
+            $("#servantRow-" + id).removeClass('hidden');
+            $("#servantRow-" + id).addClass('table-row');
+        }
+    });
+
+    $('.selectSkill1').change(function(){
+        //On récupère la valeur du niveau de skill séléctionné 
+        let skill1Val = $(this).val();
+        //On récupère l'id du servant lié au skill choisis
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        //On défini l'URL
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                //On parcours tout les niveau de skills avec les materiaux associès retournés par la base de données 
+                result.forEach(function(item){
+                    //On récupère le nombre de materiaux du servant choisis correspondant au materiaux parcourus, par défaut a 0
+                    var amount = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount');
+                    //On additionne le montant actuel a celui retourné par la base de donnée pour le matériaux actuel
+                    amount = amount + item['quantity'];
+                    //On met a jour le nouveau montant calculé
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount', amount);
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).text(amount);
+                    //On récupère l'ID du matériaux (je sais, j'aurais très bien pu utiliser directement item['idMaterial])
+                    var materialId = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('material');
+                    //On défini le montant necessaire a 0
+                    var amountNeeded = 0;
+                    //On parcours la colonne du materiaux actuel, autrement dit on parcours toutes les lignes du tableau qui ont ce materiaux
+                    $('.servant-material-' + materialId  +'-needed').each(function() {
+                        //Si la ligne en cours est visible car choisie car elle correspond a un servant choisis par un utilisateur
+                        if($(this).closest('tr').hasClass('table-row')){
+                            var currentServantMaterialAmount = $(this).data('amount');
+                            amountNeeded = amountNeeded + currentServantMaterialAmount;
+                            $('#need-material-' + materialId).data('needed', amountNeeded);
+                            $('#need-material-' + materialId).text(amountNeeded);
+                            $('#need-material-' + materialId).addClass('text-yellow-500 font-bold');
+
+                            var acquisMaterial = $('#acquis-material-' + materialId).data('acquis');
+                            var besoinMaterial = $('#need-material-' + materialId).data('needed');
+                            var totalMaterial = acquisMaterial - besoinMaterial;
+
+                            $('#total-material-' + materialId).data('total', totalMaterial);
+                            $('#total-material-' + materialId).text(totalMaterial);
+                            if(totalMaterial > 0){
+                                $('#total-material-' + materialId).addClass('text-green-500 font-bold');
+                            }else{
+                                $('#total-material-' + materialId).addClass('text-red-500 font-bold');
+                            }
+                        }
+                    });
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+    $('.selectSkill2').change(function(){
+        //On récupère la valeur du niveau de skill séléctionné 
+        let skill1Val = $(this).val();
+        //On récupère l'id du servant lié au skill choisis
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        //On défini l'URL
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                //On parcours tout les niveau de skills avec les materiaux associès retournés par la base de données 
+                result.forEach(function(item){
+                    //On récupère le nombre de materiaux du servant choisis correspondant au materiaux parcourus, par défaut a 0
+                    var amount = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount');
+                    //On additionne le montant actuel a celui retourné par la base de donnée pour le matériaux actuel
+                    amount = amount + item['quantity'];
+                    //On met a jour le nouveau montant calculé
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount', amount);
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).text(amount);
+                    //On récupère l'ID du matériaux (je sais, j'aurais très bien pu utiliser directement item['idMaterial])
+                    var materialId = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('material');
+                    //On défini le montant necessaire a 0
+                    var amountNeeded = 0;
+                    //On parcours la colonne du materiaux actuel, autrement dit on parcours toutes les lignes du tableau qui ont ce materiaux
+                    $('.servant-material-' + materialId  +'-needed').each(function() {
+                        //Si la ligne en cours est visible car choisie car elle correspond a un servant choisis par un utilisateur
+                        if($(this).closest('tr').hasClass('table-row')){
+                            var currentServantMaterialAmount = $(this).data('amount');
+                            amountNeeded = amountNeeded + currentServantMaterialAmount;
+                            $('#need-material-' + materialId).data('needed', amountNeeded);
+                            $('#need-material-' + materialId).text(amountNeeded);
+                            $('#need-material-' + materialId).addClass('text-yellow-500 font-bold');
+
+                            var acquisMaterial = $('#acquis-material-' + materialId).data('acquis');
+                            var besoinMaterial = $('#need-material-' + materialId).data('needed');
+                            var totalMaterial = acquisMaterial - besoinMaterial;
+
+                            $('#total-material-' + materialId).data('total', totalMaterial);
+                            $('#total-material-' + materialId).text(totalMaterial);
+                            if(totalMaterial > 0){
+                                $('#total-material-' + materialId).addClass('text-green-500 font-bold');
+                            }else{
+                                $('#total-material-' + materialId).addClass('text-red-500 font-bold');
+                            }
+                        }
+                    });
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+    $('.selectSkill3').change(function(){
+        //On récupère la valeur du niveau de skill séléctionné 
+        let skill1Val = $(this).val();
+        //On récupère l'id du servant lié au skill choisis
+        let servantVal = $(this).closest('.get-servant').attr('id');
+        //On défini l'URL
+        let url = '{{ path('getServantMaterials') }}';
+        $.ajax({
+            url: url,
+            data: { skillLvl: skill1Val, servantId: servantVal },
+            type: 'post',
+            success:function(result){
+                //On parcours tout les niveau de skills avec les materiaux associès retournés par la base de données 
+                result.forEach(function(item){
+                    //On récupère le nombre de materiaux du servant choisis correspondant au materiaux parcourus, par défaut a 0
+                    var amount = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount');
+                    //On additionne le montant actuel a celui retourné par la base de donnée pour le matériaux actuel
+                    amount = amount + item['quantity'];
+                    //On met a jour le nouveau montant calculé
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('amount', amount);
+                    $('#servant-'+ servantVal +'-material-'+item['idMaterial']).text(amount);
+                    //On récupère l'ID du matériaux (je sais, j'aurais très bien pu utiliser directement item['idMaterial])
+                    var materialId = $('#servant-'+ servantVal +'-material-'+item['idMaterial']).data('material');
+                    //On défini le montant necessaire a 0
+                    var amountNeeded = 0;
+                    //On parcours la colonne du materiaux actuel, autrement dit on parcours toutes les lignes du tableau qui ont ce materiaux
+                    $('.servant-material-' + materialId  +'-needed').each(function() {
+                        //Si la ligne en cours est visible car choisie car elle correspond a un servant choisis par un utilisateur
+                        if($(this).closest('tr').hasClass('table-row')){
+                            var currentServantMaterialAmount = $(this).data('amount');
+                            amountNeeded = amountNeeded + currentServantMaterialAmount;
+                            $('#need-material-' + materialId).data('needed', amountNeeded);
+                            $('#need-material-' + materialId).text(amountNeeded);
+                            $('#need-material-' + materialId).addClass('text-yellow-500 font-bold');
+
+                            var acquisMaterial = $('#acquis-material-' + materialId).data('acquis');
+                            var besoinMaterial = $('#need-material-' + materialId).data('needed');
+                            var totalMaterial = acquisMaterial - besoinMaterial;
+
+                            $('#total-material-' + materialId).data('total', totalMaterial);
+                            $('#total-material-' + materialId).text(totalMaterial);
+                            if(totalMaterial > 0){
+                                $('#total-material-' + materialId).addClass('text-green-500 font-bold');
+                            }else{
+                                $('#total-material-' + materialId).addClass('text-red-500 font-bold');
+                            }
+                        }
+                    });
+                });
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+});
 </script>
 {% endblock %}

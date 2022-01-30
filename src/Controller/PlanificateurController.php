@@ -8,9 +8,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Material;
 use App\Entity\Servant;
 use App\Entity\ServantInfo;
+use App\Entity\UserMaterialInfo;
 
 class PlanificateurController extends AbstractController
 {
+
+    public function load(){
+        $em = $this->getDoctrine()->getManager();
+        $materialRepository = $em->getRepository(Material::class);
+        $listeMaterial = $materialRepository->findBy(['MatertialType' => 'skillLvUp']);
+
+        foreach($listeMaterial as $currentMaterial){
+            $userMaterial = new UserMaterialInfo();
+            $userMaterial->setUser($this->getUser());
+            $userMaterial->setMaterial($currentMaterial);
+            $userMaterial->setUserQuantity(0);
+            $em->persist($userMaterial);
+            $em->flush();
+        }
+
+        return new Response('oui');
+    }
+
     /**
      * @Route("/planificateur", name="planificateur")
      */
@@ -38,6 +57,30 @@ class PlanificateurController extends AbstractController
         return $this->render('planificateur/index.html.twig', [
             'listeServant' => $listeServant,
             'listeMaterial' => $listeMaterial,
+        ]);
+    }
+
+    /**
+     * @Route("/planificateur-2", name="planificateur2")
+     */
+    public function inde2(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $servantRepository = $em->getRepository(Servant::class);
+        $materialRepository = $em->getRepository(Material::class);
+        $userMaterialRepository = $em->getRepository(UserMaterialInfo::class);
+        $servantInfoRepository = $em->getRepository(ServantInfo::class);
+        $listeInfoServant = $servantInfoRepository->findBy(['user' => $this->getUser()]);
+        $listeMaterialInfo = $servantInfoRepository->findAll();
+
+        $listeServant = $servantRepository->findAll();
+        $listeMaterial = $materialRepository->findBy(['MatertialType' => 'skillLvUp']);
+        $listeUserMaterial = $userMaterialRepository->findBy(['user' => $this->getUser()]);
+        return $this->render('planificateur/index.html.twig', [
+            'listeServant' => $listeServant,
+            'listeMaterial' => $listeMaterial,
+            'listeUserMaterial' => $listeUserMaterial,
+            'listeInfoServant' => $listeInfoServant
         ]);
     }
 

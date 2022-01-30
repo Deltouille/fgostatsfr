@@ -167,7 +167,71 @@ class HistoriqueController extends AbstractController
                         $array_got = array();
                         foreach($array_str as $currentLine){
                             if(str_contains($currentLine, "Craft Essence") || str_contains($currentLine, "Servant")){
-                            
+                                $getPartieDeDroite = explode("】", $currentLine);
+                                //$getName = explode(" ", $getPartieDeDroite[1]);
+                                $arrayServantName = mb_substr($getPartieDeDroite[1], 2);
+                                $searchSymbol = 'く';
+                                $replaceSymbol = '<';
+                                $name = explode('<', str_replace($searchSymbol, $replaceSymbol, $arrayServantName));
+                                //Si la ligne courante contient le mot Craft Essence
+                                if(str_contains($currentLine, "Craft Essence")){
+                                    //On recupère le détails de la Craft Essence qui as le nom
+                                    $detailCraftEssence = $atlasAcademyAPI->getCE($name[0]);
+                                    //Si la Craft Essence a été reconnue
+                                    if(!empty($detailCraftEssence)){
+                                        //On récupère l'ID de la craft essence
+                                        $id = $detailCraftEssence[0]["collectionNo"];
+                                        //On créer un nouvel objet HistoriqueImage
+                                        $historique = new HistoriqueImage();
+                                        //On set la craft essence
+                                        $historique->setCraftEssence($ceRepository->find($id));
+                                        //On set le servant
+                                        $historique->setServant(null);
+                                        //On set la date
+                                        $historique->setDate(date("Y-m-d"));
+                                        //On set l'utilisateur
+                                        $historique->setUser($this->getUser());
+                                        //On persist
+                                        $em->persist($historique);
+                                        $em->flush();
+                                        if($ceRepository->find($id)->getCERarity() == 5 ){
+                                            $countCE5 = $countCE5 + 1;
+                                        }
+                                    }else{
+                                        break;
+                                    }
+                                }
+                                //Si la ligne courante contient le mot Servant
+                                if(str_contains($currentLine, "Servant")){
+                                    //On recupère le détails du servant qui as le nom
+                                    $detailServant = $atlasAcademyAPI->getServant($name[0]);
+                                    //Si le Servant a été reconnue
+                                    if(!empty($detailServant)){
+                                        //On récupère l'ID du servant
+                                        $id = $detailServant[0]["collectionNo"];
+                                        //On créer un nouvel objet HistoriqueImage
+                                        $historique = new HistoriqueImage();
+                                        //On set la craft essence
+                                        $historique->setCraftEssence(null);
+                                        //On set le servant
+                                        $historique->setServant($servantRepository->find($id));
+                                        //On set la date
+                                        $historique->setDate(date("Y-m-d"));
+                                        //On set l'utilisateur
+                                        $historique->setUser($this->getUser());
+                                        //On persist
+                                        $em->persist($historique);
+                                        $em->flush();
+                                        if($servantRepository->find($id)->getRarity() == 5 ){
+                                            $countServant5 = $countServant5 + 1;
+                                        }
+                                        if($servantRepository->find($id)->getRarity() == 4 ){
+                                            $countServant4 = $countServant4 + 1;
+                                        }
+                                    }else{
+                                        break;
+                                    }
+                                }
                             }
                         }
                     } 
@@ -188,6 +252,12 @@ class HistoriqueController extends AbstractController
         return $this->render('historique/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    function multiexplode ($delimiters,$string) {
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
     }
     
     public function getTextFromImage($pathOfFile){

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220123174357 extends AbstractMigration
+final class Version20220129182546 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,9 @@ final class Version20220123174357 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE historique_image ADD user_id INT NOT NULL');
+        $this->addSql('CREATE TABLE user_material_info (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, material_id INT DEFAULT NULL, user_quantity INT NOT NULL, INDEX IDX_716FF132A76ED395 (user_id), INDEX IDX_716FF132E308AC6F (material_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE user_material_info ADD CONSTRAINT FK_716FF132A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE user_material_info ADD CONSTRAINT FK_716FF132E308AC6F FOREIGN KEY (material_id) REFERENCES material (id)');
         $this->addSql('ALTER TABLE historique_image ADD CONSTRAINT FK_8BBDDE2CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_8BBDDE2CA76ED395 ON historique_image (user_id)');
     }
@@ -28,8 +30,8 @@ final class Version20220123174357 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('DROP TABLE user_material_info');
         $this->addSql('ALTER TABLE historique_image DROP FOREIGN KEY FK_8BBDDE2CA76ED395');
         $this->addSql('DROP INDEX IDX_8BBDDE2CA76ED395 ON historique_image');
-        $this->addSql('ALTER TABLE historique_image DROP user_id');
     }
 }

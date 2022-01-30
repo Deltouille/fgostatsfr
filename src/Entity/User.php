@@ -64,6 +64,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $historiqueImages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserMaterialInfo::class, mappedBy="user")
+     */
+    private $userMaterialInfos;
+
 
     public function __construct()
     {
@@ -75,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->craftEssenceInfos = new ArrayCollection();
         $this->invocations = new ArrayCollection();
         $this->historiqueImages = new ArrayCollection();
+        $this->userMaterialInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -309,6 +315,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($historiqueImage->getUser() === $this) {
                 $historiqueImage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMaterialInfo[]
+     */
+    public function getUserMaterialInfos(): Collection
+    {
+        return $this->userMaterialInfos;
+    }
+
+    public function addUserMaterialInfo(UserMaterialInfo $userMaterialInfo): self
+    {
+        if (!$this->userMaterialInfos->contains($userMaterialInfo)) {
+            $this->userMaterialInfos[] = $userMaterialInfo;
+            $userMaterialInfo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMaterialInfo(UserMaterialInfo $userMaterialInfo): self
+    {
+        if ($this->userMaterialInfos->removeElement($userMaterialInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($userMaterialInfo->getUser() === $this) {
+                $userMaterialInfo->setUser(null);
             }
         }
 
