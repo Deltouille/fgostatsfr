@@ -3,107 +3,131 @@
 {% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block ContentHeader %}
-    <p align="center" class="text-3xl font-bold text-fgo-textblue">Mon Profil</p>
 {% endblock %}
 
 {% block body %}
-{% for user in infoUtilisateur %} 
-<div class="flex flex-col">
-    <div class="flex flex-row justify-center">
+<div id="loading-animation">
+    <div class="grid grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg animate-pulse h-14 w-50"></div>
+    </div>
+    <div class="hidden lg:flex flex-row justify-center">
+        <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg animate-pulse w-2/6" style="height: 43vh;">
+            <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg"></div>
+        </div>
+        <div class="bg-fgo-blue flex-grow rounded-lg shadow-lg animate-pulse w-5/6" style="height: 43vh;"></div>
+        <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg animate-pulse w-2/6" style="height: 43vh;">
+            <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg"></div>
+        </div>
+    </div>
+    <div class="flex flex-col lg:hidden space-y-4">
+        <div class="bg-fgo-blue flex-grow rounded-lg shadow-lg mx-4">
+            <div class="w-full flex flex-col justify-center items-center my-4 animate-pulse" style="height: 40vh;"></div>
+        </div>
+        <div class="flex flex-row">
+            <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg animate-pulse" style="height: 40vh;"></div>
+            <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg animate-pulse" style="height: 40vh;"></div>  
+        </div>
+    </div>
+    <div class="mt-3 mx-4 my-4" id="statsUser">
+        <p class="flex w-full justify-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue animate-pulse h-7"></p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for chart in servantCharts %}
+                <div class="my-3 px-3 rounded-lg overflow-hidden sm:my-4 sm:px-4 md:my-3 md:px-3 lg:my-3 lg:px-3xl:my-3 xl:px-3 bg-fgo-blue shadow-lg animate-pulse h-48"></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-3 mx-4 my-4">
+        <p class="flex w-full justify-center items-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue animate-pulse h-7"></p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for chart in craftEssenceCharts %}
+                <div class="my-3 rounded-lg overflow-hidden sm:my-4 md:my-3 md: lg:my-3 lg: xl:my-3 xl: bg-fgo-blue shadow-lg pb-3 animate-pulse h-48"></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="hidden" id="content">
+    <div class="grid grid-cols-3 lg:grid-cols-6 gap-4">
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.playerLevel }}/150</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.playerLevel }}/150</p>
         </div>
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
             <img src="https://static.atlasacademy.io/JP/Items/6.png" alt="image-quartz" class="w-1/4">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.quartz }}</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.quartz }}</p>
         </div>
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
             <img src="https://static.atlasacademy.io/JP/Items/7.png" alt="image-mana-prism" class="w-1/4">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.manaPrism  }}</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.manaPrism  }}</p>
         </div>
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
             <img src="https://static.atlasacademy.io/JP/Items/100.png" alt="image-bronze-apple" class="w-1/4">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.bronzeApple }}</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.bronzeApple }}</p>
         </div>
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
             <img src="https://static.atlasacademy.io/JP/Items/101.png" alt="image-bronze-apple" class="w-1/4">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.silverApple }}</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.silverApple }}</p>
         </div>
         <div class="bg-fgo-blue flex-grow mx-4 my-4 flex flex-row justify-center items-center rounded-lg shadow-lg">
             <img src="https://static.atlasacademy.io/JP/Items/102.png" alt="image-bronze-apple" class="w-1/4">
-            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ user.goldenApple }}</p>
+            <p style="font-weight: bold;" class="text-3xl text-fgo-textblue">{{ infoUtilisateur.goldenApple }}</p>
         </div>
     </div>
-    {# Mobile #}
-    <div class="lg:hidden">
+    <div class="hidden lg:flex flex-row justify-center">
+        <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg">
+            <table class="text-left w-full">
+                <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
+                    <tr class="flex w-full justify-center">
+                        <th class="p-4 underline"><a href="{{ path('servantCollection') }}">Servants Acquis</a></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 43vh;">
+                    {% for servant in listeServant %}
+                        <tr>
+                            <td class="text-fgo-textblue font-bold">{{ servant.servant.ServantName }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         <div class="bg-fgo-blue flex-grow rounded-lg shadow-lg">
             <div class="w-full flex flex-col justify-center items-center">
-                <h1 class="text-6xl font-extrabold mb-2 text-fgo-textblue">Historique d'invocation</h1>
+                <h1 class="text-xl font-extrabold mb-2 text-fgo-textblue">Historique d'invocation</h1>
                 {{ render_chart(chartInvocation)}}
+                <a href="{{ path('historique') }}" class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded">Acceder a l'historique</a>
             </div>
         </div>
-        <div class="flex flex-row justify-center">
-            <div class="bg-fgo-blue flex-grow m-4 rounded-lg shadow-lg">
-                <table class="text-left w-full">
-                    <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
-                        <tr class="flex w-full justify-center">
-                            <th class="p-4"><span class="text-4xl">Servants Acquis</span></th>
+        <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg">
+            <table class="text-left w-full">
+                <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
+                    <tr class="flex w-full justify-center">
+                        <th class="p-4 underline"><a href="{{ path('craftEssenceCollection') }}">Craft Essences Acquis</a></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 43vh;">
+                    {% for craftEssence in listeCraftEssence %}
+                        <tr>
+                            <td class="text-fgo-textblue font-bold">{{ craftEssence.craftEssence.CEName }}</td>
                         </tr>
-                    </thead>
-                    <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 40vh;">
-                        {% for servant in listeServant %}
-                            <tr>
-                                <td><span class="text-xl text-fgo-textblue font-underbold">{{ servant.servant.ServantName }}</span></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="bg-fgo-blue flex-grow m-4 rounded-lg shadow-lg">
-                <table class="text-left w-full">
-                    <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
-                        <tr class="flex w-full justify-center">
-                            <th class="p-4"><span class="text-4xl">CE Acquises</span></th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 40vh;">
-                        {% for craftEssence in listeCraftEssence %}
-                            <tr>
-                                <td><span class="text-xl text-fgo-textblue font-underbold">{{ craftEssence.craftEssence.CEName }}</span></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="flex flex-col justify-center">
-            <div class="mt-3 mx-4 my-4" id="statsUser">
-                <p class="flex w-full justify-center text-6xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg py-8 text-fgo-textblue">Statistiques Servants</p>
-                <div class="flex flex-wrap space-x-2">
-                    {% for chart in servantCharts %}
-                        <div class="my-3 px-3 w-full rounded-lg overflow-hidden bg-fgo-blue shadow-lg pb-3" align="center">
-                            {{ render_chart(chart) }}
-                        </div>
                     {% endfor %}
-                </div>
-            </div>
-            <div class="mt-3 mx-4 my-4">
-                <p class="flex w-full justify-center items-center text-6xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg py-8 text-fgo-textblue">Statistiques Servants</p>
-                <div class="flex flex-wrap space-x-2">
-                    {% for chart in craftEssenceCharts %}
-                        <div class="my-3 px-3 w-full overflow-hidden bg-fgo-blue shadow-lg pb-3" align="center">
-                            {{ render_chart(chart) }}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
-    {# ============================================================================= #}
-    
-    {# PC #}
-    <div class="lg:block xs:hidden sm:hidden">
-        <div class="flex flex-row justify-center">
+    {# mobile #}
+    <div class="flex flex-col lg:hidden space-y-4">
+        <div class="bg-fgo-blue flex-grow rounded-lg shadow-lg mx-4">
+            <div class="w-full flex flex-col justify-center items-center my-4">
+                <h1 class="text-xl font-extrabold mb-2 text-fgo-textblue">Historique d'invocation</h1>
+                {{ render_chart(chartInvocation)}}
+                <a href="{{ path('historique') }}" class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded">Acceder a l'historique</a>
+            </div>
+        </div>
+        <div class="flex flex-row">
             <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg">
                 <table class="text-left w-full">
                     <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
@@ -120,13 +144,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="bg-fgo-blue flex-grow rounded-lg shadow-lg">
-                <div class="w-full flex flex-col justify-center items-center">
-                    <h1 class="text-xl font-extrabold mb-2 text-fgo-textblue">Historique d'invocation</h1>
-                    {{ render_chart(chartInvocation)}}
-                     <a href="{{ path('historique') }}" class="bg-transparent float-center hover:bg-pink-500 text-fgo-textblue font-semibold hover:text-white py-1 px-1 mx-4 border border-pink-500 hover:border-transparent rounded">Acceder a l'historique</a>
-                </div>
-            </div>
             <div class="bg-fgo-blue flex-grow mx-4 rounded-lg shadow-lg">
                 <table class="text-left w-full">
                     <thead class="bg-fgo-header flex text-fgo-textblue w-full rounded-t-lg shadow-lg">
@@ -142,34 +159,45 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="mt-3 mx-4 my-4" id="statsUser">
-            <p class="flex w-full justify-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue">Statistiques Servants</p>
-            <div class="grid grid-cols-4 gap-4">
-                {% for chart in servantCharts %}
-                    <div class="my-3 px-3 rounded-lg overflow-hidden sm:my-4 sm:px-4 md:my-3 md:px-3 lg:my-3 lg:px-3xl:my-3 xl:px-3 bg-fgo-blue shadow-lg pb-3">
-                        {{ render_chart(chart) }}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="mt-3 mx-4 my-4">
-            <p class="flex w-full justify-center items-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue">Statistiques Craft Essence</p>
-            <div class="grid grid-cols-4 gap-4">
-                {% for chart in craftEssenceCharts %}
-                    <div class="my-3 rounded-lg overflow-hidden sm:my-4 md:my-3 md: lg:my-3 lg: xl:my-3 xl: bg-fgo-blue shadow-lg pb-3">
-                        {{ render_chart(chart) }}
-                    </div>
-                {% endfor %}
-            </div>
+            </div>  
         </div>
     </div>
-    {# ============================================================================= #}
+    {# stats #}
+    <div class="mt-3 mx-4 my-4" id="statsUser">
+        <p class="flex w-full justify-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue">Statistiques Servants</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for chart in servantCharts %}
+                <div class="my-3 px-3 rounded-lg overflow-hidden sm:my-4 sm:px-4 md:my-3 md:px-3 lg:my-3 lg:px-3xl:my-3 xl:px-3 bg-fgo-blue shadow-lg pb-3">
+                    {{ render_chart(chart) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-3 mx-4 my-4">
+        <p class="flex w-full justify-center items-center text-xl font-extrabold mb-2 bg-fgo-blue shadow-lg rounded-lg text-fgo-textblue">Statistiques Craft Essence</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for chart in craftEssenceCharts %}
+                <div class="my-3 rounded-lg overflow-hidden sm:my-4 md:my-3 md: lg:my-3 lg: xl:my-3 xl: bg-fgo-blue shadow-lg pb-3">
+                    {{ render_chart(chart) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-{% endfor %}
+
 {% endblock %}
+
 
 {% block ContentFooter %}
     <p align="center">Me contacter</p>
+{% endblock %}
+
+{% block JS %}
+<script>
+$(window).on('load', function () {
+    $('#loading-animation').hide();
+    $('#content').removeClass('hidden');
+    $('#content').show();
+  });
+</script>
 {% endblock %}

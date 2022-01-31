@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $craftEssenceInfoRepository = $em->getRepository(CraftEssenceInfo::class);
         $invocationRepository = $em->getRepository(Invocation::class);
 
-        $infoUtilisateur = $userInfoRepository->findBy(['user' => $this->getUser()]);
+        $infoUtilisateur = $userInfoRepository->findBy(['user' => $this->getUser()], null, 1, null);
         $infoServant = $servantInfoRepository->findBy(['user' => $this->getUser()]);
         $infoCraftEssence = $craftEssenceInfoRepository->findBy(['user' => $this->getUser()]);
         $infoInvocation = $invocationRepository->findBy(['user' => $this->getUser()]);
@@ -115,9 +115,8 @@ class UserController extends AbstractController
             ],
         ]);
         $chartInvocation->setOptions(['chartInvocation']);
-        //dd($servantCharts);
 
-        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur, 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation, 'listeServant' => $infoServant, 'listeCraftEssence' => $infoCraftEssence]);
+        return $this->render('user/index.html.twig', ['infoUtilisateur' => $infoUtilisateur[0], 'servantCharts' => $servantCharts, 'craftEssenceCharts' => $craftEssenceCharts, 'chartInvocation' => $chartInvocation, 'listeServant' => $infoServant, 'listeCraftEssence' => $infoCraftEssence]);
     }
 
     /**

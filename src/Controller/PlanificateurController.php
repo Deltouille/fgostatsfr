@@ -31,7 +31,7 @@ class PlanificateurController extends AbstractController
     }
 
     /**
-     * @Route("/planificateur", name="planificateur")
+     * @Route("/planificateur-2", name="planificateur2")
      */
     public function index(): Response
     {
@@ -61,7 +61,7 @@ class PlanificateurController extends AbstractController
     }
 
     /**
-     * @Route("/planificateur-2", name="planificateur2")
+     * @Route("/planificateur", name="planificateur")
      */
     public function inde2(): Response
     {
@@ -84,9 +84,6 @@ class PlanificateurController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/planificateur-servant", name="planificateur-servant")
-     */
     public function planificateur() : Response
     {
         $em = $this->getDoctrine()->getManager();
